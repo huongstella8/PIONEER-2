@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sentence Structure</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  :root {
+    --navy: #1e3a5f;
+    --blue: #2B6CB0;
+    --light-blue: #EBF4FF;
+    --gold: #D69E2E;
+    --green: #276749;
+    --green-light: #F0FFF4;
+    --red: #C53030;
+    --red-light: #FFF5F5;
+    --yellow-light: #FFFFF0;
+    --gray: #718096;
+    --gray-light: #F7FAFC;
+    --border: #E2E8F0;
+    --white: #ffffff;
+    --radius: 10px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #EDF2F7; color: #2D3748; line-height: 1.6; }
+
+  /* ── Header ── */
+  .site-header { background: linear-gradient(135deg, var(--navy) 0%, #2C5282 100%); color: white; padding: 24px 32px; }
+  .site-header h1 { font-size: 1.8rem; font-weight: 700; letter-spacing: -0.5px; }
+  .site-header p { opacity: 0.85; margin-top: 4px; font-size: 0.95rem; }
+
+  /* ── Student Info ── */
+  .info-bar { background: white; border-bottom: 3px solid var(--gold); padding: 20px 32px; display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; box-shadow: var(--shadow); }
+  .info-bar label { font-size: 0.8rem; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 4px; }
+  .info-bar input { border: 1.5px solid var(--border); border-radius: 6px; padding: 7px 12px; font-size: 0.95rem; width: 200px; color: #2D3748; }
+  .info-bar input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(43,108,176,0.15); }
+
+  /* ── Tab Navigation ── */
+  .tab-nav { background: var(--navy); display: flex; overflow-x: auto; padding: 0 24px; gap: 2px; }
+  .tab-btn { background: transparent; border: none; color: rgba(255,255,255,0.65); padding: 14px 18px; cursor: pointer; font-size: 0.88rem; font-weight: 600; white-space: nowrap; border-bottom: 3px solid transparent; transition: all 0.2s; }
+  .tab-btn:hover { color: white; background: rgba(255,255,255,0.08); }
+  .tab-btn.active { color: white; border-bottom-color: var(--gold); background: rgba(255,255,255,0.1); }
+
+  /* ── Main Content ── */
+  .main { max-width: 960px; margin: 0 auto; padding: 28px 24px 80px; }
+  .module-section { display: none; }
+  .module-section.active { display: block; }
+
+  /* ── Cards ── */
+  .card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 24px; overflow: hidden; }
+  .card-header { padding: 16px 22px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; }
+  .card-header:hover { background: var(--gray-light); }
+  .card-badge { background: var(--blue); color: white; border-radius: 20px; padding: 3px 12px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+  .card-badge.gold { background: var(--gold); }
+  .card-badge.green { background: var(--green); }
+  .card-badge.purple { background: #6B46C1; }
+  .card-title { font-weight: 700; font-size: 1rem; color: var(--navy); flex: 1; }
+  .card-toggle { color: var(--gray); font-size: 1.1rem; transition: transform 0.2s; }
+  .card-toggle.open { transform: rotate(180deg); }
+  .card-body { padding: 22px; }
+  .card-body.collapsed { display: none; }
+
+  /* ── Theory ── */
+  .theory-rule { background: var(--light-blue); border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; padding: 14px 18px; margin-bottom: 14px; }
+  .theory-rule h4 { color: var(--navy); font-size: 0.9rem; margin-bottom: 6px; }
+  .error-box { background: var(--red-light); border-left: 4px solid var(--red); border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 8px 0; font-size: 0.9rem; }
+  .correct-box { background: var(--green-light); border-left: 4px solid var(--green); border-radius: 0 8px 8px 0; padding: 12px 16px; margin: 8px 0; font-size: 0.9rem; }
+  .error-box strong, .correct-box strong { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+  .error-box strong { color: var(--red); }
+  .correct-box strong { color: var(--green); }
+  .rule-tag { display: inline-block; background: var(--navy); color: white; font-size: 0.72rem; padding: 2px 8px; border-radius: 4px; margin-right: 6px; font-weight: 600; }
+  .highlight { background: #FEF3C7; padding: 0 3px; border-radius: 3px; font-weight: 600; }
+  .highlight-red { background: #FED7D7; padding: 0 3px; border-radius: 3px; }
+  .highlight-green { background: #C6F6D5; padding: 0 3px; border-radius: 3px; }
+
+  /* ── Part A Questions ── */
+  .question-item { border: 1.5px solid var(--border); border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; transition: border-color 0.2s; }
+  .question-item.correct { border-color: var(--green); background: var(--green-light); }
+  .question-item.wrong { border-color: var(--red); background: var(--red-light); }
+  .question-text { font-size: 0.92rem; margin-bottom: 10px; color: #2D3748; }
+  .q-num { display: inline-block; background: var(--navy); color: white; width: 24px; height: 24px; border-radius: 50%; text-align: center; line-height: 24px; font-size: 0.78rem; font-weight: 700; margin-right: 8px; }
+  .answer-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .answer-option { display: flex; align-items: center; gap: 6px; }
+  .answer-option input[type=radio] { accent-color: var(--blue); width: 16px; height: 16px; cursor: pointer; }
+  .answer-option label { font-size: 0.88rem; cursor: pointer; color: #4A5568; }
+  select.ans-select { border: 1.5px solid var(--border); border-radius: 6px; padding: 6px 10px; font-size: 0.88rem; color: #2D3748; background: white; cursor: pointer; }
+  select.ans-select:focus { outline: none; border-color: var(--blue); }
+  .feedback-text { font-size: 0.82rem; margin-top: 8px; padding: 6px 10px; border-radius: 5px; }
+  .feedback-text.ok { background: var(--green-light); color: var(--green); }
+  .feedback-text.bad { background: var(--red-light); color: var(--red); }
+
+  /* ── Buttons ── */
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border: none; border-radius: 7px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+  .btn-primary { background: var(--blue); color: white; }
+  .btn-primary:hover { background: #1A4F94; }
+  .btn-success { background: var(--green); color: white; }
+  .btn-success:hover { background: #1C4532; }
+  .btn-gold { background: var(--gold); color: white; }
+  .btn-gold:hover { background: #B7791F; }
+  .btn-red { background: var(--red); color: white; }
+  .btn-red:hover { background: #9B2C2C; }
+  .btn-outline { background: transparent; border: 2px solid var(--blue); color: var(--blue); }
+  .btn-outline:hover { background: var(--light-blue); }
+  .btn-sm { padding: 7px 14px; font-size: 0.82rem; }
+
+  /* ── Part B / Paragraph Editor ── */
+  .paragraph-box { background: #FAFAFA; border: 1.5px solid var(--border); border-radius: 8px; padding: 16px; font-size: 0.9rem; line-height: 1.8; margin-bottom: 14px; font-style: italic; color: #4A5568; }
+  .paragraph-box .err { text-decoration: underline wavy #C53030; cursor: help; }
+  textarea.answer-area { width: 100%; min-height: 140px; border: 1.5px solid var(--border); border-radius: 8px; padding: 14px; font-size: 0.92rem; line-height: 1.7; resize: vertical; color: #2D3748; font-family: inherit; }
+  textarea.answer-area:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(43,108,176,0.12); }
+  .model-answer { background: var(--green-light); border: 1.5px solid #9AE6B4; border-radius: 8px; padding: 16px; font-size: 0.9rem; line-height: 1.8; display: none; margin-top: 14px; }
+  .model-answer h4 { color: var(--green); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .self-score-row { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+  .self-score-row label { font-size: 0.88rem; color: var(--gray); }
+  .self-score-row input[type=number] { width: 60px; border: 1.5px solid var(--border); border-radius: 6px; padding: 5px 8px; font-size: 0.9rem; }
+
+  /* ── Part C Sentence Checker ── */
+  .part-c-prompt { background: var(--yellow-light); border: 1.5px solid #F6E05E; border-radius: 8px; padding: 14px 18px; margin-bottom: 14px; font-size: 0.9rem; }
+  .part-c-prompt strong { color: var(--navy); }
+  .sentence-result { border: 1.5px solid var(--border); border-radius: 7px; padding: 12px 14px; margin-bottom: 10px; font-size: 0.88rem; }
+  .sentence-result.pass { border-color: #68D391; background: var(--green-light); }
+  .sentence-result.fail { border-color: #FC8181; background: var(--red-light); }
+  .sentence-result.warn { border-color: #F6AD55; background: #FFFAF0; }
+  .sentence-text { font-style: italic; margin-bottom: 6px; color: #2D3748; }
+  .sentence-issues { list-style: none; }
+  .sentence-issues li { font-size: 0.82rem; padding: 2px 0 2px 18px; position: relative; }
+  .sentence-issues li::before { content: "⚠"; position: absolute; left: 0; }
+  .sentence-issues li.ok::before { content: "✓"; color: var(--green); }
+  .sentence-issues li.ok { color: var(--green); }
+  .checker-summary { background: var(--navy); color: white; border-radius: 8px; padding: 16px 20px; margin-top: 14px; display: flex; align-items: center; gap: 16px; }
+  .checker-score-big { font-size: 2rem; font-weight: 800; color: var(--gold); }
+  .checker-score-label { font-size: 0.85rem; opacity: 0.85; }
+
+  /* ── Score Panel ── */
+  .score-panel { position: fixed; bottom: 0; left: 0; right: 0; background: var(--navy); color: white; padding: 8px 24px; display: flex; align-items: center; gap: 14px; z-index: 100; box-shadow: 0 -4px 16px rgba(0,0,0,0.2); }
+  #scoreBarMods { display: flex; flex-wrap: nowrap; gap: 6px; flex: 1; overflow-x: auto; }
+  .score-pill { background: rgba(255,255,255,0.12); border-radius: 20px; padding: 3px 12px; font-size: 0.8rem; white-space: nowrap; }
+  .score-pill span { font-weight: 700; color: var(--gold); }
+  .total-score { font-size: 1rem; font-weight: 700; }
+  .total-score span { color: var(--gold); font-size: 1.3rem; }
+  .score-panel .btn { margin-left: auto; }
+
+  /* ── Results Page ── */
+  .results-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+  .result-card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 12px 18px; display: flex; align-items: center; gap: 12px; flex: 1; min-width: 110px; }
+  .result-card .mod-name { font-size: 0.78rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
+  .result-card .score-display { font-size: 1.5rem; font-weight: 800; color: var(--navy); line-height: 1; }
+  .result-card .score-max { font-size: 0.78rem; color: var(--gray); }
+  .export-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 24px; }
+  .email-section { background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px; }
+  .email-section h3 { font-size: 1rem; color: var(--navy); margin-bottom: 14px; }
+  .email-field { margin-bottom: 12px; }
+  .email-field label { font-size: 0.82rem; font-weight: 600; color: var(--gray); text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 4px; }
+  .email-field input { border: 1.5px solid var(--border); border-radius: 6px; padding: 8px 12px; font-size: 0.92rem; width: 100%; max-width: 400px; }
+
+  /* ── Misc ── */
+  .section-title { font-size: 1.35rem; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+  .section-subtitle { color: var(--gray); font-size: 0.9rem; margin-bottom: 22px; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+  .tag { display: inline-block; font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600; margin-right: 4px; }
+  .tag-blue { background: var(--light-blue); color: var(--blue); }
+  .tag-gold { background: #FEFCBF; color: #744210; }
+  .tag-green { background: #C6F6D5; color: #22543D; }
+  .notice { background: var(--light-blue); border-radius: 7px; padding: 10px 14px; font-size: 0.87rem; color: #2B6CB0; margin-bottom: 14px; }
+  .osascomp { display: flex; gap: 4px; flex-wrap: wrap; margin: 8px 0; }
+  .osascomp span { background: var(--navy); color: white; padding: 3px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;opacity:0.6;margin-bottom:10px;">HUONG STELLA PARADIGM</div>
+  <div style="display:inline-block;font-size:0.72rem;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;background:rgba(214,158,46,0.25);border:1px solid rgba(214,158,46,0.6);color:#F6E05E;padding:3px 12px;border-radius:4px;margin-bottom:8px;">PIONEER 2 · PRE-IELTS</div>
+  <h1>📖 Sentence Structure</h1>
+  <p>Modules 1–7 · IELTS Writing Fundamentals · Complete all parts and submit to your teacher</p>
+</div>
+
+<div class="info-bar">
+  <div>
+    <label>Student Name</label>
+    <input type="text" id="studentName" placeholder="Your full name">
+  </div>
+  <div>
+    <label>Class / Group</label>
+    <input type="text" id="studentClass" placeholder="e.g. IE-68">
+  </div>
+  <div>
+    <label>Date</label>
+    <input type="date" id="submitDate" value="">
+  </div>
+  <input type="hidden" id="teacherEmail" value="huongstella8@gmail.com">
+</div>
+
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showModule(0)">📋 Module 1</button>
+  <button class="tab-btn" onclick="showModule(1)">📋 Module 2</button>
+  <button class="tab-btn" onclick="showModule(2)">📋 Module 3</button>
+  <button class="tab-btn" onclick="showModule(3)">📋 Module 4</button>
+  <button class="tab-btn" onclick="showModule(4)">📋 Module 5</button>
+  <button class="tab-btn" onclick="showModule(5)">📋 Module 6</button>
+  <button class="tab-btn" onclick="showModule(6)">📋 Module 7</button>
+  <button class="tab-btn" onclick="showModule(7)">📊 Results</button>
+</div>
+
+<div class="main">
+
+<!-- ═══════════════════════════════════════════════════════ MODULE 1 ═══ -->
+<div class="module-section active" id="mod0">
+  <div class="section-title">Module 1: Mastering Complete Sentences</div>
+  <div class="section-subtitle">Every complete sentence needs a Subject and a Verb — missing either creates a fragment that lowers your IELTS band score.</div>
+
+  <!-- Theory -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge">Theory</span>
+      <span class="card-title">The Golden Rule &amp; Common Errors</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="theory-rule">
+        <h4>⭐ The Golden Rule</h4>
+        Every complete sentence in English must have at least one <strong>Subject</strong> (who/what) and one <strong>Verb</strong> (action/state). A sentence missing either is called a <strong>fragment</strong>.
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">
+        <div>
+          <p style="font-size:0.85rem;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Error A — Missing Subject</p>
+          <div class="error-box"><strong>Incorrect</strong><span class="highlight-red">Is essential</span> to protect the environment. <em>(What is essential?)</em></div>
+          <div class="correct-box"><strong>Correct</strong><span class="highlight-green">It</span> is essential to protect the environment.</div>
+        </div>
+        <div>
+          <p style="font-size:0.85rem;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Error B — Missing Verb</p>
+          <div class="error-box"><strong>Incorrect</strong>The percentage of university students <span class="highlight-red">very high</span>. <em>(No verb!)</em></div>
+          <div class="correct-box"><strong>Correct</strong>The percentage of university students <span class="highlight-green">is</span> very high.</div>
+        </div>
+      </div>
+      <div class="notice">💡 <strong>Tip:</strong> In IELTS essays, students often forget the subject when listing advantages, and forget <em>to be</em> (is/are/am) when describing charts.</div>
+    </div>
+  </div>
+
+  <!-- Part A -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge gold">Part A</span>
+      <span class="card-title">Identify the Error – 8 Questions · Auto-Scored</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <p class="notice">Check if each sentence is <strong>Complete</strong> or <strong>Incomplete</strong>. If incomplete, select whether it has <em>No Subject</em> or <em>No Verb</em>.</p>
+      <div id="m1a-questions"></div>
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <button class="btn btn-primary" onclick="checkPartA(1)">✅ Check Answers</button>
+        <button class="btn btn-outline btn-sm" onclick="resetPartA(1)">↺ Reset</button>
+      </div>
+      <div id="m1a-score" style="margin-top:12px;"></div>
+    </div>
+  </div>
+
+  <!-- Part B -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge gold">Part B</span>
+      <span class="card-title">Be the IELTS Examiner! – Paragraph Editing</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <p style="font-size:0.88rem;color:var(--gray);margin-bottom:10px;">There are <strong>7 incomplete sentences</strong> hidden inside. Find and correct them by adding the missing subject or verb.</p>
+      <div class="paragraph-box">"Tourism brings both positive and negative effects to a country. First of all, creates thousands of jobs for local residents. Many people in the service industry working very long hours to serve visitors. However, there are significant drawbacks. The environment often damaged by excessive littering. In the last decade, has suffered from serious pollution in coastal areas. Next year, the government will build new eco-friendly hotels. Will attract a more responsible type of traveler. Local communities hoping for a better future. Must balance economic growth with environmental protection."</div>
+      <label style="font-size:0.85rem;font-weight:600;color:var(--gray);display:block;margin-bottom:6px;">Type your corrected paragraph below:</label>
+      <textarea class="answer-area" id="m1b-answer" placeholder="Type the corrected paragraph here..."></textarea>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap;">
+        <button class="btn btn-primary btn-sm" onclick="showModelAnswer('m1b-model')">👁 Show Model Answer</button>
+        <div class="self-score-row">
+          <label>Errors I found:</label>
+          <input type="number" id="m1b-self" min="0" max="7" placeholder="0–7" onchange="saveSelfScore('m1b',7)">
+          <span style="font-size:0.82rem;color:var(--gray)"> / 7</span>
+        </div>
+      </div>
+      <div class="model-answer" id="m1b-model">
+        <h4>✅ Model Answer – Corrections in bold</h4>
+        "Tourism brings both positive and negative effects to a country. First of all, <strong>It</strong> creates thousands of jobs for local residents. Many people in the service industry <strong>work</strong> (or <em>are working</em>) very long hours to serve visitors. However, there are significant drawbacks. The environment <strong>is</strong> often damaged by excessive littering. In the last decade, <strong>the country</strong> has suffered from serious pollution in coastal areas. Next year, the government will build new eco-friendly hotels. <strong>This</strong> will attract a more responsible type of traveler. Local communities <strong>are</strong> hoping for a better future. <strong>We</strong> must balance economic growth with environmental protection."
+      </div>
+    </div>
+  </div>
+
+  <!-- Part C -->
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge green">Part C</span>
+      <span class="card-title">Freer Practice – Paragraph Writing + Auto-Assessment</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="part-c-prompt">
+        <strong>Task:</strong> Write a short paragraph of <strong>5 to 8 sentences</strong> describing a memorable trip you took in the past.<br>
+        <strong>Requirement:</strong> Ensure every single sentence is a complete sentence (has a subject AND a verb).
+      </div>
+      <textarea class="answer-area" id="m1c-answer" placeholder="Write your paragraph here..." style="min-height:160px;"></textarea>
+      <div style="margin-top:12px;">
+        <button class="btn btn-success" onclick="checkPartC('m1c')">🔍 Assess My Writing</button>
+      </div>
+      <div id="m1c-feedback" style="margin-top:14px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ MODULE 2 ═══ -->
+<div class="module-section" id="mod1">
+  <div class="section-title">Module 2: Mastering Adjectives for Descriptive Accuracy</div>
+  <div class="section-subtitle">Use adjectives correctly — placement, order, and form all matter in IELTS writing.</div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge">Theory</span>
+      <span class="card-title">4 Golden Rules + Common Errors</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="theory-rule"><h4><span class="rule-tag">Rule 1</span> be + adjective</h4> She <strong>is intelligent</strong>. · The results <strong>are significant</strong>.</div>
+      <div class="theory-rule"><h4><span class="rule-tag">Rule 2</span> adjective + noun</h4> He is a <strong>serious person</strong>. · The chart shows a <strong>steep line</strong>.</div>
+      <div class="theory-rule">
+        <h4><span class="rule-tag">Rule 3</span> Multiple adjectives follow OSASCOMP order</h4>
+        <div class="osascomp"><span>Opinion</span><span>Size</span><span>Age</span><span>Shape</span><span>Color</span><span>Origin</span><span>Material</span><span>Purpose</span></div>
+        Example: a <span class="highlight">beautiful</span> [Op] <span class="highlight">large</span> [Si] <span class="highlight">old</span> [Ag] <span class="highlight">red</span> [Co] <span class="highlight">French</span> [Or] car
+      </div>
+      <div class="theory-rule"><h4><span class="rule-tag">Rule 4</span> NEVER add -s to adjectives</h4> Those girls are <strong>good-looking</strong>. NOT: <span style="color:var(--red);text-decoration:line-through">good-lookings</span></div>
+      <hr class="divider">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div>
+          <p style="font-size:0.82rem;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Error A – Missing Verb (Rule 1)</p>
+          <div class="error-box"><strong>Incorrect</strong>Living in a city <span class="highlight-red">very expensive</span>.</div>
+          <div class="correct-box"><strong>Correct</strong>Living in a city <span class="highlight-green">is</span> very expensive.</div>
+        </div>
+        <div>
+          <p style="font-size:0.82rem;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Error B – Backward Word Order (Rule 2)</p>
+          <div class="error-box"><strong>Incorrect</strong>The chart shows a <span class="highlight-red">line steep</span>.</div>
+          <div class="correct-box"><strong>Correct</strong>The chart shows a <span class="highlight-green">steep line</span>.</div>
+        </div>
+        <div>
+          <p style="font-size:0.82rem;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Error C – Wrong Order (Rule 3)</p>
+          <div class="error-box"><strong>Incorrect</strong>We bought a <span class="highlight-red">German beautiful old</span> car.</div>
+          <div class="correct-box"><strong>Correct</strong>We bought a <span class="highlight-green">beautiful old German</span> car.</div>
+        </div>
+        <div>
+          <p style="font-size:0.82rem;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Error D – Plural Adjective (Rule 4)</p>
+          <div class="error-box"><strong>Incorrect</strong>The country faces <span class="highlight-red">severes</span> economic challenges.</div>
+          <div class="correct-box"><strong>Correct</strong>The country faces <span class="highlight-green">severe</span> economic challenges.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge gold">Part A</span>
+      <span class="card-title">Identify the Adjective Error – 8 Questions · Auto-Scored</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div id="m2a-questions"></div>
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <button class="btn btn-primary" onclick="checkPartA(2)">✅ Check Answers</button>
+        <button class="btn btn-outline btn-sm" onclick="resetPartA(2)">↺ Reset</button>
+      </div>
+      <div id="m2a-score" style="margin-top:12px;"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge gold">Part B</span>
+      <span class="card-title">Be the IELTS Examiner! – 6 Adjective Errors</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="paragraph-box">"Living in a large city has many advantages. It provides a lifestyle comfortable for young professionals. The public transport system is fasts and cheap. Furthermore, there are many huge shopping centers. However, there are seriouses pollution problems. The air is dirty and dangerous. Because of this, many richs people decide to move to the countryside quiet."</div>
+      <textarea class="answer-area" id="m2b-answer" placeholder="Type the corrected paragraph here..."></textarea>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap;">
+        <button class="btn btn-primary btn-sm" onclick="showModelAnswer('m2b-model')">👁 Show Model Answer</button>
+        <div class="self-score-row">
+          <label>Errors I found:</label>
+          <input type="number" id="m2b-self" min="0" max="6" placeholder="0–6" onchange="saveSelfScore('m2b',6)">
+          <span style="font-size:0.82rem;color:var(--gray)"> / 6</span>
+        </div>
+      </div>
+      <div class="model-answer" id="m2b-model">
+        <h4>✅ Model Answer – Corrections in bold</h4>
+        "Living in a large city has many advantages. It provides a <strong>comfortable lifestyle</strong> for young professionals. The public transport system is <strong>fast</strong> and cheap. Furthermore, there are many huge shopping centers. However, there are <strong>serious</strong> pollution problems. The air is dirty and dangerous. Because of this, many <strong>rich</strong> people decide to move to the <strong>quiet countryside</strong>."
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge green">Part C</span>
+      <span class="card-title">Freer Practice – Adjective-Rich Paragraph + Auto-Assessment</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="part-c-prompt">
+        <strong>Task:</strong> Write a paragraph of <strong>5 to 8 sentences</strong> describing the current weather and landscape of your hometown.<br>
+        <strong>Requirements:</strong> Use at least FIVE adjectives correctly · Include at least one sentence using multiple adjectives in a row.
+      </div>
+      <textarea class="answer-area" id="m2c-answer" placeholder="Write your paragraph here..."></textarea>
+      <button class="btn btn-success" style="margin-top:12px;" onclick="checkPartC('m2c')">🔍 Assess My Writing</button>
+      <div id="m2c-feedback" style="margin-top:14px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ MODULE 3 ═══ -->
+<div class="module-section" id="mod2">
+  <div class="section-title">Module 3: Simple and Compound Sentences</div>
+  <div class="section-subtitle">Connect ideas correctly with FANBOYS conjunctions and master when to use (or skip) the comma.</div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge">Theory</span>
+      <span class="card-title">Simple vs. Compound Sentences</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="theory-rule">
+        <h4><span class="rule-tag">Rule 1</span> Simple Sentence</h4>
+        One subject-verb combination. Can have multiple subjects OR multiple verbs — but it is still ONE independent clause.
+        <br><br>
+        <span class="tag tag-blue">2 Subjects + 1 Verb</span> My friends and I watched the game.<br>
+        <span class="tag tag-blue">1 Subject + 2 Verbs</span> We watched the game <strong>and</strong> cheered for our team.
+      </div>
+      <div class="theory-rule">
+        <h4><span class="rule-tag">Rule 2</span> Compound Sentence — FANBOYS</h4>
+        Two independent clauses joined by a comma + coordinating conjunction.
+        <div style="margin:8px 0;"><span class="tag tag-gold">for</span><span class="tag tag-gold">and</span><span class="tag tag-gold">nor</span><span class="tag tag-gold">but</span><span class="tag tag-gold">or</span><span class="tag tag-gold">yet</span><span class="tag tag-gold">so</span></div>
+        Formula: [Independent Clause 1] <span class="highlight">,</span> [and / but / so…] [Independent Clause 2]
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
+        <div>
+          <p style="font-size:0.82rem;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Error A – Fake Compound (Unnecessary Comma)</p>
+          <div class="error-box"><strong>Incorrect</strong>The government built new roads<span class="highlight-red">, and</span> improved public transport.</div>
+          <div class="correct-box"><strong>Correct</strong>The government built new roads <strong>and</strong> improved public transport.</div>
+        </div>
+        <div>
+          <p style="font-size:0.82rem;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Error B – Missing Comma</p>
+          <div class="error-box"><strong>Incorrect</strong>The city is very crowded <span class="highlight-red">so</span> pollution is a major problem.</div>
+          <div class="correct-box"><strong>Correct</strong>The city is very crowded<span class="highlight-green">,</span> so pollution is a major problem.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge gold">Part A</span>
+      <span class="card-title">Comma &amp; Conjunction Errors – 8 Questions · Auto-Scored</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div id="m3a-questions"></div>
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <button class="btn btn-primary" onclick="checkPartA(3)">✅ Check Answers</button>
+        <button class="btn btn-outline btn-sm" onclick="resetPartA(3)">↺ Reset</button>
+      </div>
+      <div id="m3a-score" style="margin-top:12px;"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge gold">Part B</span>
+      <span class="card-title">Paragraph Editing – 6 Comma/Conjunction Errors</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="paragraph-box">"Once in my life, I spent a whole day shopping at a famous weekend market. It is a huge place and I was a little worried about getting lost. I bought some jeans for myself, and I got silk ties for my father. The prices were very high, so I bought them anyway. We were extremely tired, we took a lot of breaks for delicious food. We also spent time looking at exotic birds, and fish. It was tiring to spend a whole day shopping but the time went by fast."</div>
+      <textarea class="answer-area" id="m3b-answer" placeholder="Type the corrected paragraph here..."></textarea>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap;">
+        <button class="btn btn-primary btn-sm" onclick="showModelAnswer('m3b-model')">👁 Show Model Answer</button>
+        <div class="self-score-row">
+          <label>Errors I found:</label>
+          <input type="number" id="m3b-self" min="0" max="6" placeholder="0–6" onchange="saveSelfScore('m3b',6)">
+          <span style="font-size:0.82rem;color:var(--gray)"> / 6</span>
+        </div>
+      </div>
+      <div class="model-answer" id="m3b-model">
+        <h4>✅ Model Answer – Corrections in bold</h4>
+        "Once in my life, I spent a whole day shopping at a famous weekend market. It is a huge place<strong>, and</strong> I was a little worried about getting lost. I bought some jeans for myself <strong>and</strong> got silk ties for my father. The prices were very high<strong>, but</strong> I bought them anyway. We were extremely tired<strong>, so</strong> we took a lot of breaks for delicious food. We also spent time looking at exotic birds <strong>and</strong> fish. It was tiring to spend a whole day shopping<strong>, but</strong> the time went by fast."
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge green">Part C</span>
+      <span class="card-title">Freer Practice – Studying Preference + Auto-Assessment</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="part-c-prompt">
+        <strong>Task:</strong> Write <strong>6 to 8 sentences</strong> answering: <em>Do you prefer studying independently or in a group?</em><br>
+        <strong>Requirements:</strong> At least 2 simple sentences with a compound verb (no comma) · At least 3 compound sentences using <em>and, but,</em> or <em>so</em> with a comma.
+      </div>
+      <textarea class="answer-area" id="m3c-answer" placeholder="Write your paragraph here..."></textarea>
+      <button class="btn btn-success" style="margin-top:12px;" onclick="checkPartC('m3c')">🔍 Assess My Writing</button>
+      <div id="m3c-feedback" style="margin-top:14px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ MODULE 4 ═══ -->
+<div class="module-section" id="mod3">
+  <div class="section-title">Module 4: Complex Sentences &amp; Eliminating Fragments</div>
+  <div class="section-subtitle">Time clauses (when/before/after) create complex sentences — but they need the right comma placement.</div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge">Theory</span>
+      <span class="card-title">Complex Sentences with Time Clauses</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="theory-rule">
+        <h4><span class="rule-tag">Rule 1</span> Time Clause First → Use a Comma</h4>
+        <span class="tag tag-green">when / before / after</span> + [dependent clause]<span class="highlight">,</span> [independent clause]<br><br>
+        <span class="highlight-green">When we said goodbye,</span> everybody cried.
+      </div>
+      <div class="theory-rule">
+        <h4><span class="rule-tag">Rule 2</span> Time Clause Second → NO Comma</h4>
+        [independent clause] <span class="tag tag-green">when / before / after</span> [dependent clause]<br><br>
+        Everybody cried <span class="highlight-green">when we said goodbye</span>.
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
+        <div>
+          <p style="font-size:0.82rem;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Error A – Fragment (Dependent Clause Alone)</p>
+          <div class="error-box"><strong>Incorrect (Fragment)</strong><span class="highlight-red">After I checked my bag.</span></div>
+          <div class="correct-box"><strong>Correct</strong>After I checked my bag<span class="highlight-green">, I went through airport security</span>.</div>
+        </div>
+        <div>
+          <p style="font-size:0.82rem;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Error B – Unnecessary Comma</p>
+          <div class="error-box"><strong>Incorrect</strong>I went to Buenos Aires<span class="highlight-red">, after</span> I finished school.</div>
+          <div class="correct-box"><strong>Correct</strong>I went to Buenos Aires <strong>after</strong> I finished school.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge gold">Part A</span>
+      <span class="card-title">Fragment, Comma Error, or Correct? – 8 Questions · Auto-Scored</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div id="m4a-questions"></div>
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <button class="btn btn-primary" onclick="checkPartA(4)">✅ Check Answers</button>
+        <button class="btn btn-outline btn-sm" onclick="resetPartA(4)">↺ Reset</button>
+      </div>
+      <div id="m4a-score" style="margin-top:12px;"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge gold">Part B</span>
+      <span class="card-title">Paragraph Editing – 5 Fragment &amp; Comma Errors</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="paragraph-box">"Last year, I had an unforgettable trip to Japan. When I first arrived in Tokyo. I was amazed by the busy streets and tall buildings. I felt very nervous about getting lost, before I learned how to use the subway system. After I bought a map on the second day. I easily found my way around the city. I tried delicious authentic food, when I visited the famous fish market. After I returned home from the trip I recommended Japan to all my friends."</div>
+      <textarea class="answer-area" id="m4b-answer" placeholder="Type the corrected paragraph here..."></textarea>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap;">
+        <button class="btn btn-primary btn-sm" onclick="showModelAnswer('m4b-model')">👁 Show Model Answer</button>
+        <div class="self-score-row">
+          <label>Errors I found:</label>
+          <input type="number" id="m4b-self" min="0" max="5" placeholder="0–5" onchange="saveSelfScore('m4b',5)">
+          <span style="font-size:0.82rem;color:var(--gray)"> / 5</span>
+        </div>
+      </div>
+      <div class="model-answer" id="m4b-model">
+        <h4>✅ Model Answer</h4>
+        "Last year, I had an unforgettable trip to Japan. <strong>When I first arrived in Tokyo,</strong> I was amazed by the busy streets and tall buildings. I felt very nervous about getting lost <strong>before</strong> I learned how to use the subway system. <strong>After I bought a map on the second day,</strong> I easily found my way around the city. I tried delicious authentic food <strong>when</strong> I visited the famous fish market. After I returned home from the trip<strong>,</strong> I recommended Japan to all my friends."
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge green">Part C</span>
+      <span class="card-title">Freer Practice – Important Decision + Auto-Assessment</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="part-c-prompt">
+        <strong>Task:</strong> Write <strong>6 to 8 sentences</strong> about an important decision you made.<br>
+        <strong>Requirement:</strong> Use at least 3 complex sentences starting with <em>when, before,</em> or <em>after</em>. Check your commas!
+      </div>
+      <textarea class="answer-area" id="m4c-answer" placeholder="Write your paragraph here..."></textarea>
+      <button class="btn btn-success" style="margin-top:12px;" onclick="checkPartC('m4c')">🔍 Assess My Writing</button>
+      <div id="m4c-feedback" style="margin-top:14px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ MODULE 5 ═══ -->
+<div class="module-section" id="mod4">
+  <div class="section-title">Module 5: Listing Order &amp; Adverbs of Probability</div>
+  <div class="section-subtitle">Organize your ideas professionally and place adverbs in the right position for IELTS band 7+.</div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge">Theory</span>
+      <span class="card-title">Listing Words &amp; Adverb Placement Rules</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="theory-rule">
+        <h4><span class="rule-tag">Rule 1</span> Listing Order Words</h4>
+        Use: <span class="tag tag-blue">First of all,</span> <span class="tag tag-blue">Second,</span> <span class="tag tag-blue">Third,</span> <span class="tag tag-blue">In addition,</span> <span class="tag tag-blue">Furthermore,</span> <span class="tag tag-blue">Finally,</span> <span class="tag tag-blue">Most of all,</span>
+        <br><br>⚠️ <strong>Avoid "Also" at the start of a sentence</strong> in IELTS essays — it sounds informal. Put <em>also</em> before the main verb instead:<br>
+        <div class="error-box" style="margin-top:8px;"><strong>Informal</strong>Also, the city has great public transport.</div>
+        <div class="correct-box"><strong>Academic (Fix 1)</strong>The city <strong>also</strong> has great public transport.</div>
+        <div class="correct-box"><strong>Academic (Fix 2)</strong><strong>Furthermore,</strong> the city has great public transport.</div>
+      </div>
+      <div class="theory-rule">
+        <h4><span class="rule-tag">Rule 2</span> Adverbs of Probability</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
+          <div>
+            <p style="font-size:0.82rem;margin-bottom:4px;"><strong>Maybe / Perhaps</strong> → <em>before the subject</em></p>
+            <div class="correct-box"><strong>✓</strong><span class="highlight-green">Perhaps</span> she is going to transfer.</div>
+          </div>
+          <div>
+            <p style="font-size:0.82rem;margin-bottom:4px;"><strong>Probably / Definitely</strong> → <em>after will or be</em></p>
+            <div class="correct-box"><strong>✓</strong>We are <span class="highlight-green">definitely</span> not going.<br>We will <span class="highlight-green">probably</span> arrive late.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge gold">Part A</span>
+      <span class="card-title">Adverb Placement – 8 Questions · Auto-Scored</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div id="m5a-questions"></div>
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <button class="btn btn-primary" onclick="checkPartA(5)">✅ Check Answers</button>
+        <button class="btn btn-outline btn-sm" onclick="resetPartA(5)">↺ Reset</button>
+      </div>
+      <div id="m5a-score" style="margin-top:12px;"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge gold">Part B</span>
+      <span class="card-title">Paragraph Editing – 6 Word-Placement Errors</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="paragraph-box">"There are several reasons why I want to be a nurse. First, I want to help sick people in my community. Also, I enjoy working in a fast-paced environment. Probably I will work in a large city hospital after I graduate. Second I want a career that is challenging. Maybe I will specialize in pediatric care, but I am not sure yet. Definitely I am going to need a lot of training. Finally, a nursing career will provide job security. Most of all I want to make my family proud."</div>
+      <textarea class="answer-area" id="m5b-answer" placeholder="Type the corrected paragraph here..."></textarea>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap;">
+        <button class="btn btn-primary btn-sm" onclick="showModelAnswer('m5b-model')">👁 Show Model Answer</button>
+        <div class="self-score-row">
+          <label>Errors I found:</label>
+          <input type="number" id="m5b-self" min="0" max="6" placeholder="0–6" onchange="saveSelfScore('m5b',6)">
+          <span style="font-size:0.82rem;color:var(--gray)"> / 6</span>
+        </div>
+      </div>
+      <div class="model-answer" id="m5b-model">
+        <h4>✅ Model Answer</h4>
+        "There are several reasons why I want to be a nurse. First, I want to help sick people in my community. I <strong>also</strong> enjoy working in a fast-paced environment. I will <strong>probably</strong> work in a large city hospital after I graduate. <strong>Second,</strong> I want a career that is challenging. Maybe I will specialize in pediatric care, but I am not sure yet. I am <strong>definitely</strong> going to need a lot of training. Finally, a nursing career will provide job security. <strong>Most of all,</strong> I want to make my family proud."
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge green">Part C</span>
+      <span class="card-title">Freer Practice – City Life + Auto-Assessment</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="part-c-prompt">
+        <strong>Task:</strong> Write <strong>6 to 8 sentences</strong> answering: <em>Why do many people choose to live in large cities?</em><br>
+        <strong>Requirements:</strong> At least 3 listing-order words · Use <em>also</em> correctly (mid-sentence) · At least 2 adverbs of probability.
+      </div>
+      <textarea class="answer-area" id="m5c-answer" placeholder="Write your paragraph here..."></textarea>
+      <button class="btn btn-success" style="margin-top:12px;" onclick="checkPartC('m5c')">🔍 Assess My Writing</button>
+      <div id="m5c-feedback" style="margin-top:14px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ MODULE 6 ═══ -->
+<div class="module-section" id="mod5">
+  <div class="section-title">Module 6: Eliminating Run-On Sentences</div>
+  <div class="section-subtitle">Joining two independent clauses without proper punctuation or a conjunction creates a run-on error.</div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge">Theory</span>
+      <span class="card-title">What Is a Run-On?</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div>
+          <p style="font-size:0.82rem;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Error A – No Connecting Word</p>
+          <div class="error-box"><strong>Run-On</strong>I am interested in police work <span class="highlight-red">my major is criminology</span>.</div>
+          <div class="correct-box"><strong>Fixed</strong>I am interested in police work<strong>, and</strong> my major is criminology.</div>
+        </div>
+        <div>
+          <p style="font-size:0.82rem;font-weight:700;color:var(--red);margin-bottom:6px;">❌ Error B – Comma Splice</p>
+          <div class="error-box"><strong>Run-On</strong>I left him a message<span class="highlight-red">, he called me back</span>.</div>
+          <div class="correct-box"><strong>Fixed</strong><strong>After</strong> I left him a message, he called me back.</div>
+        </div>
+      </div>
+      <div class="notice" style="margin-top:14px;">💡 <strong>Fix options:</strong> Add a FANBOYS conjunction with a comma · Use a subordinating conjunction (after/when/before) · Split into two sentences.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge gold">Part A</span>
+      <span class="card-title">Correct or Run-On? – 8 Questions · Auto-Scored</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div id="m6a-questions"></div>
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <button class="btn btn-primary" onclick="checkPartA(6)">✅ Check Answers</button>
+        <button class="btn btn-outline btn-sm" onclick="resetPartA(6)">↺ Reset</button>
+      </div>
+      <div id="m6a-score" style="margin-top:12px;"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge gold">Part B</span>
+      <span class="card-title">Paragraph Editing – 6 Run-On Sentences</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="paragraph-box">"Someday, I am going to take a trip around the world. I plan to spend six months on my trip, I expect to travel mostly by plane. My first stop will be in Hawaii I want to try surfing and visit a volcano. From Hawaii, I am going to fly to Japan, I also want to visit Korea, China, Thailand, and Indonesia. In each country, I am going to spend some time in the countryside and some in the city, I especially want to see Kyoto and Beijing. After two months in Asia, I am going to fly to eastern Africa. I want to go on a photo safari to see wild animals, of course, I will have my camera. My next flight will take me north to Egypt, so I can see the pyramids, after that, I am going to travel to Istanbul."</div>
+      <textarea class="answer-area" id="m6b-answer" placeholder="Type the corrected paragraph here..."></textarea>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap;">
+        <button class="btn btn-primary btn-sm" onclick="showModelAnswer('m6b-model')">👁 Show Model Answer</button>
+        <div class="self-score-row">
+          <label>Errors I found:</label>
+          <input type="number" id="m6b-self" min="0" max="6" placeholder="0–6" onchange="saveSelfScore('m6b',6)">
+          <span style="font-size:0.82rem;color:var(--gray)"> / 6</span>
+        </div>
+      </div>
+      <div class="model-answer" id="m6b-model">
+        <h4>✅ Model Answer</h4>
+        "Someday, I am going to take a trip around the world. I plan to spend six months on my trip<strong>, and I expect</strong> to travel mostly by plane. My first stop will be in Hawaii<strong>. I want</strong> to try surfing and visit a volcano. From Hawaii, I am going to fly to Japan<strong>. I also want</strong> to visit Korea, China, Thailand, and Indonesia. In each country, I am going to spend some time in the countryside and some in the city<strong>. I especially want</strong> to see Kyoto and Beijing. After two months in Asia, I am going to fly to eastern Africa. I want to go on a photo safari to see wild animals<strong>. Of course,</strong> I will have my camera. My next flight will take me north to Egypt so I can see the pyramids<strong>. After that,</strong> I am going to travel to Istanbul."
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge green">Part C</span>
+      <span class="card-title">Freer Practice – Career Goals + Auto-Assessment</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="part-c-prompt">
+        <strong>Task:</strong> Write <strong>6 to 8 sentences</strong> describing your career goals for the next ten years.<br>
+        <strong>Requirements:</strong> At least 2 compound sentences joined by a comma + <em>and, but,</em> or <em>so</em> · Zero run-ons!
+      </div>
+      <textarea class="answer-area" id="m6c-answer" placeholder="Write your paragraph here..."></textarea>
+      <button class="btn btn-success" style="margin-top:12px;" onclick="checkPartC('m6c')">🔍 Assess My Writing</button>
+      <div id="m6c-feedback" style="margin-top:14px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ MODULE 7 ═══ -->
+<div class="module-section" id="mod6">
+  <div class="section-title">Module 7: Capitalization &amp; Listing with Commas</div>
+  <div class="section-subtitle">Know exactly what to capitalize and how to separate items in a series correctly.</div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge">Theory</span>
+      <span class="card-title">Capitalization Rules &amp; Series Commas</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div>
+          <div class="theory-rule">
+            <h4>✅ DO Capitalize</h4>
+            Specific buildings: <span class="highlight">The White House</span><br>
+            Organizations: <span class="highlight">Stanford University</span><br>
+            Months/days/holidays: <span class="highlight">January, Monday, Ramadan</span><br>
+            Specific regions (as names): <span class="highlight">the Middle East, Southeast Asia</span>
+          </div>
+        </div>
+        <div>
+          <div class="theory-rule">
+            <h4>❌ Do NOT Capitalize</h4>
+            Seasons: <span class="highlight-red">spring, summer, fall, winter</span><br>
+            Compass directions (when giving direction): <span class="highlight-red">drive south, turn west</span>
+          </div>
+        </div>
+      </div>
+      <div class="theory-rule" style="margin-top:14px;">
+        <h4>Commas in a Series (3+ items)</h4>
+        <div class="error-box"><strong>Incorrect</strong>John Mary and I are classmates.</div>
+        <div class="correct-box"><strong>Correct</strong>John<strong>,</strong> Mary<strong>,</strong> and I are classmates.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge gold">Part A</span>
+      <span class="card-title">Capitalization &amp; Comma Errors – 8 Questions · Auto-Scored</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div id="m7a-questions"></div>
+      <div style="display:flex;gap:10px;margin-top:16px;">
+        <button class="btn btn-primary" onclick="checkPartA(7)">✅ Check Answers</button>
+        <button class="btn btn-outline btn-sm" onclick="resetPartA(7)">↺ Reset</button>
+      </div>
+      <div id="m7a-score" style="margin-top:12px;"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge gold">Part B</span>
+      <span class="card-title">Paragraph Editing – 6 Capitalization &amp; Comma Errors</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="paragraph-box">"Succeeding in a college in the united states requires new strategies. First you should attend every class. You will need a notebook a pen and a laptop for your lectures. Second, take good notes as soon as the professor starts speaking. After you finish your classes in the Winter. You should go to the library to review. Finally, get involved in a campus activity or a club."</div>
+      <textarea class="answer-area" id="m7b-answer" placeholder="Type the corrected paragraph here..."></textarea>
+      <div style="display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap;">
+        <button class="btn btn-primary btn-sm" onclick="showModelAnswer('m7b-model')">👁 Show Model Answer</button>
+        <div class="self-score-row">
+          <label>Errors I found:</label>
+          <input type="number" id="m7b-self" min="0" max="6" placeholder="0–6" onchange="saveSelfScore('m7b',6)">
+          <span style="font-size:0.82rem;color:var(--gray)"> / 6</span>
+        </div>
+      </div>
+      <div class="model-answer" id="m7b-model">
+        <h4>✅ Model Answer</h4>
+        "Succeeding in college in the <strong>United States</strong> requires new strategies. <strong>First,</strong> you should attend every class. You will need a notebook<strong>,</strong> a pen<strong>,</strong> and a laptop for your lectures. Second, take good notes as soon as the professor starts speaking. After you finish your classes in the <strong>winter</strong><strong>, you</strong> should go to the library to review. Finally, get involved in a campus activity or a club."
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge green">Part C</span>
+      <span class="card-title">Freer Practice – Exam Preparation + Auto-Assessment</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="part-c-prompt">
+        <strong>Task:</strong> Write <strong>6 to 8 sentences</strong> explaining how to prepare for an important exam.<br>
+        <strong>Requirements:</strong> One complex sentence with a time subordinator · List three items in a series with commas · Include a specific month, day, or holiday (capitalized correctly).
+      </div>
+      <textarea class="answer-area" id="m7c-answer" placeholder="Write your paragraph here..."></textarea>
+      <button class="btn btn-success" style="margin-top:12px;" onclick="checkPartC('m7c')">🔍 Assess My Writing</button>
+      <div id="m7c-feedback" style="margin-top:14px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ RESULTS ═══ -->
+<div class="module-section" id="mod7">
+  <div class="section-title">📊 Results &amp; Submission</div>
+  <div class="section-subtitle">Review your scores, export your work, and submit to your teacher.</div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge">Scores</span>
+      <span class="card-title">Part A Scores by Module</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <div class="results-grid" id="resultsGrid"></div>
+      <div id="totalScoreDisplay" style="font-size:1.1rem;font-weight:700;color:var(--navy);margin-top:8px;"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header" onclick="toggleCard(this)">
+      <span class="card-badge gold">Export</span>
+      <span class="card-title">Download Your Results</span>
+      <span class="card-toggle open">▼</span>
+    </div>
+    <div class="card-body">
+      <p style="font-size:0.9rem;color:var(--gray);margin-bottom:16px;">Export your answers and scores, then attach the file to your email to the teacher.</p>
+      <div class="export-row">
+        <button class="btn btn-success" onclick="exportExcel()">📊 Download Excel (.xlsx)</button>
+        <button class="btn btn-primary" onclick="exportWord()">📄 Download Word (.doc)</button>
+      </div>
+      <div id="exportMsg" style="font-size:0.85rem;color:var(--green);margin-top:6px;"></div>
+    </div>
+  </div>
+
+  <div class="email-section">
+    <h3>📧 Submit to Teacher</h3>
+    <p style="font-size:0.88rem;color:var(--gray);margin-bottom:16px;">After downloading your file above, click the button below to open an email draft pre-filled with your teacher's address and a subject line. Attach the downloaded file before sending.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:16px;margin-bottom:16px;">
+      <div class="email-field" style="flex:1;min-width:200px;">
+        <label>Teacher's Email</label>
+        <div style="padding:8px 12px;background:#F7FAFC;border:1.5px solid var(--border);border-radius:6px;font-size:0.92rem;color:#2D3748;">huongstella8@gmail.com</div>
+        <input type="hidden" id="teacherEmailResult" value="huongstella8@gmail.com">
+      </div>
+      <div class="email-field" style="flex:1;min-width:200px;">
+        <label>Your Name (for subject line)</label>
+        <input type="text" id="emailYourName" placeholder="Your full name">
+      </div>
+    </div>
+    <button class="btn btn-gold" onclick="openEmailDraft()">✉️ Open Email Draft</button>
+    <p style="font-size:0.8rem;color:var(--gray);margin-top:10px;">⚠️ Remember to attach the file you downloaded before clicking Send.</p>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<!-- Score bar -->
+<div class="score-panel">
+  <div class="total-score">Total: <span id="scoreBarTotal">0</span>/56</div>
+  <div id="scoreBarMods"></div>
+  <button class="btn btn-gold btn-sm" onclick="showModule(7)">📊 View Results</button>
+</div>
+
+<script>
+// ═══════════════════ DATA ═══════════════════
+
+const modules = [
+  {
+    id: 1, name: "Module 1",
+    partAOptions: ["complete","no-subject","no-verb"],
+    partALabels: ["Complete","Incomplete – No Subject","Incomplete – No Verb"],
+    questions: [
+      "The chart illustrates the main causes of land degradation.",
+      "Is currently rising at an alarming rate in developing countries.",
+      "Last year, the local government new policies to protect wildlife.",
+      "Many major cities have implemented strict recycling programs.",
+      "Will provide significantly more job opportunities for young graduates.",
+      "While the international tourists the museum, the fire alarm rang.",
+      "Renewable energy is generated from natural resources like wind and water.",
+      "Have successfully reduced their carbon footprint over the last decade."
+    ],
+    answers: ["complete","no-subject","no-verb","complete","no-subject","no-verb","complete","no-subject"],
+    explanations: [
+      "✓ Subject: <em>The chart</em> | Verb: <em>illustrates</em>",
+      "✗ Missing subject. Fix: <strong>It</strong> is currently rising…",
+      "✗ Missing verb. Fix: …government <strong>passed</strong> new policies…",
+      "✓ Subject: <em>Many major cities</em> | Verb: <em>have implemented</em>",
+      "✗ Missing subject. Fix: <strong>This</strong> will provide…",
+      "✗ Missing verb. Fix: …tourists <strong>were visiting</strong> the museum…",
+      "✓ Subject: <em>Renewable energy</em> | Verb: <em>is generated</em>",
+      "✗ Missing subject. Fix: <strong>They</strong> have successfully reduced…"
+    ]
+  },
+  {
+    id: 2, name: "Module 2",
+    partAOptions: ["correct","incorrect"],
+    partALabels: ["Correct","Incorrect"],
+    questions: [
+      "The graph shows a blue, steep line.",
+      "Many youngs people prefer to study abroad.",
+      "The government needs to build more facilities moderns for the public.",
+      "Online learning is very convenient and flexible.",
+      "There are many differents reasons why pollution is increasing.",
+      "Reading books helps children become intelligent people.",
+      "The city center has tall, modern, glass buildings.",
+      "Working from home has many importances benefits."
+    ],
+    answers: ["incorrect","incorrect","incorrect","correct","incorrect","correct","correct","incorrect"],
+    explanations: [
+      "✗ Wrong order. Fix: …a <strong>steep, blue</strong> line. (Size/quality before color)",
+      "✗ No plural adjectives. Fix: Many <strong>young</strong> people…",
+      "✗ Adjective after noun. Fix: …more <strong>modern facilities</strong>…",
+      "✓ Both adjectives used correctly after 'is'.",
+      "✗ No plural adjectives. Fix: …many <strong>different</strong> reasons…",
+      "✓ Adjective correctly before noun: <em>intelligent people</em>.",
+      "✓ Correct OSASCOMP order: size → age/type → material.",
+      "✗ No plural adjectives. Fix: …many <strong>important</strong> benefits."
+    ]
+  },
+  {
+    id: 3, name: "Module 3",
+    partAOptions: ["correct","incorrect"],
+    partALabels: ["Correct","Incorrect"],
+    questions: [
+      "Public transportation is cheap, so many people use it to commute.",
+      "The graph shows an increase in sales, and a decrease in expenses.",
+      "Some people like to live in the city but others prefer the countryside.",
+      "Hee Eun did not study for the test, so she got a bad grade.",
+      "Eating fast food is unhealthy, but many teenagers consume it daily.",
+      "The workers went to the factory, and started their shifts early.",
+      "The weather was terrible, but we enjoyed our trip anyway.",
+      "My parents and friends came to see me in the hospital."
+    ],
+    answers: ["correct","incorrect","incorrect","correct","correct","incorrect","correct","correct"],
+    explanations: [
+      "✓ Two independent clauses correctly joined with comma + <em>so</em>.",
+      "✗ Only two phrases (not two independent clauses). Remove comma: …increase in sales <strong>and</strong> a decrease…",
+      "✗ Two independent clauses need a comma. Fix: …in the city<strong>, but</strong> others prefer…",
+      "✓ Two independent clauses correctly joined with comma + <em>so</em>.",
+      "✓ Two independent clauses correctly joined with comma + <em>but</em>.",
+      "✗ Only one subject + two verbs (not two independent clauses). Remove comma: …to the factory <strong>and</strong> started…",
+      "✓ Two independent clauses correctly joined with comma + <em>but</em>.",
+      "✓ Simple sentence: two subjects + one verb. No comma needed."
+    ]
+  },
+  {
+    id: 4, name: "Module 4",
+    partAOptions: ["correct","fragment","comma-error"],
+    partALabels: ["Correct","Fragment","Comma Error"],
+    questions: [
+      "Before tourists visit a new country.",
+      "After the new factory opened, the city's economy improved rapidly.",
+      "The pollution levels decreased, after the government banned plastic bags.",
+      "When children spend too much time on screens they often develop sleep issues.",
+      "After the internet was invented in the 20th century.",
+      "Before I moved to the UK to study, I practiced English every day.",
+      "People usually feel stressed, when they have to take an important exam.",
+      "When the chart reached its peak in 2015."
+    ],
+    answers: ["fragment","correct","comma-error","comma-error","fragment","correct","comma-error","fragment"],
+    explanations: [
+      "✗ Fragment. Dependent clause alone. Fix: Before tourists visit a new country<strong>, they should learn the customs.</strong>",
+      "✓ Time clause first + comma + independent clause. Correct.",
+      "✗ Comma error. Time clause second = no comma. Fix: …decreased <strong>after</strong> the government…",
+      "✗ Comma error. Time clause first = needs comma. Fix: When children spend too much time on screens<strong>,</strong> they often…",
+      "✗ Fragment. Fix: After the internet was invented<strong>, global communication changed.</strong>",
+      "✓ Time clause first + comma. Correct.",
+      "✗ Comma error. Time clause second = no comma. Fix: …feel stressed <strong>when</strong> they have…",
+      "✗ Fragment. Fix: When the chart reached its peak in 2015<strong>, sales began to drop.</strong>"
+    ]
+  },
+  {
+    id: 5, name: "Module 5",
+    partAOptions: ["correct","incorrect"],
+    partALabels: ["Correct","Incorrect"],
+    questions: [
+      "Perhaps the pollution levels will decrease next year.",
+      "I will probably apply to a university in Texas or California.",
+      "First of all, learning a new language improves brain function.",
+      "Definitely online learning is going to become more popular.",
+      "Also, tourists bring a lot of money to the local economy.",
+      "The new public park will be definitely a great addition to our city.",
+      "In addition, students need to learn practical skills.",
+      "Maybe we will have a lot to talk about after this time."
+    ],
+    answers: ["correct","correct","correct","incorrect","incorrect","incorrect","correct","correct"],
+    explanations: [
+      "✓ <em>Perhaps</em> correctly placed before the subject.",
+      "✓ <em>Probably</em> correctly placed after <em>will</em>.",
+      "✓ Listing word with comma at start.",
+      "✗ <em>Definitely</em> must go after <em>will/be</em>. Fix: Online learning is <strong>definitely</strong> going to…",
+      "✗ Avoid starting with <em>Also</em> in academic writing. Fix: Tourists <strong>also</strong> bring… or <strong>Furthermore,</strong> tourists bring…",
+      "✗ <em>Definitely</em> goes after <em>will</em>, not after <em>be</em> in this position. Fix: …will <strong>definitely</strong> be a great…",
+      "✓ Formal transition correctly used.",
+      "✓ <em>Maybe</em> correctly placed before the subject."
+    ]
+  },
+  {
+    id: 6, name: "Module 6",
+    partAOptions: ["correct","run-on"],
+    partALabels: ["Correct","Run-On"],
+    questions: [
+      "In the year 2030, I think my life will be very different.",
+      "I will be much older I will be middle-aged.",
+      "I am going to finish my education, then I will begin my career.",
+      "The plane left the ground, it made my stomach feel strange.",
+      "After I begin my career, I am going to work very hard.",
+      "I missed my friends, I was excited about starting a new life.",
+      "We walked off the plane my relatives were there.",
+      "Renewable energy is becoming cheaper, so many countries are adopting it."
+    ],
+    answers: ["correct","run-on","run-on","run-on","correct","run-on","run-on","correct"],
+    explanations: [
+      "✓ One independent clause. Correct.",
+      "✗ Two clauses with no connecting word. Fix: I will be much older<strong>. I will</strong> be middle-aged.",
+      "✗ Comma splice. Fix: I am going to finish my education<strong>. Then</strong> I will begin my career.",
+      "✗ Comma splice. Fix: The plane left the ground<strong>, and</strong> it made my stomach feel strange.",
+      "✓ Complex sentence with time clause. Correct.",
+      "✗ Comma splice. Fix: I missed my friends<strong>, but</strong> I was excited…",
+      "✗ No connecting word. Fix: We walked off the plane<strong>. My</strong> relatives were there.",
+      "✓ Two independent clauses correctly joined with comma + <em>so</em>."
+    ]
+  },
+  {
+    id: 7, name: "Module 7",
+    partAOptions: ["correct","incorrect"],
+    partALabels: ["Correct","Incorrect"],
+    questions: [
+      "Whenever I don't sleep well I feel sick the next day.",
+      "My grandparents, aunts, uncles and cousins brought food.",
+      "Every night, after I finish my homework.",
+      "She felt better as soon as she took the medicine.",
+      "We are planning a trip to the middle east this Summer.",
+      "First make a list of the required courses.",
+      "I drove South for a mile, and then turned onto Highway 395.",
+      "Before I learned to speak English well, I was afraid to use the telephone."
+    ],
+    answers: ["incorrect","incorrect","incorrect","correct","incorrect","incorrect","incorrect","correct"],
+    explanations: [
+      "✗ Missing comma after time clause. Fix: Whenever I don't sleep well<strong>,</strong> I feel sick…",
+      "✗ Missing serial comma. Fix: grandparents, aunts, uncles<strong>,</strong> and cousins…",
+      "✗ Fragment. Fix: Every night, after I finish my homework<strong>, I read a book.</strong>",
+      "✓ Correct complex sentence.",
+      "✗ Two errors: <em>middle east</em> → <strong>Middle East</strong> (proper noun) | <em>Summer</em> → <strong>summer</strong> (seasons not capitalized).",
+      "✗ Missing comma after listing word. Fix: <strong>First,</strong> make a list…",
+      "✗ <em>South</em> is a compass direction here → not capitalized. Fix: I drove <strong>south</strong>…",
+      "✓ Time clause first + comma. Correct."
+    ]
+  }
+];
+
+// ═══════════════════ STATE ═══════════════════
+const scores = { m1: 0, m2: 0, m3: 0, m4: 0, m5: 0, m6: 0, m7: 0 };
+const selfScores = {};
+const partCTexts = {};
+
+// ═══════════════════ RENDER PART A ═══════════════════
+function renderAllPartAs() {
+  modules.forEach(mod => {
+    const containerId = `m${mod.id}a-questions`;
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    let html = '';
+    mod.questions.forEach((q, i) => {
+      html += `<div class="question-item" id="m${mod.id}a-q${i}">
+        <div class="question-text"><span class="q-num">${i+1}</span>${q}</div>
+        <div class="answer-options">`;
+      mod.partAOptions.forEach((opt, j) => {
+        html += `<label class="answer-option">
+          <input type="radio" name="m${mod.id}a_q${i}" value="${opt}" id="m${mod.id}a_q${i}_${j}">
+          <label for="m${mod.id}a_q${i}_${j}">${mod.partALabels[j]}</label>
+        </label>`;
+      });
+      html += `</div><div class="feedback-text" id="m${mod.id}a-f${i}"></div></div>`;
+    });
+    container.innerHTML = html;
+  });
+}
+
+function checkPartA(modNum) {
+  const mod = modules.find(m => m.id === modNum);
+  let correct = 0;
+  mod.questions.forEach((q, i) => {
+    const selected = document.querySelector(`input[name="m${modNum}a_q${i}"]:checked`);
+    const qDiv = document.getElementById(`m${modNum}a-q${i}`);
+    const feedback = document.getElementById(`m${modNum}a-f${i}`);
+    qDiv.classList.remove('correct', 'wrong');
+    if (!selected) {
+      feedback.className = 'feedback-text bad';
+      feedback.textContent = '⚠ Please select an answer.';
+      return;
+    }
+    if (selected.value === mod.answers[i]) {
+      correct++;
+      qDiv.classList.add('correct');
+      feedback.className = 'feedback-text ok';
+      feedback.innerHTML = '✓ Correct! ' + mod.explanations[i];
+    } else {
+      qDiv.classList.add('wrong');
+      feedback.className = 'feedback-text bad';
+      feedback.innerHTML = '✗ Incorrect. ' + mod.explanations[i];
+    }
+  });
+  const key = `m${modNum}`;
+  scores[key] = correct;
+  const scoreDiv = document.getElementById(`m${modNum}a-score`);
+  const pct = Math.round((correct/8)*100);
+  const color = pct >= 75 ? 'var(--green)' : pct >= 50 ? 'var(--gold)' : 'var(--red)';
+  scoreDiv.innerHTML = `<div style="display:inline-flex;align-items:center;gap:12px;background:${color};color:white;padding:10px 20px;border-radius:8px;">
+    <span style="font-size:1.4rem;font-weight:800;">${correct}/8</span>
+    <span style="font-size:0.88rem;">${pct}% — ${pct>=75?'Excellent!':pct>=50?'Good effort!':'Keep practicing!'}</span>
+  </div>`;
+  updateScoreBar();
+}
+
+function resetPartA(modNum) {
+  const mod = modules.find(m => m.id === modNum);
+  mod.questions.forEach((q, i) => {
+    const inputs = document.querySelectorAll(`input[name="m${modNum}a_q${i}"]`);
+    inputs.forEach(inp => inp.checked = false);
+    const qDiv = document.getElementById(`m${modNum}a-q${i}`);
+    qDiv.classList.remove('correct', 'wrong');
+    document.getElementById(`m${modNum}a-f${i}`).textContent = '';
+    document.getElementById(`m${modNum}a-f${i}`).className = 'feedback-text';
+  });
+  document.getElementById(`m${modNum}a-score`).innerHTML = '';
+  scores[`m${modNum}`] = 0;
+  updateScoreBar();
+}
+
+// ═══════════════════ PART B ═══════════════════
+function showModelAnswer(id) {
+  const el = document.getElementById(id);
+  el.style.display = el.style.display === 'block' ? 'none' : 'block';
+}
+
+function saveSelfScore(key, max) {
+  const val = parseInt(document.getElementById(key + '-self').value) || 0;
+  selfScores[key] = Math.min(val, max);
+}
+
+// ═══════════════════ PART C SENTENCE CHECKER ═══════════════════
+
+// ── Verb inventory ──
+const VERBS = /\b(is|are|was|were|will|would|can|could|should|may|might|must|shall|have|has|had|do|does|did|go|goes|went|come|comes|came|make|makes|made|take|takes|took|get|gets|got|give|gives|gave|show|shows|showed|shown|see|sees|saw|seen|know|knows|knew|known|think|thinks|thought|want|wants|wanted|need|needs|needed|feel|feels|felt|become|becomes|became|seem|seems|seemed|look|looks|looked|use|uses|used|include|includes|included|provide|provides|provided|create|creates|created|allow|allows|allowed|help|helps|helped|require|requires|required|cause|causes|caused|lead|leads|led|bring|brings|brought|live|lives|lived|work|works|worked|study|studies|studied|learn|learns|learned|believe|believes|believed|hope|hopes|hoped|enjoy|enjoys|enjoyed|prefer|prefers|preferred|choose|chooses|chose|decide|decides|decided|travel|travels|traveled|visit|visits|visited|spend|spends|spent|buy|buys|bought|build|builds|built|start|starts|started|finish|finishes|finished|continue|continues|continued|increase|increases|increased|decrease|decreases|decreased|improve|improves|improved|develop|develops|developed|offer|offers|offered|keep|keeps|kept|find|finds|found|follow|follows|followed|move|moves|moved|stay|stays|stayed|play|plays|played|try|tries|tried|talk|talks|talked|ask|asks|asked|tell|tells|told|write|writes|wrote|read|reads|walk|walks|walked|run|runs|ran|drive|drives|drove|fly|flies|flew|eat|eats|ate|drink|drinks|drank|sleep|sleeps|slept|love|loves|loved|like|likes|liked|hate|hates|hated|support|supports|supported|protect|protects|protected|reduce|reduces|reduced|grow|grows|grew|fall|falls|fell|rise|rises|rose|drop|drops|dropped|reach|reaches|reached|remain|remains|remained|happen|happens|happened|depend|depends|depended|apply|applies|applied|expect|expects|expected|consider|considers|considered|suggest|suggests|suggested|report|reports|reported|demonstrate|demonstrates|demonstrated|indicate|indicates|indicated|affect|affects|affected|influence|influences|influenced|contribute|contributes|contributed|remember|remembers|remembered|understand|understands|understood|explain|explains|explained|describe|describes|described|discuss|discusses|discussed|represent|represents|represented|contain|contains|contained|produce|produces|produced|receive|receives|received|send|sends|sent|meet|meets|met|leave|leaves|left|return|returns|returned|open|opens|opened|close|closes|closed|pass|passes|passed|begin|begins|began|begun|end|ends|ended|change|changes|changed|achieve|achieves|achieved|complete|completes|completed|prepare|prepares|prepared|plan|plans|planned|answer|answers|answered|manage|manages|managed|decide|decided|admit|admits|admitted|agree|agrees|agreed|allow|allows|allowed|appear|appears|appeared|avoid|avoids|avoided|carry|carries|carried|connect|connects|connected|consist|consists|consisted|cost|costs|join|joins|joined|lack|lacks|lacked|occur|occurs|occurred|raise|raises|raised|replace|replaces|replaced|solve|solves|solved|spread|spreads|treat|treats|treated|wish|wishes|wished)\b/i;
+
+// ── Auxiliary + participle / progressive patterns ──
+const AUX_PATTERN = /\b(is|are|was|were|have|has|had|will|would|can|could|should|may|might|must|shall|do|does|did|be|been|being)\s+\w+(ing|ed|en)?\b/i;
+
+// ── Verbs that at the start = missing subject ──
+const VERB_START = /^(Is|Are|Was|Were|Will|Would|Should|Could|May|Might|Must|Have|Has|Had|Does|Did|Makes|Takes|Gets|Creates|Brings|Provides|Needs|Works|Goes|Shows|Comes|Happens|Allows|Requires|Causes|Leads|Includes|Becomes|Remains|Seems|Looks|Feels|Suggests|Indicates|Represents|Affects|Contributes|Gives|Finds|Keeps|Runs|Starts|Helps|Offers|Produces|Contains|Sends|Means|Puts|Plays|Tries|Tells|Asks|Teaches|Describes|Explains|Demonstrates|Increases|Decreases|Improves|Develops|Reduces|Protects|Supports|Builds|Opens|Passes|Ends|Changes|Achieves|Prepares|Plans|Manages)\b/;
+
+// ── Subordinators that make dependent clauses ──
+const SUBORDINATORS = /^(When|Because|Although|Even though|Even if|If|Before|After|While|Since|Unless|Until|As soon as|As|Whenever|Whereas|Though|So that|In order that|Whether)\b/i;
+
+// ── FANBOYS conjunctions ──
+const FANBOYS = /,\s*(and|but|or|nor|for|yet|so)\b/i;
+
+// ── Comma splice: comma + subject + verb (no FANBOYS) ──
+const COMMA_SPLICE = /,\s*(I|he|she|it|we|they|the|a|an|my|his|her|our|their|this|that|these|those|there|here)\s+\w/i;
+
+// ── Plural adjective errors ──
+const PLURAL_ADJ = /\b(youngs|olds|bigs|smalls|talls|shorts|fasts|slows|hards|easys|easies|importants|differents|seriouses|beautifuls|usefuls|helpfuls|harmfuls|expensives|cheaps|populars|moderns|ancients|traditionals|typicals|unusuals|commons|rares|simples|complexes|positives|negatives|effectives|successfuls|significants|additionals|actives|passives|creatives|innovatives|productives|interestings|excitings|borings|tirings|amazings|incredibles|wonderfuls|terribles|horribles|goods|bads|directs|independents|naturals|artificials|globals|locals|educationals|technicals|physicals|mentals|emotionals|intellectuals)\b/i;
+
+// ── Adjective AFTER noun (word-order error): "a line steep", "lifestyle comfortable" ──
+const ADJ_AFTER_NOUN = /\b(line|place|lifestyle|environment|system|city|country|world|economy|society|problem|solution|idea|reason|way|method|approach|effect|impact|result|advantage|disadvantage|benefit|challenge|opportunity|issue|factor|aspect|role|level|rate|number|amount|percentage|trend|increase|decrease|growth|decline|change|difference|similarity|relationship|connection)\s+(beautiful|steep|comfortable|fast|slow|serious|important|significant|useful|harmful|natural|artificial|typical|unusual|common|rare|simple|complex|positive|negative|effective|successful|active|passive|creative|innovative|productive|interesting|exciting|amazing|wonderful|terrible|horrible|good|bad|direct|independent|modern|ancient|traditional|digital|global|local|educational|technical|physical|mental|emotional|intellectual|expensive|cheap|popular|new|old|young|big|small|tall|short|hard|easy|different|various)\b/i;
+
+// ── Missing "to be" before adjective: "[subject] [adjective]." pattern ──
+// e.g. "The percentage very high." "Living in a city very expensive."
+const MISSING_BE = /\b(very|quite|really|extremely|incredibly|surprisingly|fairly|rather|somewhat)\s+(high|low|good|bad|big|small|fast|slow|hard|easy|expensive|cheap|useful|harmful|important|significant|serious|positive|negative|effective|successful|interesting|exciting|amazing|wonderful|terrible|horrible|popular|modern|ancient|traditional|common|rare|simple|complex|active|direct|independent|creative|innovative|productive|natural|artificial|global|local|educational|technical|physical|mental|emotional|intellectual)\b/i;
+
+function analyzeSentences(text) {
+  const raw = text.trim();
+  if (!raw) return [];
+  const sentences = raw.match(/[^.!?]+[.!?]+/g) || [raw];
+
+  return sentences.map(s => {
+    s = s.trim();
+    if (!s) return null;
+
+    const issues = [];
+    const words = s.replace(/[^\w\s']/g,' ').trim().split(/\s+/).filter(w => w.length > 0);
+
+    // ── 1. Capital letter ──
+    if (/^[a-z]/.test(s)) {
+      issues.push({ text: 'Does not start with a capital letter.', ok: false, tag: 'Capitalization' });
+    } else {
+      issues.push({ text: 'Starts with a capital letter.', ok: true, tag: 'Capitalization' });
+    }
+
+    // ── 2. Ending punctuation ──
+    if (/[.!?]$/.test(s)) {
+      issues.push({ text: 'Has ending punctuation.', ok: true, tag: 'Punctuation' });
+    } else {
+      issues.push({ text: 'Missing ending punctuation — add a period (.), exclamation mark (!), or question mark (?).', ok: false, tag: 'Punctuation' });
+    }
+
+    // ── 3. Length ──
+    if (words.length >= 5) {
+      issues.push({ text: `${words.length} words — adequate length.`, ok: true, tag: 'Length' });
+    } else if (words.length >= 3) {
+      issues.push({ text: `Only ${words.length} words — sentence is very short. Expand it.`, ok: false, tag: 'Length' });
+    } else {
+      issues.push({ text: `Only ${words.length} word(s) — this is a fragment, not a sentence.`, ok: false, tag: 'Length' });
+    }
+
+    // ── 4. Verb presence ──
+    const hasVerb = VERBS.test(s) || AUX_PATTERN.test(s);
+    if (hasVerb) {
+      issues.push({ text: 'Contains a verb.', ok: true, tag: 'Verb' });
+    } else {
+      issues.push({ text: 'No verb detected — every sentence needs a verb (e.g. is, are, was, went, showed, provides…).', ok: false, tag: 'Verb' });
+    }
+
+    // ── 5. Subject presence ──
+    if (VERB_START.test(s)) {
+      issues.push({ text: `Starts with a verb ("${words[0]}") — possible missing subject. Add who or what is performing the action.`, ok: false, tag: 'Subject' });
+    } else {
+      issues.push({ text: 'Has a subject.', ok: true, tag: 'Subject' });
+    }
+
+    // ── 6. Dependent clause fragment ──
+    if (SUBORDINATORS.test(s)) {
+      const hasMidComma = /,/.test(s);
+      const afterComma = hasMidComma ? s.split(',').slice(1).join(',').trim() : '';
+      if (!hasMidComma || afterComma.split(/\s+/).length < 3) {
+        const conj = words[0];
+        issues.push({ text: `Starts with "${conj}" — this is a dependent clause and cannot stand alone. It needs a main clause: e.g. "After I arrived, I felt happy."`, ok: false, tag: 'Fragment' });
+      } else {
+        issues.push({ text: `Complex sentence with "${words[0]}" clause — comma placement detected.`, ok: true, tag: 'Complex sentence' });
+      }
+    }
+
+    // ── 7. Comma splice ──
+    if (COMMA_SPLICE.test(s) && !FANBOYS.test(s)) {
+      issues.push({ text: 'Possible comma splice — two complete sentences joined only by a comma. Use a conjunction (and / but / so) or split into two sentences.', ok: false, tag: 'Run-on / Comma splice' });
+    }
+
+    // ── 8. Plural adjective error ──
+    const adjMatch = s.match(PLURAL_ADJ);
+    if (adjMatch) {
+      issues.push({ text: `Adjective form error: "${adjMatch[0]}" — adjectives never take -s in English (e.g. write "young people", not "youngs people").`, ok: false, tag: 'Adjective form' });
+    }
+
+    // ── 9. Adjective after noun (word-order) ──
+    const orderMatch = s.match(ADJ_AFTER_NOUN);
+    if (orderMatch) {
+      const parts = orderMatch[0].split(/\s+/);
+      issues.push({ text: `Word-order error: adjective appears after noun ("${parts[0]} ${parts[1]}"). In English, adjectives go BEFORE the noun: "${parts[1]} ${parts[0]}".`, ok: false, tag: 'Word order' });
+    }
+
+    // ── 10. Missing "to be" before adjective ──
+    if (MISSING_BE.test(s) && !/\b(is|are|was|were|be|been|being|will be|would be|can be|could be|seems?|looks?|feels?|appears?|becomes?|became|remained?|stays?|stayed|gets?|got)\b/i.test(s)) {
+      issues.push({ text: 'Possible missing verb "to be" — e.g. write "It is very expensive" not "It very expensive".', ok: false, tag: 'Missing verb (to be)' });
+    }
+
+    const failCount = issues.filter(i => !i.ok).length;
+    const status = failCount === 0 ? 'pass' : failCount === 1 ? 'warn' : 'fail';
+    return { sentence: s, issues, status };
+  }).filter(Boolean);
+}
+
+function checkPartC(id) {
+  const textarea = document.getElementById(id + '-answer');
+  const feedbackDiv = document.getElementById(id + '-feedback');
+  const text = textarea.value.trim();
+  partCTexts[id] = text;
+
+  if (!text) {
+    feedbackDiv.innerHTML = '<div class="notice">⚠ Please write your paragraph first.</div>';
+    return;
+  }
+
+  const results = analyzeSentences(text);
+  const total = results.length;
+  const passed = results.filter(r => r.status === 'pass').length;
+  const warned = results.filter(r => r.status === 'warn').length;
+  const failed = results.filter(r => r.status === 'fail').length;
+
+  // Collect all error types across paragraph
+  const errorTypes = {};
+  results.forEach(r => r.issues.filter(i => !i.ok).forEach(i => {
+    errorTypes[i.tag] = (errorTypes[i.tag] || 0) + 1;
+  }));
+
+  let html = '';
+
+  // Sentence count
+  const minReq = (id.includes('m1') || id.includes('m2')) ? 5 : 6;
+  let countStatus = '';
+  if (total < minReq) countStatus = `<span style="color:var(--red)">⚠ Only ${total} sentence${total!==1?'s':''} detected. Aim for ${minReq}–8.</span>`;
+  else if (total > 8)  countStatus = `<span style="color:var(--gold)">⚠ ${total} sentences — keep it to 8 maximum.</span>`;
+  else                 countStatus = `<span style="color:var(--green)">✓ ${total} sentences — good length.</span>`;
+
+  html += `<div style="font-size:0.88rem;margin-bottom:12px;padding:8px 14px;background:#F7FAFC;border-radius:6px;">${countStatus}</div>`;
+
+  // Per-sentence breakdown
+  results.forEach((r, i) => {
+    const icon = r.status === 'pass' ? '✅' : r.status === 'warn' ? '⚠️' : '❌';
+    html += `<div class="sentence-result ${r.status}">
+      <div class="sentence-text">${icon} <strong>Sentence ${i+1}:</strong> <em>"${r.sentence}"</em></div>
+      <ul class="sentence-issues">`;
+    r.issues.forEach(issue => {
+      html += `<li class="${issue.ok?'ok':''}">
+        <span style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;opacity:.7;margin-right:4px;">[${issue.tag}]</span>
+        ${issue.text}
+      </li>`;
+    });
+    html += `</ul></div>`;
+  });
+
+  // Error-type summary bar
+  const errKeys = Object.keys(errorTypes);
+  let errorSummaryHtml = '';
+  if (errKeys.length > 0) {
+    errorSummaryHtml = `<div style="margin-top:12px;padding:10px 14px;background:rgba(255,255,255,0.12);border-radius:7px;font-size:0.82rem;">
+      <strong style="opacity:.8;">Issues found in this paragraph:</strong><br>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;">
+        ${errKeys.map(k => `<span style="background:rgba(255,255,255,0.15);padding:2px 10px;border-radius:12px;">${k} ×${errorTypes[k]}</span>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  // Overall verdict
+  const pct = total > 0 ? Math.round((passed/total)*100) : 0;
+  let grade, advice;
+  if (pct === 100) {
+    grade = '🏆 Excellent — All sentences are complete and grammatically correct!';
+    advice = 'No issues detected. Well done!';
+  } else if (pct >= 75) {
+    grade = '👍 Good work — Most sentences are complete and correct.';
+    advice = 'Review the flagged sentences above and fix the highlighted issues.';
+  } else if (pct >= 50) {
+    grade = '📝 Needs revision — Several sentences have errors.';
+    advice = 'Focus on the red sentences first. Check for missing subjects, missing verbs, and punctuation.';
+  } else {
+    grade = '🔧 Major revision needed — Most sentences are incomplete or have grammar errors.';
+    advice = 'Re-read the Module theory, then rewrite your paragraph one sentence at a time.';
+  }
+
+  html += `<div class="checker-summary">
+    <div>
+      <div class="checker-score-big">${passed}/${total}</div>
+      <div class="checker-score-label">sentences complete &amp; correct</div>
+    </div>
+    <div style="flex:1;">
+      <div style="font-weight:700;font-size:0.95rem;margin-bottom:4px;">${grade}</div>
+      <div style="font-size:0.82rem;opacity:0.85;">${advice}</div>
+      ${errorSummaryHtml}
+    </div>
+  </div>`;
+
+  feedbackDiv.innerHTML = html;
+}
+
+// ═══════════════════ SCORE BAR ═══════════════════
+function updateScoreBar() {
+  let total = 0;
+  let modHtml = '';
+  for (let i = 1; i <= 7; i++) {
+    const s = scores[`m${i}`] || 0;
+    total += s;
+    modHtml += `<div class="score-pill">M${i}: <span>${s}/8</span></div>`;
+  }
+  document.getElementById('scoreBarTotal').textContent = total;
+  document.getElementById('scoreBarMods').innerHTML = modHtml;
+}
+
+// ═══════════════════ RESULTS PAGE ═══════════════════
+function renderResults() {
+  let total = 0;
+  let html = '';
+  for (let i = 1; i <= 7; i++) {
+    const s = scores[`m${i}`] || 0;
+    total += s;
+    const pct = Math.round((s/8)*100);
+    const color = pct >= 75 ? '#276749' : pct >= 50 ? '#744210' : '#9B2C2C';
+    html += `<div class="result-card">
+      <div>
+        <div class="mod-name">Module ${i}</div>
+        <div class="score-max">${pct}%</div>
+      </div>
+      <div class="score-display" style="color:${color};">${s}<span style="font-size:0.9rem;font-weight:400;color:var(--gray)">/8</span></div>
+    </div>`;
+  }
+  document.getElementById('resultsGrid').innerHTML = html;
+  const overall = Math.round((total/56)*100);
+  document.getElementById('totalScoreDisplay').innerHTML =
+    `Overall Score: <span style="color:var(--navy);font-size:1.5rem;">${total}/56</span> (${overall}%)`;
+
+  // Sync teacher email
+  const te = document.getElementById('teacherEmail').value;
+  document.getElementById('teacherEmailResult').value = te;
+  const sn = document.getElementById('studentName').value;
+  document.getElementById('emailYourName').value = sn;
+}
+
+// ═══════════════════ TAB NAVIGATION ═══════════════════
+function showModule(idx) {
+  document.querySelectorAll('.module-section').forEach((s, i) => {
+    s.classList.toggle('active', i === idx);
+  });
+  document.querySelectorAll('.tab-btn').forEach((b, i) => {
+    b.classList.toggle('active', i === idx);
+  });
+  if (idx === 7) renderResults();
+}
+
+// ═══════════════════ CARD TOGGLE ═══════════════════
+function toggleCard(header) {
+  const body = header.nextElementSibling;
+  const toggle = header.querySelector('.card-toggle');
+  body.classList.toggle('collapsed');
+  toggle.classList.toggle('open');
+}
+
+// ═══════════════════ EXPORT EXCEL ═══════════════════
+function exportExcel() {
+  const name = document.getElementById('studentName').value || 'Student';
+  const cls = document.getElementById('studentClass').value || '';
+  const date = document.getElementById('submitDate').value || new Date().toLocaleDateString();
+
+  const wb = XLSX.utils.book_new();
+
+  // Summary sheet
+  const summaryData = [
+    ['Grammar Workbook – Sentence Structure', '', '', ''],
+    ['Student Name', name, 'Class', cls],
+    ['Date', date, '', ''],
+    ['', '', '', ''],
+    ['Module', 'Part A Score', 'Part A (%)', 'Part B Self-Score'],
+  ];
+  for (let i = 1; i <= 7; i++) {
+    const s = scores[`m${i}`] || 0;
+    const sb = selfScores[`m${i}b`] !== undefined ? selfScores[`m${i}b`] : '-';
+    summaryData.push([`Module ${i}`, s, Math.round((s/8)*100)+'%', sb]);
+  }
+  const total = Object.values(scores).reduce((a,b) => a+b, 0);
+  summaryData.push(['', '', '', '']);
+  summaryData.push(['TOTAL Part A', total, Math.round((total/56)*100)+'%', '']);
+
+  const wsSum = XLSX.utils.aoa_to_sheet(summaryData);
+  XLSX.utils.book_append_sheet(wb, wsSum, 'Summary');
+
+  // Part C answers sheet
+  const partCData = [['Module', 'Part C Writing']];
+  for (let i = 1; i <= 7; i++) {
+    const key = `m${i}c`;
+    const ta = document.getElementById(key + '-answer');
+    partCData.push([`Module ${i}`, ta ? ta.value : '']);
+  }
+  const wsC = XLSX.utils.aoa_to_sheet(partCData);
+  XLSX.utils.book_append_sheet(wb, wsC, 'Part C Writing');
+
+  // Part B answers sheet
+  const partBData = [['Module', 'Part B Corrected Paragraph', 'Self-Score']];
+  for (let i = 1; i <= 7; i++) {
+    const key = `m${i}b`;
+    const ta = document.getElementById(key + '-answer');
+    const ss = selfScores[key] !== undefined ? selfScores[key] : '';
+    partBData.push([`Module ${i}`, ta ? ta.value : '', ss]);
+  }
+  const wsB = XLSX.utils.aoa_to_sheet(partBData);
+  XLSX.utils.book_append_sheet(wb, wsB, 'Part B Editing');
+
+  XLSX.writeFile(wb, `${name.replace(/\s+/g,'_')}_SentenceStructure.xlsx`);
+  document.getElementById('exportMsg').textContent = '✓ Excel file downloaded successfully!';
+  setTimeout(() => document.getElementById('exportMsg').textContent = '', 4000);
+}
+
+// ═══════════════════ EXPORT WORD ═══════════════════
+function exportWord() {
+  const name = document.getElementById('studentName').value || 'Student';
+  const cls = document.getElementById('studentClass').value || '';
+  const date = document.getElementById('submitDate').value || new Date().toLocaleDateString();
+
+  let rows = '';
+  for (let i = 1; i <= 7; i++) {
+    const s = scores[`m${i}`] || 0;
+    const pct = Math.round((s/8)*100);
+    const sb = selfScores[`m${i}b`] !== undefined ? selfScores[`m${i}b`] : '—';
+    const ta = document.getElementById(`m${i}b-answer`);
+    const tc = document.getElementById(`m${i}c-answer`);
+    rows += `<tr>
+      <td style="padding:8px;border:1px solid #ccc;font-weight:bold;">Module ${i}</td>
+      <td style="padding:8px;border:1px solid #ccc;text-align:center;">${s}/8 (${pct}%)</td>
+      <td style="padding:8px;border:1px solid #ccc;text-align:center;">${sb}</td>
+      <td style="padding:8px;border:1px solid #ccc;font-size:0.85em;">${ta ? (ta.value || '—') : '—'}</td>
+      <td style="padding:8px;border:1px solid #ccc;font-size:0.85em;">${tc ? (tc.value || '—') : '—'}</td>
+    </tr>`;
+  }
+  const total = Object.values(scores).reduce((a,b) => a+b, 0);
+
+  const html = `<html><head><meta charset="UTF-8">
+  <style>body{font-family:Arial,sans-serif;font-size:11pt;} h1{color:#1e3a5f;} h2{color:#2B6CB0;font-size:12pt;border-bottom:1px solid #ccc;padding-bottom:4px;} table{border-collapse:collapse;width:100%;} td,th{border:1px solid #ccc;padding:8px;} th{background:#1e3a5f;color:white;}</style>
+  </head><body>
+  <h1>Sentence Structure – Grammar Workbook</h1>
+  <p><strong>Student:</strong> ${name} &nbsp;&nbsp; <strong>Class:</strong> ${cls} &nbsp;&nbsp; <strong>Date:</strong> ${date}</p>
+  <h2>Results Summary</h2>
+  <table><thead><tr>
+    <th>Module</th><th>Part A Score</th><th>Part B Self-Score</th><th>Part B – My Correction</th><th>Part C – My Writing</th>
+  </tr></thead><tbody>${rows}
+  <tr style="font-weight:bold;background:#f0f0f0;">
+    <td>TOTAL</td><td>${total}/56 (${Math.round((total/56)*100)}%)</td><td colspan="3"></td>
+  </tr>
+  </tbody></table>
+  </body></html>`;
+
+  const blob = new Blob([html], { type: 'application/msword' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${name.replace(/\s+/g,'_')}_SentenceStructure.doc`;
+  a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('exportMsg').textContent = '✓ Word file downloaded successfully!';
+  setTimeout(() => document.getElementById('exportMsg').textContent = '', 4000);
+}
+
+// ═══════════════════ EMAIL ═══════════════════
+function openEmailDraft() {
+  const te = document.getElementById('teacherEmailResult').value || document.getElementById('teacherEmail').value;
+  const sn = document.getElementById('emailYourName').value || document.getElementById('studentName').value || 'Student';
+  const cls = document.getElementById('studentClass').value || 'class';
+  const date = document.getElementById('submitDate').value || new Date().toLocaleDateString();
+  const total = Object.values(scores).reduce((a,b) => a+b, 0);
+
+  if (!te) {
+    alert('Please enter your teacher\'s email address first.');
+    return;
+  }
+
+  const subject = encodeURIComponent(`Grammar Workbook – Sentence Structure – ${sn} – ${cls}`);
+  const body = encodeURIComponent(
+    `Dear Teacher,\n\nPlease find attached my completed Grammar Workbook for the Sentence Structure module.\n\n` +
+    `Student: ${sn}\nClass: ${cls}\nDate: ${date}\nPart A Total Score: ${total}/56 (${Math.round((total/56)*100)}%)\n\n` +
+    `I have attached the downloaded Excel or Word file with all my answers.\n\nBest regards,\n${sn}`
+  );
+
+  window.location.href = `mailto:${te}?subject=${subject}&body=${body}`;
+}
+
+// ═══════════════════ INIT ═══════════════════
+document.addEventListener('DOMContentLoaded', () => {
+  // Set today's date
+  const today = new Date();
+  document.getElementById('submitDate').value = today.toISOString().split('T')[0];
+
+  renderAllPartAs();
+  updateScoreBar();
+
+  document.getElementById('studentName').addEventListener('input', function() {
+    document.getElementById('emailYourName').value = this.value;
+  });
+});
+</script>
+</body>
+</html>
