@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-IELTS – Unit 2: Places and Buildings</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+<style>
+:root{--blue:#1565c0;--lblue:#e3f2fd;--green:#2e7d32;--lgreen:#e8f5e9;--orange:#e65100;--lorange:#fff3e0;--red:#c62828;--lred:#ffebee;--grey:#546e7a;--card:#fff;--bg:#f5f7fa;--border:#dee2e6;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#222;min-height:100vh;}
+/* LOGIN */
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+.login-card{background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.18);padding:48px 40px;width:100%;max-width:440px;text-align:center;}
+.login-logo{margin-bottom:20px;}
+.login-logo .badge{display:inline-block;background:#c9922a;color:#fff;font-weight:800;font-size:13px;padding:4px 14px;border-radius:20px;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;}
+.login-card h1{color:#1a2a4a;font-size:2rem;font-weight:800;margin-bottom:10px;line-height:1.2;}
+.login-card p{color:var(--grey);margin-bottom:28px;font-size:.95rem;}
+.form-group{margin-bottom:18px;text-align:left;}
+.form-group label{display:block;font-weight:600;margin-bottom:6px;color:#333;font-size:.9rem;}
+.form-group input{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:8px;font-size:1rem;transition:border .2s;}
+.form-group input:focus{outline:none;border-color:var(--blue);}
+.btn-start{width:100%;padding:14px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:1.05rem;font-weight:700;cursor:pointer;transition:background .2s;margin-top:6px;}
+.btn-start:hover{background:#1976d2;}
+.login-err{color:var(--red);font-size:.85rem;margin-top:8px;display:none;}
+/* MAIN APP */
+#app{display:none;}
+.sticky-header{position:sticky;top:0;z-index:100;background:var(--blue);color:#fff;padding:10px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.sticky-header .title{font-size:1.1rem;font-weight:700;}
+.sticky-header .student-name{font-size:.85rem;opacity:.85;margin-left:auto;}
+.progress-bar{width:100%;height:6px;background:rgba(255,255,255,.25);border-radius:4px;overflow:hidden;margin-top:4px;}
+.progress-bar-fill{height:100%;background:#fff;border-radius:4px;transition:width .5s;}
+.tabs{display:flex;background:#fff;border-bottom:3px solid var(--blue);flex-wrap:wrap;}
+.tab{padding:10px 22px;cursor:pointer;font-weight:600;font-size:.9rem;color:var(--grey);transition:.2s;border-bottom:3px solid transparent;margin-bottom:-3px;}
+.tab.active{color:var(--blue);border-bottom-color:var(--blue);}
+.tab:hover:not(.active){color:var(--blue);background:var(--lblue);}
+.content{max-width:1100px;margin:0 auto;padding:24px 16px 100px;}
+.section-panel{display:none;}
+.section-panel.active{display:block;}
+.section-title{font-size:1.5rem;font-weight:700;color:var(--blue);margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid var(--lblue);}
+.section-intro{color:var(--grey);font-style:italic;margin-bottom:20px;}
+.ex-card{background:var(--card);border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.07);padding:22px 24px;margin-bottom:20px;}
+.ex-title{font-weight:700;color:var(--blue);margin-bottom:14px;font-size:1rem;}
+.ex-instruction{font-size:.9rem;color:var(--grey);margin-bottom:14px;font-style:italic;}
+.word-box{background:var(--lblue);border:1px solid #90caf9;border-radius:8px;padding:12px 16px;margin-bottom:16px;font-size:.9rem;color:#1a237e;}
+.word-box strong{margin-right:4px;}
+/* Form elements */
+input[type=text],select,textarea{font-family:inherit;font-size:.93rem;}
+select{padding:5px 8px;border:1.5px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;}
+select:focus{outline:none;border-color:var(--blue);}
+input[type=text]{padding:5px 10px;border:1.5px solid var(--border);border-radius:6px;}
+input[type=text]:focus{outline:none;border-color:var(--blue);}
+.q-row{margin-bottom:12px;display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;}
+.q-num{font-weight:700;min-width:24px;color:var(--blue);}
+.q-opts{display:flex;flex-direction:column;gap:6px;margin-top:6px;}
+.opt-label{display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:.93rem;}
+.opt-label input[type=radio]{margin-top:3px;cursor:pointer;}
+/* Audio */
+.audio-wrap{background:var(--lblue);border-radius:8px;padding:10px 14px;margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+.track-label{font-weight:700;color:var(--blue);white-space:nowrap;font-size:.9rem;}
+audio{flex:1;height:36px;}
+/* Table */
+table{width:100%;border-collapse:collapse;font-size:.9rem;margin-bottom:12px;}
+th{background:var(--blue);color:#fff;padding:8px 12px;text-align:left;}
+td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:middle;}
+tr:nth-child(even) td{background:#f9fbff;}
+/* Inline blank */
+.blank-input{width:160px;display:inline-block;vertical-align:middle;}
+.sentence-row{margin-bottom:12px;font-size:.93rem;line-height:1.7;}
+/* Category */
+.cat-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:.93rem;}
+.cat-word{font-weight:600;min-width:180px;color:#333;}
+/* Reading split */
+.reading-split{display:flex;gap:20px;align-items:flex-start;}
+.reading-passage{flex:0 0 48%;position:sticky;top:120px;max-height:calc(100vh - 140px);overflow-y:auto;background:#fffde7;border:1px solid #f0e68c;border-radius:8px;padding:18px 20px;font-size:.88rem;line-height:1.75;}
+.reading-questions{flex:1;min-width:0;}
+.reading-passage h4{font-size:1rem;font-weight:700;color:#5d4037;margin-bottom:12px;}
+.reading-passage p{margin-bottom:10px;}
+.reading-passage .highlight{background:#fff176;padding:0 2px;border-radius:2px;}
+/* Speaking */
+.speak-card{background:var(--lblue);border-radius:8px;padding:16px;margin-top:14px;}
+.speak-btn{padding:10px 20px;background:var(--blue);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.95rem;font-weight:600;margin-right:8px;margin-top:8px;}
+.speak-btn:hover{background:#1976d2;}
+.speak-btn.rec-on{background:#c62828;}
+.speak-btn.rec-on:hover{background:#b71c1c;}
+.audio-playback{margin-top:10px;}
+/* Matching */
+.match-grid{display:grid;grid-template-columns:1fr 24px 1fr;gap:8px 6px;align-items:center;font-size:.93rem;}
+.match-left{font-size:.9rem;padding:6px 10px;background:#f8f9fa;border-radius:6px;border:1px solid var(--border);}
+.match-arrow{text-align:center;color:var(--blue);font-weight:700;}
+/* Nav buttons */
+.nav-btns{display:flex;gap:12px;margin-top:28px;padding-bottom:40px;}
+.btn-nav{padding:10px 24px;border:2px solid var(--blue);border-radius:8px;font-size:.93rem;font-weight:700;cursor:pointer;background:#fff;color:var(--blue);transition:.15s;}
+.btn-nav:hover{background:var(--blue);color:#fff;}
+.btn-submit-nav{padding:10px 28px;border:2px solid var(--blue);border-radius:8px;font-size:.93rem;font-weight:700;cursor:pointer;background:var(--blue);color:#fff;transition:.15s;}
+.btn-submit-nav:hover{background:#1565c0;}
+/* Results */
+#results-screen{display:none;max-width:800px;margin:0 auto;padding:30px 16px 60px;}
+.results-header{text-align:center;margin-bottom:30px;}
+.results-header h2{color:var(--blue);font-size:1.8rem;margin-bottom:6px;}
+.score-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin-bottom:24px;}
+.score-box{background:#fff;border-radius:10px;padding:16px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.score-box .sec{font-size:.8rem;color:var(--grey);font-weight:600;text-transform:uppercase;margin-bottom:4px;}
+.score-box .pts{font-size:1.6rem;font-weight:700;color:var(--blue);}
+.score-box .pct{font-size:.85rem;color:var(--grey);}
+.overall-box{background:var(--blue);color:#fff;border-radius:12px;padding:20px;text-align:center;margin-bottom:24px;}
+.overall-box h3{font-size:1.1rem;margin-bottom:6px;opacity:.85;}
+.overall-box .big{font-size:2.4rem;font-weight:700;}
+.improve-card{background:var(--lorange);border-left:4px solid var(--orange);border-radius:8px;padding:16px 20px;margin-bottom:20px;}
+.improve-card h4{color:var(--orange);margin-bottom:8px;}
+.improve-card ul{padding-left:18px;}
+.improve-card ul li{margin-bottom:4px;font-size:.9rem;}
+.result-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:20px;}
+.btn-excel{padding:12px 24px;background:var(--green);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.95rem;font-weight:700;}
+.btn-excel:hover{background:#388e3c;}
+.btn-email{padding:12px 24px;background:var(--orange);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.95rem;font-weight:700;}
+.btn-email:hover{background:#bf360c;}
+.feedback-note{font-size:.82rem;color:var(--grey);margin-top:10px;text-align:center;}
+/* Correct/incorrect */
+.correct{color:var(--green)!important;}
+.incorrect{color:var(--red)!important;}
+.no-score-note{font-size:.82rem;color:var(--grey);font-style:italic;margin-top:8px;}
+@media(max-width:700px){.reading-split{flex-direction:column;}.reading-passage{position:static;max-height:300px;flex:none;width:100%;}}
+</style>
+</head>
+<body>
+<div style="width:100%;text-align:center;padding:6px 0;font-size:10px;font-weight:600;letter-spacing:2px;color:#888;background:#f5f7fa;border-bottom:1px solid #dee2e6;">HUONG STELLA PARADIGM</div>
+
+<!-- ===== LOGIN ===== -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="badge">Pre-IELTS</div>
+      <h1>Unit 2: Places and Buildings</h1>
+      <p>Complete all sections then submit for auto-scoring.</p>
+    </div>
+    <div class="form-group">
+      <label for="inp-name">Full Name</label>
+      <input type="text" id="inp-name" placeholder="Your full name" autocomplete="name">
+    </div>
+    <div class="form-group">
+      <label for="inp-email">Email Address</label>
+      <input type="email" id="inp-email" placeholder="e.g. lan@example.com" autocomplete="email">
+    </div>
+    <button class="btn-start" onclick="startApp()">▶ Start Homework</button>
+    <div class="login-err" id="login-err">Please enter both your full name and a valid email address.</div>
+  </div>
+</div>
+
+<!-- ===== MAIN APP ===== -->
+<div id="app">
+  <div class="sticky-header">
+    <span class="title">Pre-IELTS · Unit 2: Places and Buildings</span>
+    <span class="student-name" id="header-name"></span>
+    <div class="progress-bar" style="flex-basis:100%;"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('a')">A · Vocabulary</div>
+    <div class="tab" onclick="showTab('b')">B · Grammar</div>
+    <div class="tab" onclick="showTab('c')">C · Reading</div>
+    <div class="tab" onclick="showTab('d')">D · Speaking</div>
+    <div class="tab" onclick="showTab('e')">E · Listening</div>
+  </div>
+  <div class="content">
+
+    <!-- ===== SECTION A: VOCABULARY ===== -->
+    <div class="section-panel active" id="sec-a">
+      <h2 class="section-title">A. Vocabulary</h2>
+
+      <!-- A1 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 1</div>
+        <div class="ex-instruction">Fill in the blanks using the words in the box. Each word is used once.</div>
+        <div class="word-box"><strong>Word box:</strong> crowded · fashionable · historic · leafy · modern · noisy · quiet · remote</div>
+        <div id="a1-qs"></div>
+      </div>
+
+      <!-- A2 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 2</div>
+        <div class="ex-instruction">Fill in the blanks using the location phrases in the box.</div>
+        <div class="word-box"><strong>Word box:</strong> a village · the city center · the coast · the countryside · the outskirts of · the seaside · the south of · the suburbs</div>
+        <div id="a2-qs"></div>
+      </div>
+
+      <!-- A3 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 3</div>
+        <div class="ex-instruction">Choose the correct verb to complete each part of the text.</div>
+        <div id="a3-text" style="line-height:2;font-size:.93rem;"></div>
+      </div>
+
+      <!-- A4 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 4</div>
+        <div class="ex-instruction">Put each word in the correct category by selecting from the dropdown.</div>
+        <table>
+          <thead><tr><th>Word</th><th>Category</th></tr></thead>
+          <tbody id="a4-rows"></tbody>
+        </table>
+      </div>
+
+      <!-- A5 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 5</div>
+        <div class="ex-instruction">Choose the correct definition for each word.</div>
+        <div id="a5-qs"></div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-submit-nav" onclick="showTab('b')">Next: Grammar →</button>
+      </div>
+    </div>
+
+    <!-- ===== SECTION B: GRAMMAR ===== -->
+    <div class="section-panel" id="sec-b">
+      <h2 class="section-title">B. Grammar – Past Simple</h2>
+
+      <!-- B1 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 1 – Past Simple (regular verbs)</div>
+        <div class="ex-instruction">Complete the sentences using the past simple of the verb in brackets.</div>
+        <div id="b1-qs"></div>
+      </div>
+
+      <!-- B2 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 2 – Irregular verbs</div>
+        <div class="ex-instruction">Each sentence contains one or more incorrect verbs in the present tense. Type the corrected sentence using the past simple.</div>
+        <div id="b2-qs"></div>
+      </div>
+
+      <!-- B3 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 3 – Negative past simple</div>
+        <div class="ex-instruction">Complete each sentence with the negative past simple form of the verb in brackets.</div>
+        <div id="b3-qs"></div>
+      </div>
+
+      <!-- B4 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 4 – Word order</div>
+        <div class="ex-instruction">Put the words in the correct order to form past simple questions.</div>
+        <div id="b4-qs"></div>
+      </div>
+
+      <!-- B5 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 5 – Match answers to questions</div>
+        <div class="ex-instruction">Match each answer (A–G) with the correct question (1–7). Use each answer once.</div>
+        <div id="b5-qs"></div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-nav" onclick="showTab('a')">← Vocabulary</button>
+        <button class="btn-submit-nav" onclick="showTab('c')">Next: Reading →</button>
+      </div>
+    </div>
+
+    <!-- ===== SECTION C: READING ===== -->
+    <div class="section-panel" id="sec-c">
+      <h2 class="section-title">C. Reading</h2>
+
+      <!-- C1 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 1 – Vocabulary</div>
+        <div class="ex-instruction">Match each word or phrase (1–7) with its definition (A–G).</div>
+        <div id="c1-qs"></div>
+      </div>
+
+      <!-- C2 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 2 – Vocabulary in context</div>
+        <div class="ex-instruction">Complete each sentence using one of the words from Exercise 1.</div>
+        <div class="word-box"><strong>Word box:</strong> decrease · ecosystem · extinct · hunt · population · preserve · skeleton</div>
+        <div id="c2-qs"></div>
+      </div>
+
+      <!-- C3 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 3 – Synonyms and paraphrases</div>
+        <div class="ex-instruction">Match each phrase (1–7) with a word or phrase from the box that has the same or similar meaning.</div>
+        <div class="word-box"><strong>Word box:</strong> get smaller · make · a possibility · both · some · lower (than) · the contents of</div>
+        <div id="c3-qs"></div>
+      </div>
+
+      <!-- C4 + mammoth passage split -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 4 – Sentence completion (ONE WORD ONLY)</div>
+        <div class="ex-instruction">Read the passage and complete each sentence using ONE WORD from the text.</div>
+        <div class="reading-split">
+          <div class="reading-passage">
+            <h4>🦣 Woolly Mammoths</h4>
+            <p>Woolly mammoths were large animals that looked similar to modern elephants and once lived in large numbers across North America, Europe and Asia. However, they became extinct around 4,000 years ago.</p>
+            <p>Scientists believe they became extinct for a number of reasons. The first is that their natural habitat decreased in size as the world became warmer. The second reason is that humans hunted and killed them for food, clothing and shelter, and also used their bones and teeth to create some basic tools, and used their fur and their shape to make art.</p>
+            <p>We know quite a lot about mammoths because some of their bodies have been found frozen in the ice in places like Siberia. Scientists have examined the stomachs of some mammoths and found the grass and plants that were still inside, which tells us what they ate. By studying mammoth skeletons, scientists have also been able to compare the bodies of mammoths with those of modern elephants. Their ears were short compared to an African or Asian elephant's ears, which helped them to stay warm. Their teeth were also different.</p>
+            <p>Some scientists are now trying to recreate mammoths by taking DNA from the frozen bodies and creating a new mammoth, which is a possibility. However, this is controversial. Some scientists believe it is better to give the new mammoth a certain amount of freedom. Others worry that mammoths and modern elephants were both social animals and that a 'new' mammoth would be lonely. There is also the possibility that a 'new' mammoth might develop an 'old' disease that no longer exists in the modern world.</p>
+          </div>
+          <div class="reading-questions">
+            <div id="c4-qs"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- C5 + honey badger split (EXAM PRACTICE) -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 5 – EXAM PRACTICE: Sentence completion</div>
+        <div class="ex-instruction">Read the passage and complete each sentence (1–8) using words from the text. Use NO MORE THAN TWO WORDS.</div>
+        <div class="reading-split">
+          <div class="reading-passage">
+            <h4>🦡 The Honey Badger</h4>
+            <p>The honey badger is one of the most fascinating and unusual creatures in the animal kingdom. Although it is not a big animal – a fully-grown honey badger is about 30 centimetres tall and typically weighs between 7 and 16 kilograms – it is also one of its most aggressive and tough. The honey badger is famous for being fearless; it will attack animals far bigger than itself if it feels threatened. Even humans are not safe from a honey badger if it thinks they will attack or harm it.</p>
+            <p>They are instantly recognizable by the grey and white stripes that run along the back of their mainly black body. This pattern and these colors are thought to warn other animals that they are dangerous.</p>
+            <p>The honey badger has an extremely varied diet. While they prefer to eat meat, they also eat eggs, roots, berries and even bee larvae. Small creatures such as beetles, lizards and birds form the biggest part of their diet. They locate their prey mainly using their excellent sense of smell.</p>
+            <p>They get their name from their love of honey, and they can destroy a beehive very easily. Beekeepers often set traps for honey badgers to prevent them from destroying beehives. For this type of food, the honey badger has a working relationship with another creature – the honeyguide bird. The honeyguide bird uses its calls to lead the honey badger to the beehive, and then shares the honey and bee larvae with the honey badger after it has broken open the hive.</p>
+          </div>
+          <div class="reading-questions">
+            <div id="c5-qs"></div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-nav" onclick="showTab('b')">← Grammar</button>
+        <button class="btn-submit-nav" onclick="showTab('d')">Next: Speaking →</button>
+      </div>
+    </div>
+
+    <!-- ===== SECTION D: SPEAKING ===== -->
+    <div class="section-panel" id="sec-d">
+      <h2 class="section-title">D. Speaking</h2>
+
+      <!-- D1 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 1 – Complete the notes</div>
+        <div class="ex-instruction">Use the words in the box to complete the speaking notes.</div>
+        <div class="word-box"><strong>Word box:</strong> bought · had · ran · stayed · was · went · were</div>
+        <div id="d1-qs"></div>
+      </div>
+
+      <!-- D2 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 2 – Correct the tense mistakes</div>
+        <div class="ex-instruction">Each sentence below contains one or more verbs in the wrong tense. Rewrite the corrected sentence in the box provided. (There are 10 mistakes in total.)</div>
+        <div id="d2-qs"></div>
+      </div>
+
+      <!-- D3 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 3 – Sentence matching</div>
+        <div class="ex-instruction">Match each sentence beginning (A–H) with the correct ending (1–8).</div>
+        <div id="d3-qs"></div>
+      </div>
+
+      <!-- D4 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 4 – Discourse markers</div>
+        <div class="ex-instruction">Match each sentence (1–5) with the description of what the underlined discourse marker does (A–E).</div>
+        <div id="d4-qs"></div>
+      </div>
+
+      <!-- D5 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 5 – Choose the correct discourse marker</div>
+        <div class="ex-instruction">Choose the correct discourse marker to complete each sentence.</div>
+        <div id="d5-qs"></div>
+      </div>
+
+      <!-- D6 Speaking -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 6 – IELTS Speaking Part 2</div>
+        <div class="ex-instruction">Describe a place you have visited. You will have 1 minute to prepare your notes, then speak for 1–2 minutes.</div>
+        <div class="speak-card">
+          <p style="font-weight:600;margin-bottom:8px;">Describe a place you have visited that you particularly liked.</p>
+          <p style="font-size:.88rem;color:var(--grey);margin-bottom:12px;">You should say: where the place is · why you went there · what you did there · and explain why you particularly liked it.</p>
+          <button class="speak-btn" id="d6-rec-btn" onclick="toggleRecord()">⏺ Start Recording</button>
+          <button class="speak-btn" onclick="stopRecord()" id="d6-stop-btn" style="display:none;">⏹ Stop</button>
+          <div class="audio-playback" id="d6-playback"></div>
+          <div style="margin-top:14px;">
+            <p style="font-weight:600;font-size:.9rem;margin-bottom:8px;">Self-assessment – IELTS Speaking Band Descriptors</p>
+            <table style="font-size:.82rem;">
+              <thead><tr><th>Band</th><th>Fluency &amp; Coherence</th><th>Vocabulary</th><th>Grammar</th><th>Pronunciation</th></tr></thead>
+              <tbody>
+                <tr><td>9</td><td>Speaks fluently with only natural hesitation</td><td>Uses vocabulary with full flexibility and precision</td><td>Uses a full range with full flexibility</td><td>Easy to understand throughout</td></tr>
+                <tr><td>8</td><td>Speaks fluently with only occasional repetition</td><td>Wide resource; skilful use of uncommon vocabulary</td><td>Wide range; mostly error-free</td><td>Easy to understand; L1 accent has no effect</td></tr>
+                <tr><td>7</td><td>Speaks at length with only occasional repetition</td><td>Uses vocabulary resource flexibly</td><td>Uses a range of complex structures</td><td>Easy to understand throughout; L1 accent has minimal effect</td></tr>
+                <tr><td>6</td><td>Willing to speak at length; may lose coherence</td><td>Generally effective with some inaccuracies</td><td>Mix of simple and complex structures; some errors</td><td>Generally intelligible despite misarticulation</td></tr>
+                <tr><td>5</td><td>Speaks at length but may lose coherence</td><td>Manages meaning in familiar topics but not complex</td><td>Uses basic sentence forms but with limited range</td><td>Pronunciation is generally intelligible</td></tr>
+                <tr><td>4</td><td>Cannot respond without noticeable pauses</td><td>Limited basic vocabulary; frequent errors</td><td>Produces basic sentences; many errors</td><td>Mispronunciation causes strain</td></tr>
+                <tr><td>3</td><td>Speaks with long pauses; limited ability</td><td>Uses simple vocabulary with some errors</td><td>Attempts basic sentences with limited success</td><td>Pronunciation causes strain; misunderstandings occur</td></tr>
+              </tbody>
+            </table>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:10px;font-size:.9rem;">
+              <label for="d6-band" style="font-weight:600;">My self-assessed band:</label>
+              <select id="d6-band"><option value="">-- Choose --</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option><option>5</option><option>5.5</option><option>6</option><option>6.5</option><option>7</option><option>7.5</option><option>8</option><option>8.5</option><option>9</option></select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-nav" onclick="showTab('c')">← Reading</button>
+        <button class="btn-submit-nav" onclick="showTab('e')">Next: Listening →</button>
+      </div>
+    </div>
+
+    <!-- ===== SECTION E: LISTENING ===== -->
+    <div class="section-panel" id="sec-e">
+      <h2 class="section-title">E. Listening</h2>
+
+      <!-- E1 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 1 – Sound discrimination (Track 2.1)</div>
+        <div class="ex-instruction">Listen to Track 2.1. For each pair, choose the sentence you hear (a or b).</div>
+        <div class="audio-wrap">
+          <span class="track-label">Track 2.1</span>
+          <audio controls><source src="Track 2.1.mp3" type="audio/mpeg">Your browser does not support audio.</audio>
+        </div>
+        <div id="e1-qs"></div>
+      </div>
+
+      <!-- E2 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 2 – Spelling (Tracks 2.2, 2.3, 2.4)</div>
+        <div class="ex-instruction">Listen to these dialogues and write the spellings in the blanks. Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.</div>
+
+        <div class="audio-wrap" style="margin-bottom:8px;">
+          <span class="track-label">Track 2.2</span>
+          <audio controls><source src="Track 2.2.mp3" type="audio/mpeg">Your browser does not support audio.</audio>
+        </div>
+        <table style="margin-bottom:16px;">
+          <thead><tr><th colspan="3" style="text-align:left;">A (Track 2.2)</th></tr></thead>
+          <tbody>
+            <tr><td style="white-space:nowrap;">Name: Martin <strong>(1)</strong></td><td><input type="text" id="e2-1" placeholder="surname" class="blank-input" style="width:180px;"></td><td></td></tr>
+            <tr><td style="white-space:nowrap;">Address: 263 <strong>(2)</strong></td><td><input type="text" id="e2-2" placeholder="street name" class="blank-input" style="width:180px;"></td><td>Avenue, Newington, Edinburgh</td></tr>
+            <tr><td style="white-space:nowrap;">Postcode: <strong>(3)</strong></td><td><input type="text" id="e2-3" placeholder="postcode" class="blank-input" style="width:120px;"></td><td></td></tr>
+          </tbody>
+        </table>
+
+        <div class="audio-wrap" style="margin-bottom:8px;">
+          <span class="track-label">Track 2.3</span>
+          <audio controls><source src="Track 2.3.mp3" type="audio/mpeg">Your browser does not support audio.</audio>
+        </div>
+        <table style="margin-bottom:16px;">
+          <thead><tr><th colspan="3" style="text-align:left;">B (Track 2.3)</th></tr></thead>
+          <tbody>
+            <tr><td colspan="3" style="font-weight:600;">Address: Preston Technical College</td></tr>
+            <tr><td style="white-space:nowrap;"><strong>(4)</strong></td><td><input type="text" id="e2-4" placeholder="road name" class="blank-input" style="width:180px;"></td><td>Road, Preston</td></tr>
+            <tr><td style="white-space:nowrap;">Postcode: <strong>(5)</strong></td><td><input type="text" id="e2-5" placeholder="postcode" class="blank-input" style="width:120px;"></td><td></td></tr>
+            <tr><td style="white-space:nowrap;font-size:.85rem;">Head of the Admissions Dept: <strong>(6)</strong></td><td><input type="text" id="e2-6" placeholder="first name" class="blank-input" style="width:140px;"></td><td>Winters</td></tr>
+          </tbody>
+        </table>
+
+        <div class="audio-wrap" style="margin-bottom:8px;">
+          <span class="track-label">Track 2.4</span>
+          <audio controls><source src="Track 2.4.mp3" type="audio/mpeg">Your browser does not support audio.</audio>
+        </div>
+        <table>
+          <thead><tr><th colspan="3" style="text-align:left;">C (Track 2.4)</th></tr></thead>
+          <tbody>
+            <tr><td style="white-space:nowrap;">Address: <strong>(7)</strong></td><td><input type="text" id="e2-7" placeholder="lodge name" class="blank-input" style="width:140px;"></td><td>Lodge</td></tr>
+            <tr><td style="white-space:nowrap;"><strong>(8)</strong></td><td><input type="text" id="e2-8" placeholder="drive name" class="blank-input" style="width:140px;"></td><td>Drive, Stepton, Brisbane</td></tr>
+            <tr><td style="white-space:nowrap;">Postcode: <strong>(9)</strong></td><td><input type="text" id="e2-9" placeholder="postcode" class="blank-input" style="width:120px;"></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- E3 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 3 – Correct or Incorrect? (Track 2.5)</div>
+        <div class="ex-instruction">Listen to Track 2.5. Decide whether each name or number is CORRECT or INCORRECT.</div>
+        <div class="audio-wrap">
+          <span class="track-label">Track 2.5</span>
+          <audio controls><source src="Track 2.5.mp3" type="audio/mpeg">Your browser does not support audio.</audio>
+        </div>
+        <div id="e3-qs"></div>
+      </div>
+
+      <!-- E4 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 4 – Vocabulary matching</div>
+        <div class="ex-instruction">Match each word (1–8) with its definition (A–H).</div>
+        <div id="e4-qs"></div>
+      </div>
+
+      <!-- E5 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 5 – Food habits by decade (Track 2.6)</div>
+        <div class="ex-instruction">Listen to Track 2.6. For each item (1–5), choose which decade(s) it applies to.</div>
+        <div class="audio-wrap">
+          <span class="track-label">Track 2.6</span>
+          <audio controls><source src="Track 2.6.mp3" type="audio/mpeg">Your browser does not support audio.</audio>
+        </div>
+        <div id="e5-qs"></div>
+      </div>
+
+      <!-- E6 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 6 – Odd one out</div>
+        <div class="ex-instruction">Find the one word in each group (1–5) that does not have the same meaning as the others.</div>
+        <div id="e6-qs"></div>
+      </div>
+
+      <!-- E7 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 7 – Choose the correct word</div>
+        <div class="ex-instruction">Choose the correct word to complete each sentence.</div>
+        <div id="e7-qs"></div>
+      </div>
+
+      <!-- E8 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 8 – Sentence completion (Track 2.7)</div>
+        <div class="ex-instruction">Listen to Track 2.7. Choose the correct option (a, b or c) to complete each sentence.</div>
+        <div class="audio-wrap">
+          <span class="track-label">Track 2.7</span>
+          <audio controls><source src="Track 2.7.mp3" type="audio/mpeg">Your browser does not support audio.</audio>
+        </div>
+        <div id="e8-qs"></div>
+      </div>
+
+      <!-- E9 -->
+      <div class="ex-card">
+        <div class="ex-title">Exercise 9 – Short answers (Track 2.8)</div>
+        <div class="ex-instruction">Listen to Track 2.8. Answer the questions using NO MORE THAN TWO WORDS.</div>
+        <div class="audio-wrap">
+          <span class="track-label">Track 2.8</span>
+          <audio controls><source src="Track 2.8.mp3" type="audio/mpeg">Your browser does not support audio.</audio>
+        </div>
+        <div id="e9-qs"></div>
+      </div>
+      <div class="nav-btns">
+        <button class="btn-nav" onclick="showTab('d')">← Speaking</button>
+        <button class="btn-submit-nav" onclick="submitAll()">✔ Submit &amp; See Results</button>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /app -->
+
+<!-- ===== RESULTS ===== -->
+<div id="results-screen">
+  <div class="results-header">
+    <h2>Unit 2 Results</h2>
+    <p id="results-student" style="color:var(--grey);"></p>
+  </div>
+  <div class="overall-box">
+    <h3>Overall Score</h3>
+    <div class="big" id="overall-score">–</div>
+    <div id="overall-pct" style="opacity:.85;font-size:1rem;margin-top:4px;"></div>
+  </div>
+  <div class="score-grid" id="score-grid"></div>
+  <div class="improve-card" id="improve-block" style="display:none;">
+    <h4>💡 Points for Improvement</h4>
+    <ul id="improve-list"></ul>
+  </div>
+  <div class="result-actions">
+    <button class="btn-excel" onclick="exportPDF()">📥 Download Report</button>
+    <button class="btn-email" onclick="sendEmail()">📧 Email Results to Teacher</button>
+  </div>
+  <p class="feedback-note">The email button will open your mail app with results pre-filled.</p>
+</div>
+
+<script>
+// ==================== DATA ====================
+const A1_DATA=[
+  {s:"A ___ part of town is full of people.",ans:"crowded"},
+  {s:"A ___ village is a long way from any towns or cities.",ans:"remote"},
+  {s:"A ___ part of town is pleasant and has a lot of trees.",ans:"leafy"},
+  {s:"A ___ part of town is popular and expensive.",ans:"fashionable"},
+  {s:"A ___ part of town doesn't have many people or cars.",ans:"quiet"},
+  {s:"A ___ street is very loud, so it might be difficult to sleep there.",ans:"noisy"},
+  {s:"A ___ part of town is very new.",ans:"modern"},
+  {s:"A ___ area of town is old and has important buildings in it.",ans:"historic"}
+];
+const A1_WORDS=["crowded","fashionable","historic","leafy","modern","noisy","quiet","remote"];
+
+const A2_DATA=[
+  {s:"I come from a tourist town by ___. Every summer the beach is full of visitors.",ans:"the seaside"},
+  {s:"My house is in ___, so it's part of the city but away from the city center.",ans:"the suburbs"},
+  {s:"We live on ___ the city – it takes just five minutes to walk to the countryside.",ans:"the outskirts of"},
+  {s:"I'd love to live in ___, away from all the noise and traffic of the city.",ans:"the countryside"},
+  {s:"Our house is in ___ in the mountains. There are only about 30 houses and two shops.",ans:"a village"},
+  {s:"The city where I was born is on ___. There are always a lot of ships in the port.",ans:"the coast"},
+  {s:"I live in ___, which is great. I can walk to restaurants, cinemas and museums.",ans:"the city center"},
+  {s:"My town is in ___ my country, not far from the mountains.",ans:"the south of"}
+];
+const A2_WORDS=["a village","the city center","the coast","the countryside","the outskirts of","the seaside","the south of","the suburbs"];
+
+const A3_DATA=[
+  {prefix:"When I was a teenager, I didn't like living with my parents, so I",opts:["left","moved","lived"],ans:"left",suffix:"home when I was 20 years old."},
+  {prefix:"At first, I",opts:["rented","bought","borrowed"],ans:"rented",suffix:"a room in a flat."},
+  {prefix:"I didn't live there alone – I",opts:["paid","lent","shared"],ans:"shared",suffix:"the flat with three other people."},
+  {prefix:"So I moved",opts:["alone","out","in"],ans:"out",suffix:"after a couple of weeks."},
+  {prefix:"...and",opts:["caught","stayed","gave"],ans:"stayed",suffix:"with some friends for about a week."},
+  {prefix:"Then I moved",opts:["in","on","across"],ans:"in",suffix:"with my brother and his family."},
+  {prefix:"They",opts:["help","owned","owed"],ans:"owned",suffix:"a big house in the suburbs."},
+  {prefix:"...but then they",opts:["left","moved","chose"],ans:"moved",suffix:"house and went to live in a different city."},
+  {prefix:"In the end, I moved",opts:["about","back","between"],ans:"back",suffix:"in with my parents."},
+  {prefix:"But now I'm saving money to",opts:["buy","become","earn"],ans:"buy",suffix:"a flat."}
+];
+
+const A4_LIST=["leisure center","library","tower block","shopping center","retail park","cinema","museum","historic castle","theatre","department store","residential area","housing estate"];
+const A4_CATS=["places to live","places to buy things","places to relax and have fun","places to learn about your city's past"];
+const A4_ANS={
+  "leisure center":"places to relax and have fun",
+  "library":"places to learn about your city's past",
+  "tower block":"places to live",
+  "shopping center":"places to buy things",
+  "retail park":"places to buy things",
+  "cinema":"places to relax and have fun",
+  "museum":"places to learn about your city's past",
+  "historic castle":"places to learn about your city's past",
+  "theatre":"places to relax and have fun",
+  "department store":"places to buy things",
+  "residential area":"places to live",
+  "housing estate":"places to live"
+};
+
+const A5_DATA=[
+  {q:"A cottage is …",opts:["a modern house in a city","a small house, usually in the countryside"],ans:"a small house, usually in the countryside"},
+  {q:"A neighborhood is …",opts:["a part of a town or city where people live","a part of a town or city where people work"],ans:"a part of a town or city where people live"},
+  {q:"A stream is …",opts:["a very small river","a wide river"],ans:"a very small river"},
+  {q:"A pond is …",opts:["an extremely small forest","an extremely small lake"],ans:"an extremely small lake"},
+  {q:"A path is …",opts:["a narrow road for cars to drive along","a narrow road for people to walk along"],ans:"a narrow road for people to walk along"},
+  {q:"A town is …",opts:["bigger than a city","bigger than a village, but not as big as a city"],ans:"bigger than a village, but not as big as a city"},
+  {q:"A hill is …",opts:["higher than a mountain","lower than a mountain"],ans:"lower than a mountain"},
+  {q:"A wood is …",opts:["a group of trees","a large lake"],ans:"a group of trees"}
+];
+
+const B1_DATA=[
+  {prompt:"we ___ (walk) along the beach",ans:"walked"},
+  {prompt:"my parents ___ (move) to Switzerland when I was a baby",ans:"moved"},
+  {prompt:"we ___ (visit) the History Museum",ans:"visited"},
+  {prompt:"We ___ (plan) to spend our holiday in the countryside",ans:"planned"},
+  {prompt:"I ___ (study) in a big city",ans:"studied"},
+  {prompt:"I ___ (enjoy) my trip to London",ans:"enjoyed"},
+  {prompt:"we ___ (stop) going after we moved to the suburbs",ans:"stopped"},
+  {prompt:"I ___ (try) to contact you",ans:"tried"},
+  {prompt:"We ___ (stay) in a lovely guest house by the seaside",ans:"stayed"},
+  {prompt:"I ___ (prefer) living in the city",ans:"preferred"}
+];
+
+const B2_DATA=[
+  {s:"My parents buy their house 20 years ago.",ans:"My parents bought their house 20 years ago."},
+  {s:"It is quite expensive, but the bank lends them half the money so they can afford to buy it.",ans:"It was quite expensive, but the bank lent them half the money so they could afford to buy it."},
+  {s:"It is a small house, but it feels OK when my brother and I are children.",ans:"It was a small house, but it felt OK when my brother and I were children."},
+  {s:"But as we grow older, the house becomes too small.",ans:"But as we grew older, the house became too small."},
+  {s:"After about ten years, my parents build a new room at the back of the house.",ans:"After about ten years, my parents built a new room at the back of the house."},
+  {s:"But then my brother leaves home and the house is too big again!",ans:"But then my brother left home and the house was too big again!"},
+  {s:"House prices then rise very quickly.",ans:"House prices then rose very quickly."},
+  {s:"So when my parents sell their house last year, they make a lot of money.",ans:"So when my parents sold their house last year, they made a lot of money."}
+];
+
+const B3_DATA=[
+  {s:"I ___ (like) living in the city center – it was too crowded.",ans:"didn't like"},
+  {s:"Our old flat ___ (have) a balcony, but our new flat has one.",ans:"didn't have"},
+  {s:"There ___ (be) many other children in the part of town where I grew up.",ans:"weren't"},
+  {s:"I ___ (see) my grandparents often when I was young because they lived far away.",ans:"didn't see"},
+  {s:"We ___ (need) a car when we lived in the city, but now we're in the suburbs, we have two!",ans:"didn't need"},
+  {s:"It ___ (be) a very fashionable neighborhood, but I liked living there.",ans:"wasn't"}
+];
+
+const B4_DATA=[
+  {words:"where / did / you / live / when / you / were / a / child?",ans:"Where did you live when you were a child?"},
+  {words:"what / was / your / house / like?",ans:"What was your house like?"},
+  {words:"did / you / enjoy / living / there?",ans:"Did you enjoy living there?"},
+  {words:"what / didn't / you / like / about / it?",ans:"What didn't you like about it?"},
+  {words:"could / you / walk / to / school / from / your / house?",ans:"Could you walk to school from your house?"},
+  {words:"was / it / a / good / place / to / grow / up?",ans:"Was it a good place to grow up?"},
+  {words:"how / old / were / you / when / you / left / home?",ans:"How old were you when you left home?"},
+  {words:"why / did / you / leave / home?",ans:"Why did you leave home?"}
+];
+
+const B5_QUESTIONS=[
+  "Where did you live when you were a child?",
+  "Did you enjoy living there?",
+  "What didn't you like about it?",
+  "Could you walk to school from your house?",
+  "Was it a good place to grow up?",
+  "How old were you when you left home?",
+  "Why did you leave home?"
+];
+const B5_ANSWERS=[
+  "A. I lived in a small mountain village.",
+  "B. Yes, I did. It was a lovely place to live.",
+  "C. There weren't many other children, so sometimes I felt quite lonely.",
+  "D. No, I couldn't. It was too far away.",
+  "E. Yes, it was. It was very safe.",
+  "F. I was 18.",
+  "G. I left home because I went to study at university."
+];
+const B5_ANS_MAP=["A","B","C","D","E","F","G"];
+
+const C1_WORDS_LIST=["a population","a skeleton","an ecosystem","to become extinct","to decrease","to hunt","to preserve"];
+const C1_DEFS=[
+  "This happens when a type of bird, animal or plant doesn't exist any more",
+  "to become smaller in size or number",
+  "to follow and kill an animal for food or for sport",
+  "to put something in ice, salt, sugar or chemicals, so it can stay in good condition",
+  "all the people or animals that live in one place or area",
+  "all the living things in an area and the way they affect each other and the environment",
+  "the frame of bones supporting a human or animal body"
+];
+const C1_ANS=["to become extinct","to decrease","to hunt","to preserve","a population","an ecosystem","a skeleton"];
+
+const C2_DATA=[
+  {s:"Pollution harms all the plants, fish and animals in the ___.",ans:"ecosystem"},
+  {s:"The tutor showed the ___ to the medical students and asked which small bones were missing.",ans:"skeleton"},
+  {s:"We expect the number of people living in the countryside will ___ as families move to cities.",ans:"decrease"},
+  {s:"There are so few polar bears left that it is possible they will soon become ___.",ans:"extinct"},
+  {s:"The ___ of my city has risen to 8 million people.",ans:"population"},
+  {s:"Lions often ___ other animals at night.",ans:"hunt"},
+  {s:"Nowadays, most people use fridges to ___ their food.",ans:"preserve"}
+];
+
+const C3_PHRASES=["build or create","inside of or within","a pair of","not as high as","a little or an amount of","decrease or fall","might or may"];
+const C3_ANS=["make","the contents of","both","lower (than)","some","get smaller","a possibility"];
+const C3_OPTS=["get smaller","make","a possibility","both","some","lower (than)","the contents of"];
+
+const C4_DATA=[
+  {s:"The number of mammoths started to fall when their ___ got smaller.",ans:"habitat"},
+  {s:"Humans used mammoths for food, and to make art and ___.",ans:"tools"},
+  {s:"Scientists have examined the contents of mammoths' ___.",ans:"stomachs"},
+  {s:"Mammoths had smaller ___ than modern elephants.",ans:"ears"},
+  {s:"Some scientists think that a 'new' mammoth should have some ___.",ans:"freedom"},
+  {s:"Both elephants and mammoths are ___ animals.",ans:"social"},
+  {s:"There is a possibility that a 'new' mammoth could get a ___.",ans:"disease"}
+];
+
+const C5_DATA=[
+  {s:"Although they are not big animals, honey badgers are fearless, ___ and tough.",ans:"aggressive"},
+  {s:"Honey badgers will attack ___ if they need to protect themselves.",ans:"humans"},
+  {s:"The pattern and colors on the honey badger's back make it instantly ___.",ans:"recognizable"},
+  {s:"The food they eat is meat-based and ___.",ans:"varied"},
+  {s:"___ such as beetles, lizards and birds form the biggest part of their diet.",ans:"small creatures"},
+  {s:"Honey badgers find the creatures they eat by their ___.",ans:"smell"},
+  {s:"Beekeepers often set ___ to prevent honey badgers from destroying beehives.",ans:"traps"},
+  {s:"For one particular type of food, the honey badger has a ___ with another creature.",ans:"working relationship"}
+];
+
+const D1_WORDS_LIST=["bought","had","ran","stayed","was","went","were"];
+const D1_DATA=[
+  {s:"We ___ a holiday in Pingyao, China (= a historical small town)",ans:"had"},
+  {s:"It ___ this year (June)",ans:"was"},
+  {s:"we ___ for 2 or 3 days",ans:"stayed"},
+  {s:"We ___ shopping",ans:"went"},
+  {s:"and ___ some local things",ans:"bought"},
+  {s:"The people who ___ the hotel",ans:"ran"},
+  {s:"___ very friendly",ans:"were"}
+];
+
+const D2_DATA=[
+  {s:"I really want to go there.",ans:"I really wanted to go there.",mistakes:1},
+  {s:"We stay there for two or three days.",ans:"We stayed there for two or three days.",mistakes:1},
+  {s:"We travelling there and go around there and … buy some local things.",ans:"We travelled there and went around there and … bought some local things.",mistakes:3},
+  {s:"We have two days in a hotel.",ans:"We had two days in a hotel.",mistakes:1},
+  {s:"It's quite a small hotel.",ans:"It was quite a small hotel.",mistakes:1},
+  {s:"I really enjoy this holiday.",ans:"I really enjoyed this holiday.",mistakes:1},
+  {s:"After that, we go around another city nearby ...",ans:"After that, we went around another city nearby ...",mistakes:1},
+  {s:"And then we go back to Beijing.",ans:"And then we went back to Beijing.",mistakes:1}
+];
+
+const D3_LEFT=[
+  "Sometimes people in Warsaw spoke to me in Polish,",
+  "My father gave me a camera for my birthday,",
+  "I loved the food in Germany,",
+  "I didn't feel lonely in India",
+  "We didn't speak Chinese",
+  "When I was in New York I lost my wallet",
+  "I visited Egypt",
+  "One thing I liked about Alaska was the scenery,"
+];
+const D3_RIGHT_OPTS=[
+  "or Arabic, which meant that we had to speak English.",
+  "because the people were so friendly.",
+  "so I saw the pyramids.",
+  "because they could not speak English.",
+  "but I hated the weather.",
+  "and another thing was the wildlife.",
+  "so I had to cancel my credit card.",
+  "so I took a lot of photos on the holiday."
+];
+const D3_ANS=[
+  "because they could not speak English.",
+  "so I took a lot of photos on the holiday.",
+  "but I hated the weather.",
+  "because the people were so friendly.",
+  "or Arabic, which meant that we had to speak English.",
+  "so I had to cancel my credit card.",
+  "so I saw the pyramids.",
+  "and another thing was the wildlife."
+];
+
+const D4_DATA=[
+  {s:"It's a good place to visit. <u>I mean</u>, for a holiday.",ans:"adds or clarifies information"},
+  {s:"We spent the whole holiday on the beach. Every day, <u>basically</u>.",ans:"simplifies or summarizes information"},
+  {s:"There is a lot to see in this city. <u>For a start</u>, there are so many museums.",ans:"gives an example"},
+  {s:"<u>Now</u>, let me tell you about the hotel …",ans:"introduces a new topic"},
+  {s:"I thought it would be hot but <u>actually</u> it was cold.",ans:"shows surprise about a fact"}
+];
+const D4_DESCS=["adds or clarifies information","gives an example","introduces a new topic","shows surprise about a fact","simplifies or summarizes information"];
+
+const D5_OPTS_LIST=["actually","basically","for a start","I mean","now"];
+const D5_DATA=[
+  {s:"I expected the weather in Jamaica to be lovely but ___ it was really bad.",ans:"actually"},
+  {s:"The weather was really bad. ___, it rained every day!",ans:"basically"},
+  {s:"Swedish winters are much worse than British winters. ___, it always snows in Sweden …",ans:"for a start"},
+  {s:"We loved the food in Italy. ___, I have to tell you about the ice cream …",ans:"now"},
+  {s:"It's an expensive city. ___, it isn't as expensive as some other cities, but it's not cheap.",ans:"I mean"}
+];
+
+const E1_DATA=[
+  {a:"My name is Steve Newly.",b:"My name is Steve Mewly.",ans:"b"},
+  {a:"I live at 10, Thanes Close.",b:"I live at 10, Staines Close.",ans:"b"},
+  {a:"That's Mrs. Melanie Ridgely.",b:"That's Mrs. Melanie Bridgely.",ans:"b"},
+  {a:"And the address is Charwood Crescent.",b:"And the address is Sharwood Crescent.",ans:"a"},
+  {a:"You'll need to speak to Jane Price.",b:"You'll need to speak to Joan Price.",ans:"b"},
+  {a:"You can find us at the end of Beachcroft Road.",b:"You can find us at the end of Beachcross Road.",ans:"a"},
+  {a:"It's Catherine – Catherine Millwell.",b:"It's Catherine – Catherine Meilwell.",ans:"a"},
+  {a:"My address is Ditchfield Way.",b:"My address is Tichfield Way.",ans:"a"},
+  {a:"The name is Darren Knight.",b:"The name is Daryl Knight.",ans:"b"},
+  {a:"This is it – 102, Pine Court Place.",b:"This is it – 102, Vine Court Place.",ans:"b"}
+];
+
+const E3_DATA=[
+  {name:"HEBBURN",ans:"INCORRECT"},
+  {name:"EASTWOOD",ans:"CORRECT"},
+  {name:"BRAMPTON",ans:"CORRECT"},
+  {name:"WORROW",ans:"INCORRECT"},
+  {name:"MIDDLEDOM",ans:"INCORRECT"},
+  {name:"KIMBERLEY",ans:"CORRECT"},
+  {name:"0141 768 112",ans:"INCORRECT"},
+  {name:"£948.75",ans:"CORRECT"}
+];
+
+const E4_WORDS_LIST=["diet","eat in","eat out","habit","prepare","ready-made meal","takeaway","unhealthy"];
+const E4_DEFS=[
+  "the food and drink usually eaten or drunk by a person or group",
+  "to have a meal at home rather than in a restaurant",
+  "food that has already been prepared and can be eaten after it has been heated",
+  "a meal cooked and bought at a shop or restaurant but eaten somewhere else, often at home",
+  "a type of food or drink that isn't good for you",
+  "to have a meal in a restaurant rather than at home",
+  "to get something ready, for example to cut vegetables, before you cook",
+  "something that you do often and regularly"
+];
+const E4_ANS=["diet","eat in","ready-made meal","takeaway","unhealthy","eat out","prepare","habit"];
+
+const E5_DECADES=["1960s","1970s","1990s","Now"];
+const E5_DATA=[
+  {item:"Watching cooking on TV and rarely cooking at home",ans:3},
+  {item:"Staying at home and eating the same food every week",ans:0},
+  {item:"Buying more frozen foods such as fish and vegetables",ans:1},
+  {item:"Eating out in restaurants",ans:2},
+  {item:"Sitting at home and eating takeaway food",ans:3}
+]; // ans = index into E5_DECADES: 0=1960s,1=1970s,2=1990s,3=Now
+
+const E6_DATA=[
+  {words:["fall","go down","decrease","rise"],ans:"rise"},
+  {words:["increase","drop","grow","go up"],ans:"drop"},
+  {words:["sugar","water","fizzy drink","fruit juice"],ans:"sugar"},
+  {words:["nowadays","at the present time","these days","previously"],ans:"previously"},
+  {words:["development","introduction","change","trend"],ans:"introduction"}
+];
+
+const E7_DATA=[
+  {s:"The number of customers ___ from 45 people a day in 2011 to 105 in 2016.",opts:["decreased","dropped","increased"],ans:"increased"},
+  {s:"Fizzy drinks are unhealthy because of the very large ___ of sugar in every bottle.",opts:["amount","data","figure"],ans:"amount"},
+  {s:"___ you could only buy British food at this café, but now the food is more international.",opts:["Nowadays","Previously","These days"],ans:"Previously"},
+  {s:"There was a big ___ in the way people shopped for food in the 1980s.",opts:["change","introduction","trend"],ans:"change"},
+  {s:"Although the number of burgers we sold last year ___, sales of sandwiches rose.",opts:["dropped","went up","will decrease"],ans:"dropped"},
+  {s:"Eating sushi became popular in Britain in the 1990s and this ___ continues today.",opts:["figure","trend","rise"],ans:"trend"}
+];
+
+const E8_DATA=[
+  {s:"The problem is that many people ___ have an unhealthy diet.",opts:["a. nowadays","b. these days"],ans:"a. nowadays"},
+  {s:"The trend for buying Indian takeaways has risen by ___ since 2016.",opts:["a. 16%","b. 6%"],ans:"b. 6%"},
+  {s:"Doctors are worried about the increase in heart disease among ___ and over.",opts:["a. men aged 35","b. men aged 45"],ans:"b. men aged 45"},
+  {s:"Good-quality food can be found in many of the city's ___.",opts:["a. fine hotel restaurants","b. five hotel restaurants"],ans:"a. fine hotel restaurants"},
+  {s:"Sales of our ___ pies have fallen over the last three months.",opts:["a. ready-made fish","b. already-made fish"],ans:"a. ready-made fish"}
+];
+
+const E9_DATA=[
+  {q:"1. What is the surname of the writer that Sarah likes?",ans:"Mackenzie"},
+  {q:"2. What is the password for the university library website?",ans:"OTALIB2016"},
+  {q:"3. Which drink does Joe say people should stop drinking?",ans:["fruit juice","juice"]},
+  {q:"4. Where are many families getting their meals from?",ans:"supermarkets"},
+  {q:"5. What problem does Sarah say is increasing because of unhealthy eating?",ans:"heart disease"},
+  {q:"6. Which kind of fast food is most popular with other university students?",ans:"pizza"},
+  {q:"7. In which street is the sushi café?",ans:"Wellesley"}
+];
+
+// ==================== UTILS ====================
+function norm(s){return String(s).toLowerCase().replace(/['']/g,"'").replace(/\s+/g,' ').trim();}
+function match(a,b){return norm(a)===norm(b);}
+function matchAny(a,arr){return arr.some(b=>norm(a)===norm(b));}
+
+let results={studentName:'',studentEmail:'',attempt:1,sectionScores:{},sectionTotals:{},detailRows:[]};
+
+function getAttemptNumber(email){
+  const key='preiels_u2_'+email.trim().toLowerCase();
+  const n=(parseInt(localStorage.getItem(key)||'0'))+1;
+  localStorage.setItem(key,n);
+  return n;
+}
+function ordinal(n){const s=['th','st','nd','rd'],v=n%100;return n+(s[(v-20)%10]||s[v]||s[0]);}
+
+// ==================== RENDER ====================
+function renderAll(){
+  renderA1(); renderA2(); renderA3(); renderA4(); renderA5();
+  renderB1(); renderB2(); renderB3(); renderB4(); renderB5();
+  renderC1(); renderC2(); renderC3(); renderC4(); renderC5();
+  renderD1(); renderD2(); renderD3(); renderD4(); renderD5();
+  renderE1(); renderE3(); renderE4(); renderE5(); renderE6(); renderE7(); renderE8(); renderE9();
+}
+
+function sel(opts,id,placeholder){
+  let s=`<select id="${id}"><option value="">${placeholder||'-- choose --'}</option>`;
+  opts.forEach(o=>s+=`<option>${o}</option>`);
+  return s+'</select>';
+}
+function inp(id,w){return `<input type="text" id="${id}" style="width:${w||'200px'}">`;}
+
+function renderA1(){
+  let h='';
+  A1_DATA.forEach((d,i)=>{
+    h+=`<div class="sentence-row">${i+1}. ${d.s.replace('___',sel(A1_WORDS,'a1-'+i))}</div>`;
+  });
+  document.getElementById('a1-qs').innerHTML=h;
+}
+
+function renderA2(){
+  let h='';
+  A2_DATA.forEach((d,i)=>{
+    h+=`<div class="sentence-row">${i+1}. ${d.s.replace('___',sel(A2_WORDS,'a2-'+i))}</div>`;
+  });
+  document.getElementById('a2-qs').innerHTML=h;
+}
+
+function renderA3(){
+  let h='';
+  A3_DATA.forEach((d,i)=>{
+    h+=`<div class="sentence-row">${d.prefix} ${sel(d.opts,'a3-'+i,'choose')} ${d.suffix}</div>`;
+  });
+  document.getElementById('a3-text').innerHTML=h;
+}
+
+function renderA4(){
+  let h='';
+  A4_LIST.forEach((w,i)=>{
+    h+=`<tr><td><strong>${w}</strong></td><td>${sel(A4_CATS,'a4-'+i,'-- category --')}</td></tr>`;
+  });
+  document.getElementById('a4-rows').innerHTML=h;
+}
+
+function renderA5(){
+  let h='';
+  A5_DATA.forEach((d,i)=>{
+    let opts=d.opts.map((o,j)=>`<label class="opt-label"><input type="radio" name="a5-${i}" value="${o}"> ${o}</label>`).join('');
+    h+=`<div class="q-row"><span class="q-num">${i+1}.</span><div><div>${d.q}</div><div class="q-opts">${opts}</div></div></div>`;
+  });
+  document.getElementById('a5-qs').innerHTML=h;
+}
+
+function renderB1(){
+  let h='';
+  B1_DATA.forEach((d,i)=>{
+    const parts=d.prompt.split('___');
+    h+=`<div class="sentence-row">${i+1}. ${parts[0]}${inp('b1-'+i,'140px')}${parts[1]}</div>`;
+  });
+  document.getElementById('b1-qs').innerHTML=h;
+}
+
+function renderB2(){
+  let h='';
+  B2_DATA.forEach((d,i)=>{
+    h+=`<div style="margin-bottom:16px;"><div class="sentence-row" style="color:var(--grey);font-style:italic;">Original: ${d.s}</div>`;
+    h+=`<div class="sentence-row">Corrected: <input type="text" id="b2-${i}" style="width:100%;max-width:600px;margin-top:4px;"></div></div>`;
+  });
+  document.getElementById('b2-qs').innerHTML=h;
+}
+
+function renderB3(){
+  let h='';
+  B3_DATA.forEach((d,i)=>{
+    const parts=d.s.split('___');
+    h+=`<div class="sentence-row">${i+1}. ${parts[0]}${inp('b3-'+i,'180px')} ${parts.slice(1).join('')}</div>`;
+  });
+  document.getElementById('b3-qs').innerHTML=h;
+}
+
+function renderB4(){
+  let h='';
+  B4_DATA.forEach((d,i)=>{
+    h+=`<div style="margin-bottom:14px;"><div class="sentence-row" style="color:var(--grey);font-size:.85rem;margin-bottom:4px;">Words: <em>${d.words}</em></div>`;
+    h+=`<div class="sentence-row">${i+1}. <input type="text" id="b4-${i}" style="width:100%;max-width:520px;"></div></div>`;
+  });
+  document.getElementById('b4-qs').innerHTML=h;
+}
+
+function renderB5(){
+  let h=`<div style="margin-bottom:14px;background:var(--lblue);border-radius:8px;padding:12px 16px;">
+    <strong>Answers:</strong><br>
+    ${B5_ANSWERS.map(a=>`<span style="margin-right:12px;font-size:.88rem;">${a}</span>`).join('')}
+  </div>`;
+  B5_QUESTIONS.forEach((q,i)=>{
+    h+=`<div class="sentence-row">${i+1}. ${q} ${sel(B5_ANS_MAP,'b5-'+i,'-- A-G --')}</div>`;
+  });
+  document.getElementById('b5-qs').innerHTML=h;
+}
+
+function renderC1(){
+  let h='<table><thead><tr><th>#</th><th>Word / Phrase</th><th>Definition</th></tr></thead><tbody>';
+  C1_DEFS.forEach((d,i)=>{
+    h+=`<tr><td>${i+1}</td><td>${sel(C1_WORDS_LIST,'c1-'+i,'-- choose --')}</td><td>${d}</td></tr>`;
+  });
+  h+='</tbody></table>';
+  document.getElementById('c1-qs').innerHTML=h;
+}
+
+function renderC2(){
+  let h='';
+  C2_DATA.forEach((d,i)=>{
+    const parts=d.s.split('___');
+    h+=`<div class="sentence-row">${i+1}. ${parts[0]}${inp('c2-'+i,'160px')}${parts[1]}</div>`;
+  });
+  document.getElementById('c2-qs').innerHTML=h;
+}
+
+function renderC3(){
+  let h='<table><thead><tr><th>#</th><th>Phrase</th><th>Synonym / Paraphrase</th></tr></thead><tbody>';
+  C3_PHRASES.forEach((p,i)=>{
+    h+=`<tr><td>${i+1}</td><td>${p}</td><td>${sel(C3_OPTS,'c3-'+i,'-- choose --')}</td></tr>`;
+  });
+  h+='</tbody></table>';
+  document.getElementById('c3-qs').innerHTML=h;
+}
+
+function renderC4(){
+  let h='';
+  C4_DATA.forEach((d,i)=>{
+    const parts=d.s.split('___');
+    h+=`<div class="sentence-row">${i+1}. ${parts[0]}${inp('c4-'+i,'140px')}${parts[1]}</div>`;
+  });
+  document.getElementById('c4-qs').innerHTML=h;
+}
+
+function renderC5(){
+  let h='';
+  C5_DATA.forEach((d,i)=>{
+    const parts=d.s.split('___');
+    h+=`<div class="sentence-row">${i+1}. ${parts[0]}${inp('c5-'+i,'200px')}${parts[1]}</div>`;
+  });
+  document.getElementById('c5-qs').innerHTML=h;
+}
+
+function renderD1(){
+  let h='<div style="background:#f8f9fa;border-radius:8px;padding:14px 18px;">';
+  D1_DATA.forEach((d,i)=>{
+    const parts=d.s.split('___');
+    h+=`<div class="sentence-row">• ${parts[0]}${sel(D1_WORDS_LIST,'d1-'+i,'choose')}${parts.slice(1).join('')}</div>`;
+  });
+  h+='</div>';
+  document.getElementById('d1-qs').innerHTML=h;
+}
+
+function renderD2(){
+  let h='';
+  D2_DATA.forEach((d,i)=>{
+    h+=`<div style="margin-bottom:16px;"><div class="sentence-row" style="color:var(--grey);font-style:italic;">${i+1}. Original (${d.mistakes} mistake${d.mistakes>1?'s':''}): ${d.s}</div>`;
+    h+=`Corrected: <input type="text" id="d2-${i}" style="width:100%;max-width:620px;margin-top:4px;"></div>`;
+  });
+  document.getElementById('d2-qs').innerHTML=h;
+}
+
+function renderD3(){
+  let h='';
+  const shuffled=[...D3_RIGHT_OPTS].sort(()=>Math.random()-.5);
+  D3_LEFT.forEach((l,i)=>{
+    h+=`<div class="sentence-row">${String.fromCharCode(65+i)}. ${l} ${sel(D3_RIGHT_OPTS,'d3-'+i,'-- choose ending --')}</div>`;
+  });
+  document.getElementById('d3-qs').innerHTML=h;
+}
+
+function renderD4(){
+  let h='';
+  D4_DATA.forEach((d,i)=>{
+    h+=`<div class="sentence-row">${i+1}. "${d.s}" ${sel(D4_DESCS,'d4-'+i,'-- choose description --')}</div>`;
+  });
+  document.getElementById('d4-qs').innerHTML=h;
+}
+
+function renderD5(){
+  let h='';
+  D5_DATA.forEach((d,i)=>{
+    const parts=d.s.split('___');
+    h+=`<div class="sentence-row">${i+1}. ${parts[0]}${sel(D5_OPTS_LIST,'d5-'+i,'-- choose --')}${parts[1]}</div>`;
+  });
+  document.getElementById('d5-qs').innerHTML=h;
+}
+
+function renderE1(){
+  let h='';
+  E1_DATA.forEach((d,i)=>{
+    h+=`<div class="q-row"><span class="q-num">${i+1}.</span><div class="q-opts">
+      <label class="opt-label"><input type="radio" name="e1-${i}" value="a"> a. ${d.a}</label>
+      <label class="opt-label"><input type="radio" name="e1-${i}" value="b"> b. ${d.b}</label>
+    </div></div>`;
+  });
+  document.getElementById('e1-qs').innerHTML=h;
+}
+
+function renderE3(){
+  let h='<table><thead><tr><th>#</th><th>Name / Number</th><th>Correct / Incorrect</th></tr></thead><tbody>';
+  E3_DATA.forEach((d,i)=>{
+    h+=`<tr><td>${i+1}</td><td><strong>${d.name}</strong></td><td>
+      <label><input type="radio" name="e3-${i}" value="CORRECT"> CORRECT</label> &nbsp;
+      <label><input type="radio" name="e3-${i}" value="INCORRECT"> INCORRECT</label>
+    </td></tr>`;
+  });
+  h+='</tbody></table>';
+  document.getElementById('e3-qs').innerHTML=h;
+}
+
+function renderE4(){
+  let h='<table><thead><tr><th>#</th><th>Definition</th><th>Word</th></tr></thead><tbody>';
+  E4_DEFS.forEach((d,i)=>{
+    h+=`<tr><td>${i+1}</td><td>${d}</td><td>${sel(E4_WORDS_LIST,'e4-'+i,'-- choose --')}</td></tr>`;
+  });
+  h+='</tbody></table>';
+  document.getElementById('e4-qs').innerHTML=h;
+}
+
+function renderE5(){
+  let h='<table><thead><tr><th style="min-width:200px;">Item</th>';
+  E5_DECADES.forEach(d=>h+=`<th style="text-align:center;color:var(--orange);font-weight:700;">${d}</th>`);
+  h+='</tr></thead><tbody>';
+  E5_DATA.forEach((d,i)=>{
+    h+=`<tr><td>${i+1}. ${d.item}</td>`;
+    E5_DECADES.forEach((_,j)=>{
+      h+=`<td style="text-align:center;"><input type="radio" name="e5-${i}" value="${j}"></td>`;
+    });
+    h+='</tr>';
+  });
+  h+='</tbody></table>';
+  document.getElementById('e5-qs').innerHTML=h;
+}
+
+function renderE6(){
+  let h='';
+  E6_DATA.forEach((d,i)=>{
+    let opts=d.words.map(w=>`<label class="opt-label"><input type="radio" name="e6-${i}" value="${w}"> ${w}</label>`).join('');
+    h+=`<div class="q-row"><span class="q-num">${i+1}.</span><div class="q-opts" style="flex-direction:row;flex-wrap:wrap;gap:12px;">${opts}</div></div>`;
+  });
+  document.getElementById('e6-qs').innerHTML=h;
+}
+
+function renderE7(){
+  let h='';
+  E7_DATA.forEach((d,i)=>{
+    const parts=d.s.split('___');
+    h+=`<div class="sentence-row">${i+1}. ${parts[0]}${sel(d.opts,'e7-'+i,'choose')}${parts[1]}</div>`;
+  });
+  document.getElementById('e7-qs').innerHTML=h;
+}
+
+function renderE8(){
+  let h='';
+  E8_DATA.forEach((d,i)=>{
+    let opts=d.opts.map(o=>`<label class="opt-label"><input type="radio" name="e8-${i}" value="${o}"> ${o}</label>`).join('');
+    h+=`<div class="q-row"><span class="q-num">${i+1}.</span><div><div>${d.s}</div><div class="q-opts">${opts}</div></div></div>`;
+  });
+  document.getElementById('e8-qs').innerHTML=h;
+}
+
+function renderE9(){
+  let h='';
+  E9_DATA.forEach((d,i)=>{
+    h+=`<div class="sentence-row">${d.q} ${inp('e9-'+i,'200px')}</div>`;
+  });
+  document.getElementById('e9-qs').innerHTML=h;
+}
+
+// ==================== SCORING ====================
+function getVal(id){const el=document.getElementById(id);return el?el.value:'';}
+function getRadio(name){const el=document.querySelector(`input[name="${name}"]:checked`);return el?el.value:'';}
+
+function scoreSelect(prefix,data,ansKey='ans'){
+  let sc=0,total=data.length,rows=[];
+  data.forEach((d,i)=>{
+    const v=getVal(prefix+i);
+    const ok=match(v,d[ansKey]);
+    if(ok)sc++;
+    rows.push({q:`${prefix}-${i+1}`,student:v||'(blank)',key:d[ansKey],ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreText(prefix,data,ansKey='ans'){
+  let sc=0,total=data.length,rows=[];
+  data.forEach((d,i)=>{
+    const v=getVal(prefix+i);
+    const ans=d[ansKey];
+    const ok=Array.isArray(ans)?matchAny(v,ans):match(v,ans);
+    if(ok)sc++;
+    rows.push({q:`${prefix}-${i+1}`,student:v||'(blank)',key:Array.isArray(ans)?ans.join(' / '):ans,ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreRadio(prefix,data,ansKey='ans'){
+  let sc=0,total=data.length,rows=[];
+  data.forEach((d,i)=>{
+    const v=getRadio(prefix+'-'+i);
+    const ok=match(v,d[ansKey]);
+    if(ok)sc++;
+    rows.push({q:`${prefix}-${i+1}`,student:v||'(blank)',key:d[ansKey],ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreA3(){
+  let sc=0,total=A3_DATA.length,rows=[];
+  A3_DATA.forEach((d,i)=>{
+    const v=getVal('a3-'+i);
+    const ok=match(v,d.ans);
+    if(ok)sc++;
+    rows.push({q:`A3-${i+1}`,student:v||'(blank)',key:d.ans,ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreA4(){
+  let sc=0,total=A4_LIST.length,rows=[];
+  A4_LIST.forEach((w,i)=>{
+    const v=getVal('a4-'+i);
+    const ok=match(v,A4_ANS[w]);
+    if(ok)sc++;
+    rows.push({q:`A4-${w}`,student:v||'(blank)',key:A4_ANS[w],ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreB5(){
+  let sc=0,total=B5_QUESTIONS.length,rows=[];
+  B5_QUESTIONS.forEach((_,i)=>{
+    const v=getVal('b5-'+i);
+    const ok=v===B5_ANS_MAP[i];
+    if(ok)sc++;
+    rows.push({q:`B5-${i+1}`,student:v||'(blank)',key:B5_ANS_MAP[i],ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreC1(){
+  let sc=0,total=C1_DEFS.length,rows=[];
+  C1_DEFS.forEach((_,i)=>{
+    const v=getVal('c1-'+i);
+    const ok=match(v,C1_ANS[i]);
+    if(ok)sc++;
+    rows.push({q:`C1-${i+1}`,student:v||'(blank)',key:C1_ANS[i],ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreC3(){
+  let sc=0,total=C3_PHRASES.length,rows=[];
+  C3_PHRASES.forEach((_,i)=>{
+    const v=getVal('c3-'+i);
+    const ok=match(v,C3_ANS[i]);
+    if(ok)sc++;
+    rows.push({q:`C3-${i+1}`,student:v||'(blank)',key:C3_ANS[i],ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreD3(){
+  let sc=0,total=D3_LEFT.length,rows=[];
+  D3_LEFT.forEach((_,i)=>{
+    const v=getVal('d3-'+i);
+    const ok=match(v,D3_ANS[i]);
+    if(ok)sc++;
+    rows.push({q:`D3-${String.fromCharCode(65+i)}`,student:v||'(blank)',key:D3_ANS[i],ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreD4(){
+  let sc=0,total=D4_DATA.length,rows=[];
+  D4_DATA.forEach((d,i)=>{
+    const v=getVal('d4-'+i);
+    const ok=match(v,d.ans);
+    if(ok)sc++;
+    rows.push({q:`D4-${i+1}`,student:v||'(blank)',key:d.ans,ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreE1(){
+  let sc=0,total=E1_DATA.length,rows=[];
+  E1_DATA.forEach((d,i)=>{
+    const v=getRadio('e1-'+i);
+    const ok=match(v,d.ans);
+    if(ok)sc++;
+    rows.push({q:`E1-${i+1}`,student:v?`${v}. ${d[v]||''}`: '(blank)',key:`${d.ans}. ${d[d.ans]}`,ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreE2(){
+  const E2_ANS={
+    1:["Macaddams"],
+    2:["Braithwate"],
+    3:["EH10 6PZ","EH106PZ"],
+    4:["Cloughborough"],
+    5:["C23 XAE","C23XAE"],
+    6:["Priscilla"],
+    7:["Whyalla"],
+    8:["Cairns"],
+    9:["BRS 329","BRS329"]
+  };
+  const labels={1:'E2-A(1) Surname',2:'E2-A(2) Street',3:'E2-A(3) Postcode',4:'E2-B(4) Road',5:'E2-B(5) Postcode',6:'E2-B(6) First name',7:'E2-C(7) Building',8:'E2-C(8) Drive',9:'E2-C(9) Postcode'};
+  let sc=0,total=0,rows=[];
+  [1,2,3,4,5,6,7,8,9].forEach(n=>{
+    total++;
+    const v=getVal('e2-'+n);
+    const ok=E2_ANS[n].some(a=>norm(v)===norm(a));
+    if(ok)sc++;
+    rows.push({q:labels[n],student:v||'(blank)',key:E2_ANS[n][0],ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreE8(){
+  let sc=0,total=E8_DATA.length,rows=[];
+  E8_DATA.forEach((d,i)=>{
+    const v=getRadio('e8-'+i);
+    const ok=match(v,d.ans);
+    if(ok)sc++;
+    rows.push({q:`E8-${i+1}`,student:v||'(blank)',key:d.ans,ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreE5(){
+  let sc=0,total=E5_DATA.length,rows=[];
+  E5_DATA.forEach((d,i)=>{
+    const v=getRadio('e5-'+i); // returns string like "3"
+    const ok=(v!==''&&parseInt(v)===d.ans);
+    if(ok)sc++;
+    rows.push({q:`E5-${i+1}`,student:v!==''?E5_DECADES[parseInt(v)]:'(blank)',key:E5_DECADES[d.ans],ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreE9(){
+  let sc=0,total=0,rows=[];
+  E9_DATA.forEach((d,i)=>{
+    if(!d.ans)return;
+    total++;
+    const v=getVal('e9-'+i);
+    const ans=d.ans;
+    const ok=Array.isArray(ans)?matchAny(v,ans):match(v,ans);
+    if(ok)sc++;
+    rows.push({q:`E9-${i+1}`,student:v||'(blank)',key:Array.isArray(ans)?ans[0]:ans,ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreE3(){
+  let sc=0,total=E3_DATA.length,rows=[];
+  E3_DATA.forEach((d,i)=>{
+    const v=getRadio('e3-'+i);
+    const ok=match(v,d.ans);
+    if(ok)sc++;
+    rows.push({q:`E3-${i+1} (${d.name})`,student:v||'(blank)',key:d.ans,ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreE4(){
+  let sc=0,total=E4_DEFS.length,rows=[];
+  E4_DEFS.forEach((_,i)=>{
+    const v=getVal('e4-'+i);
+    const ok=match(v,E4_ANS[i]);
+    if(ok)sc++;
+    rows.push({q:`E4-${i+1}`,student:v||'(blank)',key:E4_ANS[i],ok});
+  });
+  return{sc,total,rows};
+}
+
+function scoreE6(){
+  let sc=0,total=E6_DATA.length,rows=[];
+  E6_DATA.forEach((d,i)=>{
+    const v=getRadio('e6-'+i);
+    const ok=match(v,d.ans);
+    if(ok)sc++;
+    rows.push({q:`E6-${i+1}`,student:v||'(blank)',key:d.ans,ok});
+  });
+  return{sc,total,rows};
+}
+
+// ==================== SUBMIT ====================
+function submitAll(){
+  const secA_r1=scoreSelect('a1-',A1_DATA);
+  const secA_r2=scoreSelect('a2-',A2_DATA);
+  const secA_r3=scoreA3();
+  const secA_r4=scoreA4();
+  const secA_r5=scoreRadio('a5',A5_DATA);
+  const secA={sc:secA_r1.sc+secA_r2.sc+secA_r3.sc+secA_r4.sc+secA_r5.sc,total:secA_r1.total+secA_r2.total+secA_r3.total+secA_r4.total+secA_r5.total};
+  const secA_rows=[...secA_r1.rows,...secA_r2.rows,...secA_r3.rows,...secA_r4.rows,...secA_r5.rows];
+
+  const secB_r1=scoreText('b1-',B1_DATA);
+  const secB_r2=scoreText('b2-',B2_DATA);
+  const secB_r3=scoreText('b3-',B3_DATA);
+  const secB_r4=scoreText('b4-',B4_DATA);
+  const secB_r5=scoreB5();
+  const secB={sc:secB_r1.sc+secB_r2.sc+secB_r3.sc+secB_r4.sc+secB_r5.sc,total:secB_r1.total+secB_r2.total+secB_r3.total+secB_r4.total+secB_r5.total};
+  const secB_rows=[...secB_r1.rows,...secB_r2.rows,...secB_r3.rows,...secB_r4.rows,...secB_r5.rows];
+
+  const secC_r1=scoreC1();
+  const secC_r2=scoreText('c2-',C2_DATA);
+  const secC_r3=scoreC3();
+  const secC_r4=scoreText('c4-',C4_DATA);
+  const secC_r5=scoreText('c5-',C5_DATA);
+  const secC={sc:secC_r1.sc+secC_r2.sc+secC_r3.sc+secC_r4.sc+secC_r5.sc,total:secC_r1.total+secC_r2.total+secC_r3.total+secC_r4.total+secC_r5.total};
+  const secC_rows=[...secC_r1.rows,...secC_r2.rows,...secC_r3.rows,...secC_r4.rows,...secC_r5.rows];
+
+  const secD_r1=scoreSelect('d1-',D1_DATA);
+  const secD_r2=scoreText('d2-',D2_DATA);
+  const secD_r3=scoreD3();
+  const secD_r4=scoreD4();
+  const secD_r5=scoreSelect('d5-',D5_DATA);
+  const secD={sc:secD_r1.sc+secD_r2.sc+secD_r3.sc+secD_r4.sc+secD_r5.sc,total:secD_r1.total+secD_r2.total+secD_r3.total+secD_r4.total+secD_r5.total};
+  const secD_rows=[...secD_r1.rows,...secD_r2.rows,...secD_r3.rows,...secD_r4.rows,...secD_r5.rows];
+
+  const secE_r1=scoreE1();
+  const secE_r2=scoreE2();
+  const secE_r3=scoreE3();
+  const secE_r4=scoreE4();
+  const secE_r5=scoreE5();
+  const secE_r6=scoreE6();
+  const secE_r7=scoreSelect('e7-',E7_DATA);
+  const secE_r8=scoreE8();
+  const secE_r9=scoreE9();
+  const secE={sc:secE_r1.sc+secE_r2.sc+secE_r3.sc+secE_r4.sc+secE_r5.sc+secE_r6.sc+secE_r7.sc+secE_r8.sc+secE_r9.sc,total:secE_r1.total+secE_r2.total+secE_r3.total+secE_r4.total+secE_r5.total+secE_r6.total+secE_r7.total+secE_r8.total+secE_r9.total};
+  const secE_rows=[...secE_r1.rows,...secE_r2.rows,...secE_r3.rows,...secE_r4.rows,...secE_r5.rows,...secE_r6.rows,...secE_r7.rows,...secE_r8.rows,...secE_r9.rows];
+
+  const totalSc=secA.sc+secB.sc+secC.sc+secD.sc+secE.sc;
+  const totalTot=secA.total+secB.total+secC.total+secD.total+secE.total;
+
+  results.attempt=getAttemptNumber(results.studentEmail);
+  results.sectionScores={A:secA,B:secB,C:secC,D:secD,E:secE};
+  results.detailRows=[
+    ...secA_rows.map(r=>({...r,sec:'A'})),
+    ...secB_rows.map(r=>({...r,sec:'B'})),
+    ...secC_rows.map(r=>({...r,sec:'C'})),
+    ...secD_rows.map(r=>({...r,sec:'D'})),
+    ...secE_rows.map(r=>({...r,sec:'E'}))
+  ];
+
+  showResults(totalSc,totalTot);
+}
+
+function pct(sc,tot){return tot>0?Math.round(sc/tot*100):0;}
+
+function showResults(totalSc,totalTot){
+  document.getElementById('app').style.display='none';
+  document.getElementById('results-screen').style.display='block';
+  document.getElementById('results-student').innerHTML=
+    `Student: ${results.studentName} (${results.studentEmail})&nbsp;&nbsp;<span style="background:#e65100;color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:12px;letter-spacing:.5px;">${ordinal(results.attempt)} attempt</span>`;
+  document.getElementById('overall-score').textContent=`${totalSc} / ${totalTot}`;
+  document.getElementById('overall-pct').textContent=`${pct(totalSc,totalTot)}%`;
+
+  const labels={A:'A · Vocabulary',B:'B · Grammar',C:'C · Reading',D:'D · Speaking',E:'E · Listening (auto-scored)'};
+  let gridH='';
+  ['A','B','C','D','E'].forEach(s=>{
+    const r=results.sectionScores[s];
+    gridH+=`<div class="score-box"><div class="sec">${labels[s]}</div><div class="pts">${r.sc}/${r.total}</div><div class="pct">${pct(r.sc,r.total)}%</div></div>`;
+  });
+  document.getElementById('score-grid').innerHTML=gridH;
+
+  const tips={
+    A:[
+      'Vocabulary set: adjectives for describing places (crowded/remote/leafy/fashionable…) and location phrases (outskirts of / city centre / suburbs) — review which adjective fits which context.',
+      'Categorisation: consolidate the four place categories (live / buy / relax / learn) and the words that belong to each group.',
+      'Definitions: review the meanings of specific place-related nouns (cottage, pond, stream, wood, path, neighbourhood) that were tested in Exercise 5.'
+    ],
+    B:[
+      'Past simple form: review the spelling rules for regular verbs (walk→walked, plan→planned, study→studied, stop→stopped) and learn the irregular verb list for Unit 2.',
+      'Negatives and questions: practise forming past simple negatives (didn\'t + base verb) and questions (Did / Could / Was / Were + subject…).',
+      'Word order: review the standard order for past simple questions — question word + auxiliary + subject + base verb.'
+    ],
+    C:[
+      'Vocabulary in context: practise identifying synonyms and paraphrases in the passage — match words in the question to equivalent expressions in the text.',
+      'Sentence completion strategy: read the gapped sentence carefully, predict the word type (noun/adjective/verb), then scan the passage for the specific word.',
+      'Close reading: re-read the mammoth and honey badger passages and note how key words (habitat, ecosystem, population) connect ideas across paragraphs.'
+    ],
+    D:[
+      'Past tense narration: practise recounting past events using past simple — pay attention to irregular verb forms and consistent tense use throughout.',
+      'Discourse markers: review the function of each marker (basically = summary; actually = surprising correction; for a start = example; now = new topic; I mean = clarification) and practise using them naturally.',
+      'Sentence combining: review how connectors (so, but, because, or, and) change the relationship between clauses, and practise producing longer, more connected sentences.'
+    ],
+    E:[
+      'Odd-one-out vocabulary: review synonyms for increase/decrease and time-reference words (nowadays / previously) — key vocabulary for IELTS data description.',
+      'Correct/Incorrect listening: practise listening for how information is confirmed or corrected — the speaker\'s final version is always the answer.',
+      'Data language: consolidate the specific vocabulary for describing trends and quantities (amount, figure, trend, development, drop, rise) and practise using them in sentences.'
+    ]
+  };
+  const improvements=[];
+  ['A','B','C','D','E'].forEach(s=>{
+    const r=results.sectionScores[s];
+    const p=pct(r.sc,r.total);
+    if(p<70){
+      improvements.push({sec:s,p,items:tips[s]});
+    }
+  });
+  const impBlock=document.getElementById('improve-block');
+  const secLabels={A:'A · Vocabulary',B:'B · Grammar',C:'C · Reading',D:'D · Speaking',E:'E · Listening'};
+  if(improvements.length){
+    let html='';
+    improvements.forEach(({sec,p,items})=>{
+      html+=`<li style="margin-bottom:14px;"><strong>${secLabels[sec]}</strong> — ${p}%<ul style="margin-top:6px;padding-left:18px;">`;
+      items.forEach(it=>html+=`<li style="margin-bottom:4px;font-size:.88rem;">${it}</li>`);
+      html+='</ul></li>';
+    });
+    html+=`<li style="list-style:none;margin-top:14px;padding:12px 16px;background:#e8f5e9;border-left:4px solid #2e7d32;border-radius:0 8px 8px 0;font-size:.88rem;line-height:1.6;">
+      <strong>💬 Next step — discuss with your teacher:</strong> Share these results with your teacher and discuss which areas to prioritise. Your teacher can help you build a personalised action plan with specific activities and a realistic timeline suited to your current level and learning goals.
+    </li>`;
+    document.getElementById('improve-list').innerHTML=html;
+    impBlock.style.display='block';
+  } else {
+    document.getElementById('improve-list').innerHTML=`<li style="list-style:none;color:#2e7d32;font-weight:600;">🟢 Strong performance across all sections! Keep practising regularly to consolidate your level.</li>
+    <li style="list-style:none;margin-top:10px;padding:12px 16px;background:#e8f5e9;border-left:4px solid #2e7d32;border-radius:0 8px 8px 0;font-size:.88rem;line-height:1.6;">
+      <strong>💬 Next step — discuss with your teacher:</strong> Share these results with your teacher to confirm your strengths and agree on the most effective next steps for your learning journey.
+    </li>`;
+    impBlock.style.display='block';
+  }
+}
+
+// ==================== EXCEL ====================
+function exportPDF(){
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+  const W=doc.internal.pageSize.getWidth();
+  const M=14;
+  const sc=results.sectionScores;
+  const totalSc=sc.A.sc+sc.B.sc+sc.C.sc+sc.D.sc+sc.E.sc;
+  const totalTot=sc.A.total+sc.B.total+sc.C.total+sc.D.total+sc.E.total;
+
+  // Header
+  doc.setFillColor(21,101,192);
+  doc.rect(0,0,W,26,'F');
+  doc.setTextColor(180,210,255);
+  doc.setFontSize(7);
+  doc.setFont('helvetica','normal');
+  doc.text('HUONG STELLA PARADIGM',W/2,8,{align:'center'});
+  doc.setTextColor(255,255,255);
+  doc.setFontSize(14);
+  doc.setFont('helvetica','bold');
+  doc.text('Pre-IELTS – Unit 2 Results',W/2,19,{align:'center'});
+
+  let y=34;
+
+  // Info box
+  doc.setFillColor(235,244,255);
+  doc.roundedRect(M,y,W-M*2,24,2,2,'F');
+  doc.setTextColor(80,80,80);
+  doc.setFontSize(9);
+  const infoL=M+5,infoR=W/2+5;
+  doc.setFont('helvetica','bold');doc.text('Student:',infoL,y+8);
+  doc.setFont('helvetica','normal');doc.text(results.studentName,infoL+22,y+8);
+  doc.setFont('helvetica','bold');doc.text('Email:',infoL,y+16);
+  doc.setFont('helvetica','normal');doc.text(results.studentEmail,infoL+22,y+16);
+  doc.setFont('helvetica','bold');doc.text('Date:',infoR,y+8);
+  doc.setFont('helvetica','normal');doc.text(new Date().toLocaleDateString(),infoR+14,y+8);
+  doc.setFont('helvetica','bold');doc.text('Attempt:',infoR,y+16);
+  doc.setFont('helvetica','normal');doc.text(ordinal(results.attempt),infoR+22,y+16);
+  y+=30;
+
+  // Summary
+  doc.setFontSize(10);doc.setFont('helvetica','bold');doc.setTextColor(21,101,192);
+  doc.text('Score Summary',M,y);y+=4;
+
+  const secRows=[
+    ['A · Vocabulary',sc.A.sc,sc.A.total,pct(sc.A.sc,sc.A.total)+'%'],
+    ['B · Grammar',sc.B.sc,sc.B.total,pct(sc.B.sc,sc.B.total)+'%'],
+    ['C · Reading',sc.C.sc,sc.C.total,pct(sc.C.sc,sc.C.total)+'%'],
+    ['D · Speaking',sc.D.sc,sc.D.total,pct(sc.D.sc,sc.D.total)+'%'],
+    ['E · Listening',sc.E.sc,sc.E.total,pct(sc.E.sc,sc.E.total)+'%'],
+    ['TOTAL',totalSc,totalTot,pct(totalSc,totalTot)+'%']
+  ];
+
+  doc.autoTable({
+    startY:y,
+    head:[['Section','Score','Total','Percentage']],
+    body:secRows,
+    headStyles:{fillColor:[21,101,192],textColor:255,fontStyle:'bold',fontSize:9},
+    bodyStyles:{fontSize:9},
+    alternateRowStyles:{fillColor:[240,248,255]},
+    columnStyles:{0:{cellWidth:95},1:{halign:'center',cellWidth:22},2:{halign:'center',cellWidth:22},3:{halign:'center',cellWidth:30}},
+    didParseCell:(d)=>{
+      if(d.section==='body'&&d.row.index===secRows.length-1){
+        d.cell.styles.fontStyle='bold';
+        d.cell.styles.fillColor=[210,232,255];
+      }
+    },
+    margin:{left:M,right:M}
+  });
+  y=doc.lastAutoTable.finalY+10;
+
+  // Detailed
+  doc.setFontSize(10);doc.setFont('helvetica','bold');doc.setTextColor(21,101,192);
+  doc.text('Detailed Answer Review',M,y);y+=4;
+
+  // Group by section
+  const secNames={A:'A · Vocabulary',B:'B · Grammar',C:'C · Reading',D:'D · Speaking',E:'E · Listening'};
+  const grouped={};
+  (results.detailRows||[]).forEach(r=>{
+    const s=r.sec||'?';
+    if(!grouped[s])grouped[s]=[];
+    grouped[s].push(r);
+  });
+
+  const det=[];
+  Object.keys(grouped).sort().forEach(s=>{
+    det.push([{content:secNames[s]||s,colSpan:4,styles:{fillColor:[21,101,192],textColor:255,fontStyle:'bold',fontSize:8}}]);
+    grouped[s].forEach(r=>{
+      det.push([r.q,r.student||'(blank)',r.key||'',r.ok?'OK':'X']);
+    });
+  });
+
+  doc.autoTable({
+    startY:y,
+    head:[['Question','Your Answer','Correct Answer','']],
+    body:det,
+    headStyles:{fillColor:[21,101,192],textColor:255,fontStyle:'bold',fontSize:8},
+    bodyStyles:{fontSize:8},
+    columnStyles:{0:{cellWidth:38},1:{cellWidth:62},2:{cellWidth:62},3:{cellWidth:12,halign:'center'}},
+    didParseCell:(d)=>{
+      if(d.section==='body'&&d.column.index===3&&d.cell.raw&&!d.cell.colSpan){
+        d.cell.styles.fontStyle='bold';
+        d.cell.styles.textColor=255;
+        d.cell.styles.fillColor=d.cell.raw==='OK'?[46,125,50]:[198,40,40];
+      }
+    },
+    margin:{left:M,right:M}
+  });
+
+  // Page numbers
+  const pages=doc.internal.getNumberOfPages();
+  for(let i=1;i<=pages;i++){
+    doc.setPage(i);
+    doc.setFontSize(7);doc.setTextColor(160,160,160);doc.setFont('helvetica','normal');
+    doc.text(`Page ${i} of ${pages}`,W/2,doc.internal.pageSize.getHeight()-6,{align:'center'});
+  }
+
+  doc.save(`PreIELTS_Unit2_${results.studentName.replace(/\s+/g,'_')}_attempt${results.attempt}.pdf`);
+}
+
+// ==================== EMAIL ====================
+function sendEmail(){
+  const sc=results.sectionScores;
+  const totalSc=sc.A.sc+sc.B.sc+sc.C.sc+sc.D.sc+sc.E.sc;
+  const totalTot=sc.A.total+sc.B.total+sc.C.total+sc.D.total+sc.E.total;
+  const subject=encodeURIComponent(`Pre-IELTS Unit 2 Results – ${results.studentName}`);
+  let body=`Pre-IELTS Unit 2: Places and Buildings\nStudent: ${results.studentName}\nEmail: ${results.studentEmail}\nDate: ${new Date().toLocaleDateString()}\n\n`;
+  body+=`OVERALL: ${totalSc}/${totalTot} (${pct(totalSc,totalTot)}%)\n\n`;
+  ['A','B','C','D','E'].forEach(s=>{
+    body+=`Section ${s}: ${sc[s].sc}/${sc[s].total} (${pct(sc[s].sc,sc[s].total)}%)\n`;
+  });
+  body+='\n--- DETAILED ANSWERS ---\n';
+  results.detailRows.forEach(r=>{
+    body+=`[${r.sec}] ${r.q}: "${r.student}" → Key: "${r.key}" ${r.ok?'✔':'✘'}\n`;
+  });
+  window.location.href=`mailto:huongstella8@gmail.com?subject=${subject}&body=${encodeURIComponent(body)}`;
+}
+
+// ==================== SPEAKING RECORDER ====================
+let mediaRecorder=null,audioChunks=[],recordingStream=null;
+function toggleRecord(){
+  if(mediaRecorder&&mediaRecorder.state==='recording'){stopRecord();return;}
+  navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+    recordingStream=stream;
+    mediaRecorder=new MediaRecorder(stream);
+    audioChunks=[];
+    mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);
+    mediaRecorder.onstop=()=>{
+      const blob=new Blob(audioChunks,{type:'audio/webm'});
+      const url=URL.createObjectURL(blob);
+      const pb=document.getElementById('d6-playback');
+      pb.innerHTML=`<p style="font-size:.85rem;margin-bottom:4px;color:var(--grey);">Your recording:</p><audio controls src="${url}" style="width:100%;display:block;margin-bottom:8px;"></audio><a href="${url}" download="IELTS_Speaking_Unit2.webm" style="font-size:.85rem;color:var(--blue);text-decoration:underline;">⬇ Download recording</a>`;
+      document.getElementById('d6-rec-btn').textContent='⏺ Record Again';
+      document.getElementById('d6-rec-btn').className='speak-btn';
+      document.getElementById('d6-stop-btn').style.display='none';
+    };
+    mediaRecorder.start();
+    document.getElementById('d6-rec-btn').textContent='🔴 Recording…';
+    document.getElementById('d6-rec-btn').className='speak-btn rec-on';
+    document.getElementById('d6-stop-btn').style.display='inline-block';
+  }).catch(()=>{alert('Microphone access denied. Please allow microphone access to record.');});
+}
+function stopRecord(){
+  if(mediaRecorder&&mediaRecorder.state==='recording'){
+    mediaRecorder.stop();
+    if(recordingStream)recordingStream.getTracks().forEach(t=>t.stop());
+  }
+}
+
+// ==================== UI ====================
+function startApp(){
+  const name=document.getElementById('inp-name').value.trim();
+  const email=document.getElementById('inp-email').value.trim();
+  if(!name||!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+    document.getElementById('login-err').style.display='block';return;
+  }
+  results.studentName=name;
+  results.studentEmail=email;
+  document.getElementById('header-name').textContent=name;
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app').style.display='block';
+  renderAll();
+  updateProgress();
+}
+
+function showTab(t){
+  document.querySelectorAll('.section-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+t).classList.add('active');
+  document.querySelectorAll('.tab').forEach(b=>{if(b.textContent.toLowerCase().startsWith(t))b.classList.add('active');});
+  updateProgress();
+}
+
+function updateProgress(){
+  const allInputs=document.querySelectorAll('#app input[type=text],#app select,#app input[type=radio]:checked,#app input[type=checkbox]:checked');
+  const filled=document.querySelectorAll('#app select:not([value=""]):not([value="-- choose --"]):not([value="-- category --"]):not([value="-- A-G --"]):not([value="-- choose ending --"]):not([value="-- choose description --"]):not([value="-- choose --"])');
+  const textInputs=document.querySelectorAll('#app input[type=text]');
+  let count=0;
+  textInputs.forEach(i=>{if(i.value.trim())count++;});
+  document.querySelectorAll('#app select').forEach(s=>{if(s.value&&s.value.trim()&&!s.value.startsWith('--')&&s.value!=='')count++;});
+  document.querySelectorAll('#app input[type=radio]:checked').forEach(()=>count++);
+  const approxTotal=200;
+  const pctVal=Math.min(100,Math.round(count/approxTotal*100));
+  document.getElementById('progress-fill').style.width=pctVal+'%';
+}
+
+document.addEventListener('change',updateProgress);
+document.addEventListener('input',updateProgress);
+</script>
+</body>
+</html>
