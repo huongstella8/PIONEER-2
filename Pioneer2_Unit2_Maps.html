@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIONEER 2 | Unit 2 · IELTS Writing Task 1: Maps</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--th:#1e8e5a;--ink:#1c2733;--muted:#5c6b7a;--bg:#f4f6f9;--card:#fff;--line:#dde4ec;--good:#1e8e5a;--bad:#c0392b;--accent:#0f3554;--gold:#c9962e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+header.main{background:linear-gradient(120deg,#0f3554,#1e8e5a);color:#fff;padding:24px 22px 18px}
+header.main h1{font-size:1.35rem}
+header.main .sub{opacity:.92;font-size:.93rem;margin-top:4px}
+.hdrinputs{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.hdrinputs label{font-size:.85rem;opacity:.9}
+.hdrinputs input{border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.14);color:#fff;border-radius:8px;padding:6px 12px;font-size:.9rem;min-width:200px}
+.hdrinputs input::placeholder{color:rgba(255,255,255,.65)}
+nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:2px solid var(--line);display:flex;flex-wrap:wrap;gap:2px;padding:6px 10px}
+nav button{border:0;background:transparent;padding:9px 11px;font-size:.87rem;font-weight:600;color:var(--muted);cursor:pointer;border-radius:8px 8px 0 0;border-bottom:3px solid transparent}
+nav button:hover{background:#eef3f8}
+nav button.active{color:var(--th);border-bottom-color:var(--th);background:#eef3f8}
+main{max-width:980px;margin:0 auto;padding:22px 16px 90px}
+section.tab{display:none}section.tab.active{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:18px;box-shadow:0 1px 3px rgba(20,40,60,.06)}
+.card h2{font-size:1.15rem;color:var(--accent);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--line)}
+.card h3{font-size:1rem;margin:14px 0 6px}
+p{margin:6px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem}
+th{background:#eef3f8;text-align:left;color:var(--accent)}
+th,td{border:1px solid var(--line);padding:7px 10px;vertical-align:top}
+.ex{background:#f6f9ee;border-left:4px solid #93b544;padding:8px 12px;border-radius:0 8px 8px 0;margin:8px 0;font-size:.93rem}
+.warn{background:#fdf1ef;border-left:4px solid var(--bad);padding:8px 12px;border-radius:0 8px 8px 0;margin:8px 0;font-size:.93rem}
+.tip{background:#eef6fd;border-left:4px solid #1f6fb2;padding:8px 12px;border-radius:0 8px 8px 0;margin:8px 0;font-size:.93rem}
+.exercise{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:16px}
+.exercise h3{font-size:1rem;color:var(--accent);margin-bottom:2px}
+.exercise .why{font-size:.85rem;color:var(--muted);margin-bottom:10px}
+.qrow{margin:8px 0;font-size:.94rem}
+.qrow .qno{font-weight:700;color:var(--accent);margin-right:4px}
+input.ans{border:1px solid #b8c4d0;border-radius:6px;padding:4px 8px;font-size:.92rem;min-width:150px}
+input.ans.wide{min-width:92%;width:92%;margin-top:4px}
+select.ans{border:1px solid #b8c4d0;border-radius:6px;padding:4px 6px;font-size:.92rem;background:#fff;max-width:100%}
+.rgroup label{margin-right:14px;cursor:pointer}
+.ok{outline:2px solid var(--good)!important;background:#eafaf2!important}
+.no{outline:2px solid var(--bad)!important;background:#fdf0ee!important}
+.rgroup.ok{outline:none!important;background:transparent!important}
+.rgroup.ok label.correct{color:var(--good);font-weight:700}
+.rgroup.no{outline:none!important;background:transparent!important}
+.rgroup.no label.chosen{color:var(--bad);font-weight:700;text-decoration:line-through}
+.rgroup.no label.correct{color:var(--good);font-weight:700}
+.checkbtn{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:8px 18px;font-size:.9rem;font-weight:600;cursor:pointer;margin-top:10px}
+.checkbtn:hover{filter:brightness(1.15)}
+.exscore{display:inline-block;margin-left:10px;font-weight:700}
+.explain{display:none;margin-top:12px;background:#fbf7ec;border:1px solid #e4d5ac;border-radius:8px;padding:12px 14px;font-size:.9rem}
+.explain.show{display:block}
+.explain b.ttl{color:var(--gold);display:block;margin-bottom:4px}
+.selfitem{border:1px dashed #b8c4d0;border-radius:10px;padding:12px 14px;margin:12px 0}
+.selfitem .vn{color:var(--accent);font-weight:600;font-size:.95rem}
+.selfitem textarea{width:100%;min-height:52px;margin-top:8px;border:1px solid #b8c4d0;border-radius:8px;padding:8px 10px;font-size:.92rem;font-family:inherit}
+.suggest{display:none;margin-top:8px;background:#eafaf2;border:1px solid #9fd8bc;border-radius:8px;padding:9px 12px;font-size:.9rem}
+.suggest.show{display:block}
+.suggest b{color:var(--good)}
+.revealbtn{background:#5c6b7a;color:#fff;border:0;border-radius:7px;padding:5px 13px;font-size:.83rem;cursor:pointer;margin-top:8px}
+.selfmark{margin-top:8px;font-size:.88rem;display:none}
+.selfmark.show{display:block}
+.selfmark label{margin-right:12px;cursor:pointer}
+.revealbtn:disabled{opacity:.45;cursor:not-allowed}
+.lockhint{font-size:.78rem;color:var(--muted);margin-left:8px}
+.crit{display:block;margin:4px 0 4px 2px;font-size:.88rem;cursor:pointer}
+.crit input{margin-right:6px}
+.crit.auto{background:#eafaf2;border-radius:5px}
+.errrow{margin-top:9px;font-size:.88rem}
+.submitbar{position:fixed;bottom:0;left:0;right:0;background:#0f3554;color:#fff;padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;z-index:60}
+.submitbar .stat{font-size:.86rem;opacity:.9}
+#submitAll{background:var(--gold);color:#211;border:0;border-radius:8px;padding:10px 20px;font-weight:700;font-size:.93rem;cursor:pointer}
+#glosearch{width:100%;padding:10px 14px;border:2px solid var(--line);border-radius:10px;font-size:1rem;margin-bottom:12px}
+.gterm{font-weight:700;color:var(--accent)}
+#reportModal{display:none;position:fixed;inset:0;background:rgba(10,25,40,.55);z-index:100;overflow:auto;padding:30px 12px}
+#reportModal.show{display:block}
+#reportCard{max-width:760px;margin:0 auto;background:#fff;border-radius:14px;padding:26px 30px}
+#reportCard h2{color:var(--accent);border-bottom:3px solid var(--gold);padding-bottom:8px}
+.scorebar{height:13px;background:#e7ecf2;border-radius:7px;overflow:hidden;margin:4px 0 2px}
+.scorebar>div{height:100%;border-radius:7px}
+.repsec{margin:13px 0;padding:12px 14px;border:1px solid var(--line);border-radius:10px}
+.overallbig{font-size:1.9rem;font-weight:800;color:var(--accent)}
+.modelanswer{background:#f8f9fb;border:1px dashed #b8c4d0;border-radius:10px;padding:14px 16px;font-size:.92rem;margin:10px 0}
+.hl-intro{background:#d9ecff}.hl-ov{background:#ffe9c9}.hl-body{background:#ddf3e4}
+footer{margin-top:30px;text-align:center;color:var(--muted);font-size:.85rem}
+@media(max-width:640px){nav button{padding:8px 7px;font-size:.78rem}.card{padding:14px}}
+@media print{nav,.submitbar,.checkbtn,#submitAll{display:none!important}}
+</style>
+</head>
+<body>
+<div style="background:#081f33;color:#9fb6cc;font-size:.74rem;text-align:center;padding:5px 8px;letter-spacing:2.5px;text-transform:uppercase">Huong Stella Paradigm</div>
+<header class="main">
+  <h1>PIONEER 2 | Unit 2 · IELTS Writing Task 1: Maps</h1>
+  <div class="sub">Location &amp; prepositions · Past simple · Passive voice · "By + date" · Change verbs &amp; synonyms · Model answers · Translation practice</div>
+  <div class="hdrinputs">
+    <label>&#128100; Name: <input id="stuName" type="text" placeholder="enter your name…"></label>
+    <label>&#9993; Email: <input id="stuEmail" type="email" placeholder="enter your email…"></label>
+  </div>
+</header>
+
+<nav id="topnav">
+  <button data-tab="ov" class="active">&#127968; Overview</button>
+  <button data-tab="loc">1 &#128205; Location</button>
+  <button data-tab="past">2 &#9200; Past simple</button>
+  <button data-tab="pass">3 &#128260; Passive</button>
+  <button data-tab="pperf">4 &#128337; By + date</button>
+  <button data-tab="vocab">5 &#128218; Change verbs</button>
+  <button data-tab="model">6 &#128221; Models</button>
+  <button data-tab="ta">7 &#127919; Task Achievement</button>
+  <button data-tab="trans">8 &#127760; Translation</button>
+  <button data-tab="glossary">&#128269; Glossary</button>
+</nav>
+
+<main>
+
+<!-- ============ OVERVIEW ============ -->
+<section class="tab active" id="tab-ov">
+<div class="card">
+  <h2>What you will learn in this unit</h2>
+  <p>This module covers the essentials of map tasks. You will learn to <b>describe changes over time as shown on a map</b>, use <b>prepositions</b> to explain location, and use <b>past tense verb forms (active and passive)</b> to describe change — the essential skills every map answer must demonstrate without errors.</p>
+  <table>
+    <tr><th style="width:22%"></th><th>ONE map</th><th>TWO maps (most common)</th></tr>
+    <tr><td><b>You describe</b></td><td>where the main features are (layout, zones)</td><td>the main <b>changes</b> between the dates + what stayed the same</td></tr>
+    <tr><td><b>Key grammar</b></td><td>present simple, prepositions of place</td><td>past simple <b>passive</b> (+past perfect for "by + date")</td></tr>
+  </table>
+  <h3>The 4-paragraph plan</h3>
+  <table>
+    <tr><th>¶</th><th>Content</th><th>Example</th></tr>
+    <tr><td><b>1 Introduction</b></td><td>paraphrase: what, where, when</td><td><i>The maps show the changes which took place in Youngsville between 1990 and 2010.</i></td></tr>
+    <tr><td><b>2 Overview</b></td><td>the biggest general trend, no details</td><td><i>Overall, the town changed from a largely rural to a mainly urban landscape.</i></td></tr>
+    <tr><td><b>3 Body A</b></td><td>one half of the map (e.g. south of the river)</td><td><i>South of the river, all the trees were cut down…</i></td></tr>
+    <tr><td><b>4 Body B</b></td><td>the other half + what remained</td><td><i>North of the river, the woodland was cleared to make way for a park…</i></td></tr>
+  </table>
+  <div class="tip"><b>&#127919; Examiner insight:</b> there are three important parts in every answer — an <b>introductory sentence</b>, an <b>overview</b>, and body paragraphs describing what the maps show. A missing overview severely limits your Task Achievement score.</div>
+  <div class="tip"><b>&#128204; Method:</b> ① number the changes on the second map → ② divide the town into two logical halves (north/south, east/west, or by a river/railway) → ③ describe each half in order (e.g. west → east) → ④ note what did NOT change.</div>
+  <p>Work through the tabs in order — each tab is one grammar or vocabulary point with its theory and exercises. Finish with the Task Achievement and translation practice, then press <b>Submit All</b> for your scored PDF report and email it to your teacher at <b>huongstella8@gmail.com</b>.</p>
+</div>
+</section>
+
+<!-- ============ 1 LOCATION ============ -->
+<section class="tab" id="tab-loc">
+<div class="card">
+  <h2>Grammar point 1 · Prepositions &amp; the language of location</h2>
+  <h3>The golden IN vs TO rule</h3>
+  <table>
+    <tr><th>Pattern</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td><b>in the north of…</b></td><td>INSIDE the area</td><td><i>The airport is <b>in the south-west of</b> the town. Phu My Hung is <b>in the south of</b> HCM city.</i></td></tr>
+    <tr><td><b>to the north of… / north of…</b></td><td>OUTSIDE the area, or relative to another feature</td><td><i>China is <b>to the north of</b> Vietnam. Only a few trees <b>(to the) north of</b> the river remained.</i></td></tr>
+  </table>
+  <h3>Prepositions of place</h3>
+  <p><i>be located/situated in · opposite / on the opposite side of · across from · next to / beside · between … and … · along · on the banks of (river) · on the shores of (lake) · by the sea · just off the coastline · in the top right-hand corner · in the middle of · surrounded by · run from … to …</i></p>
+  <div class="warn"><b>&#9888;</b> Don't say "the left/right side <b>of the town</b>" — compass points only (<i>in the north-east of the town</i>). "On the left of <b>the map</b>" is acceptable.</div>
+</div>
+
+<div class="exercise" data-sec="loc" id="ex-loc-1">
+  <h3>Exercise 1.1 · Campus prepositions (Sunnyhills 1995)</h3>
+  <div class="why">Complete with: between · in · next to · of · of · on · opposite · to</div>
+  <div class="qrow"><span class="qno">1.</span> The tennis courts were <select class="ans" data-a="next to"><option value=""></option><option>next to</option><option>between</option><option>of</option></select> the football pitch.</div>
+  <div class="qrow"><span class="qno">2.</span> The Founder's Building was in the middle <select class="ans" data-a="of"><option value=""></option><option>of</option><option>on</option><option>to</option></select> the campus.</div>
+  <div class="qrow"><span class="qno">3.</span> The Scott Library was <select class="ans" data-a="between"><option value=""></option><option>between</option><option>opposite</option><option>next to</option></select> the halls of residence and the football pitch.</div>
+  <div class="qrow"><span class="qno">4.</span> The cafe was <select class="ans" data-a="opposite"><option value=""></option><option>opposite</option><option>of</option><option>in</option></select> the football pitch.</div>
+  <div class="qrow"><span class="qno">5.</span> There were two car parks <select class="ans" data-a="on"><option value=""></option><option>on</option><option>in</option><option>at</option></select> the campus.</div>
+  <div class="qrow"><span class="qno">6.</span> The gym was <select class="ans" data-a="in"><option value=""></option><option>in</option><option>on</option><option>at</option></select> the bottom right-hand corner of the campus.</div>
+  <div class="qrow"><span class="qno">7.</span> The Watson Building was <select class="ans" data-a="to"><option value=""></option><option>to</option><option>in</option><option>on</option></select> the left of the Founder's Building.</div>
+  <div class="qrow"><span class="qno">8.</span> The main reception was part <select class="ans" data-a="of"><option value=""></option><option>of</option><option>in</option><option>on</option></select> the Watson Building.</div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>Fixed patterns: <i>next to + noun, in the middle of, between A and B, opposite + noun (no "of"), on the campus, in the corner, to the left of, part of</i>. <b>Improve:</b> learn these as whole chunks; prepositions are marked in Grammatical Accuracy and appear in every single map answer.</div>
+</div>
+
+<div class="exercise" data-sec="loc" id="ex-loc-2">
+  <h3>Exercise 1.2 · IN vs TO</h3>
+  <div class="why">Type <b>in</b>, <b>to</b>, or <b>×</b> (nothing needed). Rule: in = inside; to = outside/relative.</div>
+  <div class="qrow"><span class="qno">1.</span> The airport is <input class="ans" data-a="in" style="min-width:60px"> the south-west of the town.</div>
+  <div class="qrow"><span class="qno">2.</span> China is <input class="ans" data-a="to" style="min-width:60px"> the north of Vietnam.</div>
+  <div class="qrow"><span class="qno">3.</span> Cambodia is <input class="ans" data-a="to" style="min-width:60px"> the west of Vietnam.</div>
+  <div class="qrow"><span class="qno">4.</span> Florida is <input class="ans" data-a="in" style="min-width:60px"> the south-east of the United States.</div>
+  <div class="qrow"><span class="qno">5.</span> The golf course is <input class="ans" data-a="to|×|x" style="min-width:60px"> the north-west of the lake. <i>(2 answers possible — give one)</i></div>
+  <div class="qrow"><span class="qno">6.</span> The entrance was moved <input class="ans" data-a="to" style="min-width:60px"> the south-west of the building.</div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>Airport/Florida are <b>inside</b> the area → <i>in</i>. China/Cambodia are <b>outside</b> Vietnam → <i>to</i>. Relative to another map feature (lake) → <i>to the … of</i> or bare <i>… of</i>. <b>Improve:</b> before writing, decide for every feature: inside the whole area (in) or relative to a landmark (to/×)?</div>
+</div>
+
+<div class="exercise" data-sec="loc" id="ex-loc-3">
+  <h3>Exercise 1.3 · Prepositions in change sentences (Northgate)</h3>
+  <div class="why">Choose the correct preposition — these sentences combine location + change, exactly like your real answer.</div>
+  <div class="qrow"><span class="qno">1.</span> Several changes took place <select class="ans" data-a="in"><option value=""></option><option>at</option><option>in</option><option>on</option></select> the town of Northgate.</div>
+  <div class="qrow"><span class="qno">2.</span> North of the town, there is a lake surrounded <select class="ans" data-a="by"><option value=""></option><option>in</option><option>of</option><option>by</option></select> trees.</div>
+  <div class="qrow"><span class="qno">3.</span> A number of new houses were built <select class="ans" data-a="beside"><option value=""></option><option>beside</option><option>at</option><option>on</option></select> the railway line.</div>
+  <div class="qrow"><span class="qno">4.</span> There was a large industrial area located <select class="ans" data-a="in"><option value=""></option><option>on</option><option>in</option><option>at</option></select> the north.</div>
+  <div class="qrow"><span class="qno">5.</span> A new railway was constructed which ran <select class="ans" data-a="from"><option value=""></option><option>from</option><option>at</option><option>in</option></select> north to south.</div>
+  <div class="qrow"><span class="qno">6.</span> Two new hotels were erected <select class="ans" data-a="on"><option value=""></option><option>on</option><option>in</option><option>at</option></select> the banks of the river.</div>
+  <div class="qrow"><span class="qno">7.</span> A large number of new villas were built <select class="ans" data-a="by"><option value=""></option><option>beside</option><option>at</option><option>by</option></select> the sea.</div>
+  <div class="qrow"><span class="qno">8.</span> A yachting club was set up <select class="ans" data-a="on"><option value=""></option><option>on</option><option>in</option><option>at</option></select> the shores of the lake.</div>
+  <div class="qrow"><span class="qno">9.</span> Wind turbines were placed in the sea, just <select class="ans" data-a="off"><option value=""></option><option>off</option><option>on</option><option>to</option></select> the coastline.</div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>Chunks to record: <i>in the town · surrounded by · beside/next to the railway line · in the north · ran from north to south · on the banks of · by the sea · on the shores of · just off the coastline</i>. <b>Improve:</b> choose five of these prepositional phrases and write one sentence of your own with each — production, not recognition, is what the exam tests.</div>
+</div>
+</section>
+
+<!-- ============ 2 PAST SIMPLE ============ -->
+<section class="tab" id="tab-past">
+<div class="card">
+  <h2>Grammar point 2 · Past simple — regular and irregular</h2>
+  <p>When both maps are in the past (or past → today), the changes are described mainly in the <b>past simple</b>. Regular verbs add -ed (<i>expanded, increased, created, developed, moved, changed</i>); irregular verbs must be memorised (<i>made, built, was/were, became, cut, dug, caught, underwent</i>).</p>
+</div>
+
+<div class="exercise" data-sec="past" id="ex-past-1">
+  <h3>Exercise 2.1 · Past forms</h3>
+  <div class="why">Put the verb in brackets into the past simple.</div>
+  <div class="qrow"><span class="qno">1.</span> They <input class="ans" data-a="cut"> (cut) down trees to build the halls of residence.</div>
+  <div class="qrow"><span class="qno">2.</span> The old cafe <input class="ans" data-a="became"> (become) the new library.</div>
+  <div class="qrow"><span class="qno">3.</span> In 1995 students <input class="ans" data-a="caught"> (catch) the bus outside the Students' Union.</div>
+  <div class="qrow"><span class="qno">4.</span> The university <input class="ans" data-a="needed"> (need) laboratories.</div>
+  <div class="qrow"><span class="qno">5.</span> They <input class="ans" data-a="put"> (put) table tennis tables in front of the Scott Library.</div>
+  <div class="qrow"><span class="qno">6.</span> There <input class="ans" data-a="were|was"> (be) not enough halls of residence in 1995.</div>
+  <div class="qrow"><span class="qno">7.</span> They <input class="ans" data-a="dug"> (dig) a pond in the recreation area.</div>
+  <div class="qrow"><span class="qno">8.</span> They <input class="ans" data-a="planted"> (plant) lots of new trees.</div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>Irregular: cut→cut, become→became, catch→caught, put→put, be→was/were, dig→dug. Regular: needed, planted. <b>Improve:</b> learn map verbs in threes: <i>build–built–built, undergo–underwent–undergone, spring up–sprang up–sprung up</i> — the participle is what you need for the passive (point 3).</div>
+</div>
+
+<div class="exercise" data-sec="past" id="ex-past-2">
+  <h3>Exercise 2.2 · Find the irregulars</h3>
+  <div class="why">These past forms come from the Sunnyhills model answer. Regular or irregular?</div>
+  <div class="qrow"><span class="qno">1.</span> made <span class="rgroup ans" data-a="irregular"><label><input type="radio" name="p2a" value="regular"> regular</label><label><input type="radio" name="p2a" value="irregular"> irregular</label></span></div>
+  <div class="qrow"><span class="qno">2.</span> expanded <span class="rgroup ans" data-a="regular"><label><input type="radio" name="p2b" value="regular"> regular</label><label><input type="radio" name="p2b" value="irregular"> irregular</label></span></div>
+  <div class="qrow"><span class="qno">3.</span> built <span class="rgroup ans" data-a="irregular"><label><input type="radio" name="p2c" value="regular"> regular</label><label><input type="radio" name="p2c" value="irregular"> irregular</label></span></div>
+  <div class="qrow"><span class="qno">4.</span> increased <span class="rgroup ans" data-a="regular"><label><input type="radio" name="p2d" value="regular"> regular</label><label><input type="radio" name="p2d" value="irregular"> irregular</label></span></div>
+  <div class="qrow"><span class="qno">5.</span> was <span class="rgroup ans" data-a="irregular"><label><input type="radio" name="p2e" value="regular"> regular</label><label><input type="radio" name="p2e" value="irregular"> irregular</label></span></div>
+  <div class="qrow"><span class="qno">6.</span> created <span class="rgroup ans" data-a="regular"><label><input type="radio" name="p2f" value="regular"> regular</label><label><input type="radio" name="p2f" value="irregular"> irregular</label></span></div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>Irregular: make→made, build→built, be→was. Regular (-ed): expanded, increased, created (+changed, developed, moved). <b>Improve:</b> a wrong irregular form (e.g. "builded") is an instant accuracy error — proof-read every past form in your final minute.</div>
+</div>
+</section>
+
+<!-- ============ 3 PASSIVE ============ -->
+<section class="tab" id="tab-pass">
+<div class="card">
+  <h2>Grammar point 3 · Past simple passive — the map tense</h2>
+  <p>We usually don't know <i>who</i> changed the town, so the passive is the natural voice: <b>was/were + past participle</b>.</p>
+  <div class="ex"><b>Compare</b><i>The university <b>developed</b> the campus.</i> (active — subject does the action)<br><i>New halls of residence <b>were built</b>.</i> (passive — subject receives the action)</div>
+  <div class="warn"><b>&#9888; Never passive:</b> <i>take place, become, change (of a place), make way for, appear, disappear, remain</i>. Say <i>A number of changes <b>took place</b></i> — never "were taken place".</div>
+</div>
+
+<div class="exercise" data-sec="pass" id="ex-pass-1">
+  <h3>Exercise 3.1 · Active or passive?</h3>
+  <div class="why">Identify the voice of each sentence.</div>
+  <div class="qrow"><span class="qno">1.</span> The library was relocated to the right of the Founder's Building. <span class="rgroup ans" data-a="passive"><label><input type="radio" name="ps1a" value="active"> active</label><label><input type="radio" name="ps1a" value="passive"> passive</label></span></div>
+  <div class="qrow"><span class="qno">2.</span> They also built two new cafés. <span class="rgroup ans" data-a="active"><label><input type="radio" name="ps1b" value="active"> active</label><label><input type="radio" name="ps1b" value="passive"> passive</label></span></div>
+  <div class="qrow"><span class="qno">3.</span> The university created a new recreation area. <span class="rgroup ans" data-a="active"><label><input type="radio" name="ps1c" value="active"> active</label><label><input type="radio" name="ps1c" value="passive"> passive</label></span></div>
+  <div class="qrow"><span class="qno">4.</span> The old gym and tennis courts were demolished. <span class="rgroup ans" data-a="passive"><label><input type="radio" name="ps1d" value="active"> active</label><label><input type="radio" name="ps1d" value="passive"> passive</label></span></div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>Passive = <b>be + past participle</b> (<i>was relocated, were demolished</i>). <b>Improve:</b> aim for mostly passive in your answer with some active for variety — that mix is grammatical range.</div>
+</div>
+
+<div class="exercise" data-sec="pass" id="ex-pass-2">
+  <h3>Exercise 3.2 · Transform active → passive</h3>
+  <div class="why">Rewrite in the passive, starting with the object. "By…" may be omitted.</div>
+  <div class="qrow"><span class="qno">1.</span> The university expanded the campus.<br><input class="ans wide" data-a="the campus was expanded|the campus was expanded by the university"></div>
+  <div class="qrow"><span class="qno">2.</span> They planted trees in the recreation area.<br><input class="ans wide" data-a="trees were planted in the recreation area"></div>
+  <div class="qrow"><span class="qno">3.</span> The authorities moved the bus stop.<br><input class="ans wide" data-a="the bus stop was moved|the bus stop was moved by the authorities"></div>
+  <div class="qrow"><span class="qno">4.</span> They built a new main reception.<br><input class="ans wide" data-a="a new main reception was built"></div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>Object → subject + was/were + participle: <i>Trees were planted… The bus stop was moved…</i> <b>Improve:</b> omit "by them / by the authorities" — the agent is unknown or unimportant in map answers, so leaving it out is more natural.</div>
+</div>
+
+<div class="exercise" data-sec="pass" id="ex-pass-3">
+  <h3>Exercise 3.3 · Passive with the right verb (2005 → 2012)</h3>
+  <div class="why">Put the verbs into the correct past simple form — passive where possible, active where the verb cannot be passive.</div>
+  <div class="qrow"><span class="qno">1.</span> The row of old houses <input class="ans" data-a="was knocked down|were knocked down"> (knock down) to make way for a road.</div>
+  <div class="qrow"><span class="qno">2.</span> The forest <input class="ans" data-a="was cut down"> (cut down) to build a railway.</div>
+  <div class="qrow"><span class="qno">3.</span> The area <input class="ans" data-a="was redeveloped"> (redevelop) completely.</div>
+  <div class="qrow"><span class="qno">4.</span> The factory <input class="ans" data-a="was converted"> (convert) into an art gallery.</div>
+  <div class="qrow"><span class="qno">5.</span> The city centre <input class="ans" data-a="underwent"> (undergo) a total transformation.</div>
+  <div class="qrow"><span class="qno">6.</span> The old terraced houses <input class="ans" data-a="were pulled down"> (pull down) and <input class="ans" data-a="replaced|were replaced"> (replace) by a block of flats.</div>
+  <div class="qrow"><span class="qno">7.</span> A sports complex <input class="ans" data-a="was constructed"> (construct) in the suburbs.</div>
+  <div class="qrow"><span class="qno">8.</span> A number of spectacular changes <input class="ans" data-a="took place"> (take place).</div>
+  <div class="qrow"><span class="qno">9.</span> The whole centre of the town <input class="ans" data-a="was transformed"> (transform) by new developments.</div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>Passive: <i>was knocked down / cut down / redeveloped / converted / transformed, were pulled down and replaced, was constructed</i>. Active only: <i>underwent, took place</i> (no passive possible). <b>Improve:</b> memorise the no-passive list; "were taken place" is one of the most common errors examiners see.</div>
+</div>
+</section>
+
+<!-- ============ 4 BY + DATE ============ -->
+<section class="tab" id="tab-pperf">
+<div class="card">
+  <h2>Grammar point 4 · "By + date" + past perfect</h2>
+  <p>Use the <b>past perfect</b> (had done / had been done) to describe changes completed <b>before a specific time in the past</b>:</p>
+  <div class="ex"><b>Technique</b><i>By 2012, the block of flats <b>had been turned</b> into a hotel.</i> (passive)<br><i>By 2012, the block of flats <b>had made way</b> for a hotel.</i> (active)</div>
+  <p>This single structure adds real variety to your grammatical range.</p>
+</div>
+
+<div class="exercise" data-sec="pperf" id="ex-pp-1">
+  <h3>Exercise 4.1 · Rewrite with By 2012</h3>
+  <div class="why">Rewrite the verb with past perfect (passive where possible).</div>
+  <div class="qrow"><span class="qno">1.</span> By 2012, the factory <input class="ans" data-a="had been converted"> (convert) into an art gallery.</div>
+  <div class="qrow"><span class="qno">2.</span> By 2012, the city centre <input class="ans" data-a="had undergone"> (undergo) a total transformation.</div>
+  <div class="qrow"><span class="qno">3.</span> By 2012, the forest <input class="ans" data-a="had been cut down"> (cut down) to build a railway.</div>
+  <div class="qrow"><span class="qno">4.</span> By 2012, a number of spectacular changes <input class="ans" data-a="had taken place"> (take place).</div>
+  <div class="qrow"><span class="qno">5.</span> By 2012, a sports complex <input class="ans" data-a="had been constructed"> (construct) in the suburbs.</div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>Pattern: <b>had been + participle</b> (passive) or <b>had + participle</b> for no-passive verbs (<i>had undergone, had taken place</i>). <b>Improve:</b> use "By + the final year" once or twice per answer, e.g. as the last sentence of a body paragraph.</div>
+</div>
+
+<div class="exercise" data-sec="pperf" id="ex-pp-2">
+  <h3>Exercise 4.2 · Time phrases</h3>
+  <div class="why">Which phrase can NOT replace "Between 2005 and 2012" in a past→past map answer?</div>
+  <div class="qrow">
+    <span class="rgroup ans" data-a="over the past seven years">
+      <label><input type="radio" name="tp1" value="over the period"> a) Over the period</label><br>
+      <label><input type="radio" name="tp1" value="during the seven-year period"> b) During the seven-year period</label><br>
+      <label><input type="radio" name="tp1" value="from 2005 to 2012"> c) From 2005 to 2012</label><br>
+      <label><input type="radio" name="tp1" value="over the past seven years"> d) Over the past seven years</label>
+    </span>
+  </div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>"Over the <b>past</b> seven years" means up to <b>now</b> — it clashes with a 2005→2012 map and would force the present perfect. <b>Improve:</b> vary your time phrases (<i>over the period, during the 20-year period, from … to …</i>) but always match them to the map dates.</div>
+</div>
+</section>
+
+<!-- ============ 5 CHANGE VERBS ============ -->
+<section class="tab" id="tab-vocab">
+<div class="card">
+  <h2>Vocabulary group 5 · Change verbs &amp; synonyms</h2>
+  <table>
+    <tr><th>Meaning</th><th>Verbs</th></tr>
+    <tr><td><b>build / add</b></td><td>build · construct · erect · create · develop · plant (trees) · add · expand · move/relocate</td></tr>
+    <tr><td><b>remove</b></td><td>demolish · knock down · pull down · cut down / chop down (trees) · clear · make way for</td></tr>
+    <tr><td><b>buildings vs trees</b></td><td>buildings are <i>demolished/knocked down</i>; trees are <i>cut down/chopped down/uprooted</i> — never mixed</td></tr>
+  </table>
+</div>
+
+<div class="exercise" data-sec="vocab" id="ex-voc-1">
+  <h3>Exercise 5.1 · Synonym swap</h3>
+  <div class="why">Replace the underlined words with a synonym from the Youngsville model. Type the replacement only.</div>
+  <div class="qrow"><span class="qno">1.</span> The maps show changes which <u>occurred</u> between 1990 and 2010. → <input class="ans" data-a="took place"></div>
+  <div class="qrow"><span class="qno">2.</span> Very few trees <u>were left</u>. → very few trees <input class="ans" data-a="remained"></div>
+  <div class="qrow"><span class="qno">3.</span> All these houses <u>were demolished</u>. → were <input class="ans" data-a="knocked down"></div>
+  <div class="qrow"><span class="qno">4.</span> The trees <u>were chopped down</u>. → were <input class="ans" data-a="cut down"></div>
+  <div class="qrow"><span class="qno">5.</span> The area <u>witnessed</u> dramatic changes. → the area <input class="ans" data-a="experienced"> dramatic changes</div>
+  <div class="qrow"><span class="qno">6.</span> The woodland <u>gave way to</u> a golf course. → the woodland <input class="ans" data-a="made way for"> a golf course</div>
+  <div class="qrow"><span class="qno">7.</span> A marina was also <u>constructed</u>. → was also <input class="ans" data-a="built"></div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>Pairs to own: occur↔take place · be left↔remain · demolish↔knock down · chop down↔cut down · witness↔experience · give way to↔make way for · construct↔build. <b>Improve:</b> never use the same change-verb twice in one answer — keep a mental "used list" as you write.</div>
+</div>
+
+<div class="exercise" data-sec="vocab" id="ex-voc-2">
+  <h3>Exercise 5.2 · Model-answer vocabulary hunt</h3>
+  <div class="why">The Sunnyhills model uses these meanings — type the word(s) used in the model.</div>
+  <div class="qrow"><span class="qno">1.</span> moved to a different place → <input class="ans" data-a="relocated|was relocated"></div>
+  <div class="qrow"><span class="qno">2.</span> knocked down → <input class="ans" data-a="demolished|were demolished"></div>
+  <div class="qrow"><span class="qno">3.</span> got bigger (give one of two) → <input class="ans" data-a="increased in size|expanded|increased"></div>
+  <div class="qrow"><span class="qno">4.</span> a linking phrase meaning "and" (give one of two) → <input class="ans" data-a="in addition|what is more"></div>
+  <div class="qrow"><span class="qno">5.</span> a linking word meaning "but" (give one of two) → <input class="ans" data-a="whereas|however"></div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>relocated · demolished · increased in size / expanded · in addition / what is more · whereas / however. <b>Improve:</b> make a notebook list of similar words and consciously use them in practice essays — the examiner needs to SEE the range.</div>
+</div>
+</section>
+
+<!-- ============ 6 MODELS ============ -->
+<section class="tab" id="tab-model">
+<div class="card">
+  <h2>6 · Model answers — read like an examiner</h2>
+  <p class="legend"><span class="hl-intro" style="padding:2px 8px;border-radius:6px">introduction</span> <span class="hl-ov" style="padding:2px 8px;border-radius:6px">overview / summary</span> <span class="hl-body" style="padding:2px 8px;border-radius:6px">body detail</span></p>
+  <h3>Model — Sunnyhills University campus (1995 → today)</h3>
+  <div class="modelanswer">
+    <span class="hl-intro">The two maps show changes to the campus of Sunnyhills University between 1995 and today.</span>
+    <span class="hl-ov">We can see that the university made many changes during this period, including new buildings and recreation facilities.</span><br><br>
+    <span class="hl-body">In the past, the Scott Library was in front of the Founder's Building. It was relocated to the right, and in addition, it increased in size. The old library building now contains laboratories. In 1995 there was a car park in the top left-hand corner of the campus, whereas now the main reception is there. The halls of residence were moved to the far left of the campus and a new Arts Building was built opposite them.</span><br><br>
+    <span class="hl-body">The old sports ground, gym and tennis courts were demolished; however, in their place the university created a new recreation area with a pond, trees and seating areas. What is more, the university developed new sports facilities, including table tennis tables, a new gym and squash courts. They also built two new cafés.</span><br><br>
+    <span class="hl-ov">So, it is clear that the university changed and expanded during this period.</span>
+  </div>
+</div>
+
+<div class="exercise" data-sec="model" id="ex-mod-1">
+  <h3>Exercise 6.1 · Youngsville cloze (1990 → 2010)</h3>
+  <div class="why">Complete this high-scoring model with the correct word. Watch the paragraph structure as you read.</div>
+  <div class="qrow" style="background:#f8f9fb;border:1px dashed #b8c4d0;border-radius:10px;padding:12px 14px">
+  The maps show the <b>changes</b> which took place in the coastal town of Youngsville between 1990 and 2010.<br><br>
+  In 1990, the town was a much greener <select class="ans" data-a="residential"><option value=""></option><option>residential</option><option>industrial</option><option>commercial</option></select> area with a large number of trees and individual houses, but during the next 20 years the town <select class="ans" data-a="experienced"><option value=""></option><option>experienced</option><option>constructed</option><option>remained</option></select> a number of dramatic changes. The most <select class="ans" data-a="noticeable"><option value=""></option><option>noticeable</option><option>residential</option><option>comparable</option></select> is that all of the trees south of the River Alanah were cut down, with all the <select class="ans" data-a="houses"><option value=""></option><option>houses</option><option>facilities</option><option>factories</option></select> along the railway line being knocked down and replaced by skyscrapers. Moreover, a new industrial estate with <select class="ans" data-a="factories"><option value=""></option><option>factories</option><option>houses</option><option>corners</option></select> and warehouses sprang up around the airport and school.<br><br>
+  Only a few trees north of the river remained. The woodland was cleared to make way for a park, a golf course, and car parking <select class="ans" data-a="facilities"><option value=""></option><option>facilities</option><option>constructions</option><option>comparisons</option></select>. Further developments were the <select class="ans" data-a="construction"><option value=""></option><option>construction</option><option>comparison</option><option>corner</option></select> of a stadium near the north-east <select class="ans" data-a="corner"><option value=""></option><option>corner</option><option>facility</option><option>house</option></select> of the lake and a new stretch of railway from the river running directly north. A marina was also built at the mouth of the river.<br><br>
+  Overall, a <select class="ans" data-a="comparison"><option value=""></option><option>comparison</option><option>construction</option><option>change</option></select> of the two maps reveals a change from a largely rural to a mainly urban landscape.
+  </div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>Structure: ¶1 intro → ¶2 south of the river → ¶3 north of the river → ¶4 overall rural→urban. <b>Improve:</b> memorise the closing formula <i>"Overall, a comparison of the two maps reveals a change from a largely rural to a mainly urban landscape"</i> — it adapts to almost any development task.</div>
+</div>
+
+<div class="exercise" data-sec="model" id="ex-mod-2">
+  <h3>Exercise 6.2 · Understand the structure</h3>
+  <div class="why">Answer about the Youngsville text above.</div>
+  <div class="qrow"><span class="qno">1.</span> What information is in the introductory paragraph?
+    <span class="rgroup ans" data-a="what where and when the maps show"><br>
+    <label><input type="radio" name="ms1" value="what where and when the maps show"> what, where and when the maps show</label><br>
+    <label><input type="radio" name="ms1" value="every change in detail"> every change in detail</label><br>
+    <label><input type="radio" name="ms1" value="the writer's opinion of the changes"> the writer's opinion of the changes</label></span></div>
+  <div class="qrow"><span class="qno">2.</span> Which sentence gives an overview of the changes in paragraph two?
+    <span class="rgroup ans" data-a="the town experienced a number of dramatic changes"><br>
+    <label><input type="radio" name="ms2" value="the town experienced a number of dramatic changes"> "…the town experienced a number of dramatic changes."</label><br>
+    <label><input type="radio" name="ms2" value="a marina was also built"> "A marina was also built…"</label><br>
+    <label><input type="radio" name="ms2" value="the maps show the changes"> "The maps show the changes…"</label></span></div>
+  <div class="qrow"><span class="qno">3.</span> Which two adjectives in the conclusion sum up the change?
+    <span class="rgroup ans" data-a="rural and urban"><br>
+    <label><input type="radio" name="ms3" value="rural and urban"> rural and urban</label><br>
+    <label><input type="radio" name="ms3" value="greener and dramatic"> greener and dramatic</label><br>
+    <label><input type="radio" name="ms3" value="noticeable and new"> noticeable and new</label></span></div>
+  <div class="qrow"><span class="qno">4.</span> Paragraph three describes the north of the river moving in which direction?
+    <span class="rgroup ans" data-a="west to east"><br>
+    <label><input type="radio" name="ms4" value="west to east"> west to east</label><br>
+    <label><input type="radio" name="ms4" value="east to west"> east to west</label><br>
+    <label><input type="radio" name="ms4" value="random order"> random order</label></span></div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>Intro = what/where/when. The "dramatic changes" sentence is a mini-overview. The conclusion contrasts <i>rural → urban</i>. The description moves systematically west→east — never jump randomly around the map. <b>Improve:</b> pick a direction of travel (e.g. left→right) for each body paragraph and stick to it; this alone raises Coherence.</div>
+</div>
+</section>
+
+<!-- ============ TASK ACHIEVEMENT ============ -->
+<section class="tab" id="tab-ta">
+<div class="card">
+  <h2>Task Achievement · Find and organise the main features</h2>
+  <p>Task Achievement rewards answers that <b>cover all the main changes</b>, include a <b>clear overview</b>, and leave out irrelevant detail. Before writing: ① circle every change on the second map, ② decide which are MAIN changes (large, obvious, affecting whole zones) and which are minor, ③ sort them into two body groups, ④ write one overview sentence about the general trend.</p>
+  <div class="tip"><b>&#127919; Examiner insight:</b> an answer that reports six main changes clearly scores higher than one that lists every tree and lamppost. Selection IS the skill being tested.</div>
+</div>
+
+<div class="exercise" data-sec="ta" id="ex-ta-1">
+  <h3>Exercise · Overview, body detail, or leave out?</h3>
+  <div class="why">Where does each statement about Youngsville belong in your answer?</div>
+  <div class="qrow"><span class="qno">1.</span> <i>The town changed from a largely rural to a mainly urban landscape.</i><br>→ <select class="ans" data-a="overview"><option value=""></option><option>overview</option><option>body paragraph detail</option><option>leave out</option></select></div>
+  <div class="qrow"><span class="qno">2.</span> <i>All of the trees south of the river were cut down.</i><br>→ <select class="ans" data-a="body paragraph detail"><option value=""></option><option>overview</option><option>body paragraph detail</option><option>leave out</option></select></div>
+  <div class="qrow"><span class="qno">3.</span> <i>The scale of the map is one kilometre.</i><br>→ <select class="ans" data-a="leave out"><option value=""></option><option>overview</option><option>body paragraph detail</option><option>leave out</option></select></div>
+  <div class="qrow"><span class="qno">4.</span> <i>A stadium was constructed near the north-east corner of the lake.</i><br>→ <select class="ans" data-a="body paragraph detail"><option value=""></option><option>overview</option><option>body paragraph detail</option><option>leave out</option></select></div>
+  <div class="qrow"><span class="qno">5.</span> <i>The town experienced a number of dramatic changes.</i><br>→ <select class="ans" data-a="overview"><option value=""></option><option>overview</option><option>body paragraph detail</option><option>leave out</option></select></div>
+  <div class="qrow"><span class="qno">6.</span> <i>The first map shows exactly fourteen individual trees.</i><br>→ <select class="ans" data-a="leave out"><option value=""></option><option>overview</option><option>body paragraph detail</option><option>leave out</option></select></div>
+  <div class="qrow"><span class="qno">7.</span> <i>The houses along the railway line were replaced by skyscrapers.</i><br>→ <select class="ans" data-a="body paragraph detail"><option value=""></option><option>overview</option><option>body paragraph detail</option><option>leave out</option></select></div>
+  <div class="qrow"><span class="qno">8.</span> <i>The river is drawn in blue on both maps.</i><br>→ <select class="ans" data-a="leave out"><option value=""></option><option>overview</option><option>body paragraph detail</option><option>leave out</option></select></div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>Overview = statements about the whole town with no specific features. Body = one feature + its location + a change verb. Leave out = map decoration, scales, exact counts. <b>Improve:</b> test each sentence you plan to write: "specific feature + location + change" → body; "whole area trend" → overview; anything else → cut it.</div>
+</div>
+
+<div class="exercise" data-sec="ta" id="ex-ta-2">
+  <h3>Exercise · Put the plan in order</h3>
+  <div class="why">A strong answer follows a fixed sequence. Number these five steps 1–5.</div>
+  <div class="qrow"><span class="qno">1.</span> Paraphrased introduction (what, where, when)<br>→ <select class="ans" data-a="1"><option value=""></option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+  <div class="qrow"><span class="qno">2.</span> Overview of the general trend<br>→ <select class="ans" data-a="2"><option value=""></option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+  <div class="qrow"><span class="qno">3.</span> First body group: changes south of the river<br>→ <select class="ans" data-a="3"><option value=""></option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+  <div class="qrow"><span class="qno">4.</span> Second body group: changes north of the river + what remained<br>→ <select class="ans" data-a="4"><option value=""></option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+  <div class="qrow"><span class="qno">5.</span> Final check of tenses, articles and spelling<br>→ <select class="ans" data-a="5"><option value=""></option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>Intro → overview → body A → body B → proof-read. The overview comes SECOND, not last: examiners look for it immediately after the introduction. <b>Improve:</b> practise producing steps 1–2 in under three minutes; they earn a large share of the Task Achievement marks.</div>
+</div>
+
+<div class="exercise" data-sec="ta" id="ex-ta-3">
+  <h3>Exercise · Choose the best overview</h3>
+  <div class="why">Only one of these works as an overview sentence for Youngsville. Which?</div>
+  <div class="qrow">
+    <span class="rgroup ans" data-a="a">
+      <label><input type="radio" name="ta3" value="a"> a) Overall, the town became much more urban and developed, losing most of its green areas.</label><br>
+      <label><input type="radio" name="ta3" value="b"> b) Overall, a stadium, a marina, a park, a golf course, skyscrapers and factories were built.</label><br>
+      <label><input type="radio" name="ta3" value="c"> c) The maps show changes that took place in Youngsville between 1990 and 2010.</label>
+    </span>
+  </div>
+  <button class="checkbtn">Check</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; Explanation &amp; suggestion</b>(b) is a list of details — that belongs in the body. (c) is an introduction, not an overview. (a) states the general trend without specifics — exactly what an overview must do. <b>Improve:</b> your overview should answer "What is the ONE big story of these maps?" in a sentence a reader could remember without seeing the maps.</div>
+</div>
+</section>
+
+<!-- ============ 7 TRANSLATION ============ -->
+<section class="tab" id="tab-trans">
+<div class="card">
+  <h2>Translation practice · Vietnamese → English</h2>
+  <p>Translate the following sentences into English using the grammar and vocabulary of this module (prepositions of location, the passive, "by + date"). Write your sentence, then click <b>Show suggested answer</b> to compare and assess yourself. Your self-assessment counts towards the report. The suggested answer unlocks only after you have written your sentence. When you reveal it, the criteria checklist is pre-ticked automatically where your sentence contains the target structures — review it, adjust honestly, then select an error type; these feed the diagnostics in your report.</p>
+</div>
+
+<div class="exercise" data-sec="trans" data-self="1" id="ex-tr-1">
+  <h3>Translation · Location &amp; change (self-assessed)</h3>
+  <div class="why">Several translations may be correct — compare your structure and prepositions with the suggestion.</div>
+
+  <div class="selfitem">
+    <div class="vn">1. Sân bay nằm ở phía tây nam của thị trấn.</div>
+    <textarea placeholder="Your English sentence…"></textarea>
+    <button class="revealbtn" disabled>Show suggested answer</button> <span class="lockhint">write your sentence first (at least 10 characters) to unlock</span>
+    <div class="suggest"><b>Suggested answer:</b> The airport is (located/situated) <b>in the south-west of</b> the town. <i>(inside the area → in)</i></div>
+    <div class="selfmark"><b style="font-size:.85rem">Criteria checklist — auto-ticked from your sentence; adjust honestly:</b>
+    <label class="crit"><input type="checkbox" data-rx="in the south[- ]?west of"> preposition: <i>in the south-west of</i> (inside the area → in)</label>
+    <label class="crit"><input type="checkbox" data-rx="\bis\b"> present simple: <i>is (located/situated)</i></label>
+    <label class="crit"><input type="checkbox" data-rx="the town"> article: <i>the town</i></label>
+    <div class="errrow">Error type after comparing: <select class="errsel"><option value="">— select —</option><option>none</option><option>tense / passive</option><option>preposition</option><option>article</option><option>word choice</option><option>word order</option></select></div>
+  </div>
+  </div>
+
+  <div class="selfitem">
+    <div class="vn">2. Một bãi đỗ xe mới đã được xây dựng cạnh khách sạn.</div>
+    <textarea placeholder="Your English sentence…"></textarea>
+    <button class="revealbtn" disabled>Show suggested answer</button> <span class="lockhint">write your sentence first (at least 10 characters) to unlock</span>
+    <div class="suggest"><b>Suggested answer:</b> A new car park <b>was constructed/built next to</b> the hotel. <i>(passive; "a" because the car park is new)</i></div>
+    <div class="selfmark"><b style="font-size:.85rem">Criteria checklist — auto-ticked from your sentence; adjust honestly:</b>
+    <label class="crit"><input type="checkbox" data-rx="was (built|constructed)"> passive: <i>was built/constructed</i></label>
+    <label class="crit"><input type="checkbox" data-rx="a new car park"> article: <i>a</i> new car park (new feature)</label>
+    <label class="crit"><input type="checkbox" data-rx="(next to|beside) the hotel"> preposition: <i>next to / beside the hotel</i></label>
+    <div class="errrow">Error type after comparing: <select class="errsel"><option value="">— select —</option><option>none</option><option>tense / passive</option><option>preposition</option><option>article</option><option>word choice</option><option>word order</option></select></div>
+  </div>
+  </div>
+
+  <div class="selfitem">
+    <div class="vn">3. Hàng cây dọc theo tuyến đường sắt đã bị chặt bỏ.</div>
+    <textarea placeholder="Your English sentence…"></textarea>
+    <button class="revealbtn" disabled>Show suggested answer</button> <span class="lockhint">write your sentence first (at least 10 characters) to unlock</span>
+    <div class="suggest"><b>Suggested answer:</b> The trees <b>along</b> the railway line <b>were cut down / chopped down</b>. <i>(trees → cut down, never demolish)</i></div>
+    <div class="selfmark"><b style="font-size:.85rem">Criteria checklist — auto-ticked from your sentence; adjust honestly:</b>
+    <label class="crit"><input type="checkbox" data-rx="were (cut|chopped) down"> passive: <i>were cut/chopped down</i></label>
+    <label class="crit"><input type="checkbox" data-rx="along the railway"> preposition: <i>along the railway line</i></label>
+    <label class="crit"><input type="checkbox" data-rx="demolish" data-neg="1"> avoids <i>demolish</i> for trees</label>
+    <div class="errrow">Error type after comparing: <select class="errsel"><option value="">— select —</option><option>none</option><option>tense / passive</option><option>preposition</option><option>article</option><option>word choice</option><option>word order</option></select></div>
+  </div>
+  </div>
+
+  <div class="selfitem">
+    <div class="vn">4. Ngôi trường cũ bị phá bỏ để nhường chỗ cho một sân vận động.</div>
+    <textarea placeholder="Your English sentence…"></textarea>
+    <button class="revealbtn" disabled>Show suggested answer</button> <span class="lockhint">write your sentence first (at least 10 characters) to unlock</span>
+    <div class="suggest"><b>Suggested answer:</b> The old school <b>was knocked down/demolished to make way for</b> a stadium. <i>("make way for" is never passive)</i></div>
+    <div class="selfmark"><b style="font-size:.85rem">Criteria checklist — auto-ticked from your sentence; adjust honestly:</b>
+    <label class="crit"><input type="checkbox" data-rx="was (knocked down|demolished|pulled down|torn down)"> passive: <i>was knocked down / demolished</i></label>
+    <label class="crit"><input type="checkbox" data-rx="to make way for"> phrase: <i>to make way for</i> (active — never passive)</label>
+    <label class="crit"><input type="checkbox" data-rx="a stadium"> article: <i>a</i> stadium (new feature)</label>
+    <div class="errrow">Error type after comparing: <select class="errsel"><option value="">— select —</option><option>none</option><option>tense / passive</option><option>preposition</option><option>article</option><option>word choice</option><option>word order</option></select></div>
+  </div>
+  </div>
+
+  <div class="selfitem">
+    <div class="vn">5. Đến năm 2012, khu chung cư cũ đã được chuyển đổi thành khách sạn.</div>
+    <textarea placeholder="Your English sentence…"></textarea>
+    <button class="revealbtn" disabled>Show suggested answer</button> <span class="lockhint">write your sentence first (at least 10 characters) to unlock</span>
+    <div class="suggest"><b>Suggested answer:</b> <b>By 2012</b>, the old block of flats <b>had been converted/turned into</b> a hotel. <i>(By + past date → past perfect passive)</i></div>
+    <div class="selfmark"><b style="font-size:.85rem">Criteria checklist — auto-ticked from your sentence; adjust honestly:</b>
+    <label class="crit"><input type="checkbox" data-rx="^by 2012"> starts with <i>By 2012</i></label>
+    <label class="crit"><input type="checkbox" data-rx="had been (converted|turned|transformed)"> past perfect passive: <i>had been converted/turned</i></label>
+    <label class="crit"><input type="checkbox" data-rx="(converted|turned|transformed) into"> verb pattern: <i>… into</i></label>
+    <label class="crit"><input type="checkbox" data-rx="a hotel"> article: <i>a</i> hotel (new feature)</label>
+    <div class="errrow">Error type after comparing: <select class="errsel"><option value="">— select —</option><option>none</option><option>tense / passive</option><option>preposition</option><option>article</option><option>word choice</option><option>word order</option></select></div>
+  </div>
+  </div>
+
+  <div class="selfitem">
+    <div class="vn">6. Nhìn chung, thị trấn đã thay đổi từ một vùng nông thôn thành một khu vực đô thị hiện đại.</div>
+    <textarea placeholder="Your English sentence…"></textarea>
+    <button class="revealbtn" disabled>Show suggested answer</button> <span class="lockhint">write your sentence first (at least 10 characters) to unlock</span>
+    <div class="suggest"><b>Suggested answer:</b> <b>Overall</b>, the town <b>changed from</b> a rural area <b>into</b> a modern urban one. / Overall, a comparison of the two maps reveals a change from a largely rural to a mainly urban landscape. <i>(the classic overview sentence)</i></div>
+    <div class="selfmark"><b style="font-size:.85rem">Criteria checklist — auto-ticked from your sentence; adjust honestly:</b>
+    <label class="crit"><input type="checkbox" data-rx="^(overall|in general|generally speaking)"> starts with <i>Overall</i></label>
+    <label class="crit"><input type="checkbox" data-rx="rural.*urban|urban.*rural"> contrast: <i>rural → urban</i></label>
+    <label class="crit"><input type="checkbox" data-rx="(changed|became|was transformed)"> change verb: <i>changed / became / was transformed</i></label>
+    <div class="errrow">Error type after comparing: <select class="errsel"><option value="">— select —</option><option>none</option><option>tense / passive</option><option>preposition</option><option>article</option><option>word choice</option><option>word order</option></select></div>
+  </div>
+  </div>
+
+  <button class="checkbtn">Record self-assessment</button><span class="exscore"></span>
+  <div class="explain"><b class="ttl">&#128161; How to compare with the suggestions</b>Check 4 points: ① correct location preposition (in/to/next to/along)? ② correct passive (was/were + V3)? ③ "By + year" followed by had been + V3? ④ articles: <b>a</b> for new features, <b>the</b> for existing ones. If your sentence differs from the suggestion but meets all 4 points, count it as correct.</div>
+</div>
+</section>
+
+<!-- ============ GLOSSARY ============ -->
+<section class="tab" id="tab-glossary">
+<div class="card">
+  <h2>Glossary · Location &amp; change language for map answers</h2>
+  <input id="glosearch" type="text" placeholder="Type to filter… e.g. 'erect', 'overview', 'transform'">
+  <table id="glotable">
+    <tr><th style="width:30%">Term</th><th>Meaning &amp; usage</th></tr>
+    <tr><td class="gterm">in the north (of)</td><td>INSIDE the area — <i>The airport is in the south-west of the town</i></td></tr>
+    <tr><td class="gterm">to the north (of) / north of</td><td>OUTSIDE the area, or relative to another feature — <i>China is to the north of Vietnam; trees north of the river</i></td></tr>
+    <tr><td class="gterm">be located / situated in</td><td>to be in a place — <i>The mall was located in the centre of the city</i></td></tr>
+    <tr><td class="gterm">opposite / on the opposite side of</td><td>facing — <i>A restaurant was built on the opposite side of the road</i></td></tr>
+    <tr><td class="gterm">next to / beside</td><td>directly at the side of — <i>A car park was constructed next to the hotel</i></td></tr>
+    <tr><td class="gterm">between … and …</td><td>in the middle of two things — <i>The library was between the halls and the pitch</i></td></tr>
+    <tr><td class="gterm">along</td><td>following the line of — <i>a new sidewalk along the river</i></td></tr>
+    <tr><td class="gterm">across from</td><td>on the other side of a road/space — <i>The park is across from the school</i></td></tr>
+    <tr><td class="gterm">on the banks / shores of</td><td>banks → river; shores → lake — <i>hotels were erected on the banks of the river</i></td></tr>
+    <tr><td class="gterm">by the sea / just off the coastline</td><td>near the sea / in the water near the coast — <i>wind turbines just off the coastline</i></td></tr>
+    <tr><td class="gterm">in the top right-hand corner</td><td>corner language — only for <b>the map</b>, not the town</td></tr>
+    <tr><td class="gterm">surrounded by</td><td>with things all around — <i>a lake surrounded by trees</i></td></tr>
+    <tr><td class="gterm">run from … to …</td><td>for roads/railways — <i>a railway which ran from north to south</i></td></tr>
+    <tr><td class="gterm">demolish / knock down / pull down</td><td>destroy a building — <i>The school was knocked down to make way for a car park</i></td></tr>
+    <tr><td class="gterm">construct / build / erect</td><td>make a new building — <i>The building was erected on the bank of the river</i></td></tr>
+    <tr><td class="gterm">cut down / chop down / uproot</td><td>remove trees — never "demolish" a tree</td></tr>
+    <tr><td class="gterm">plant</td><td>put trees/gardens in — <i>lots of new trees were planted</i></td></tr>
+    <tr><td class="gterm">make way for</td><td>be removed so something new can be built — never passive</td></tr>
+    <tr><td class="gterm">take place</td><td>happen — never passive: <i>changes took place</i>, not "were taken place"</td></tr>
+    <tr><td class="gterm">remain</td><td>stay unchanged — <i>very few trees remained; the pond remained the same</i></td></tr>
+    <tr><td class="gterm">replaced by</td><td>the passive pattern — <i>the houses were replaced by skyscrapers</i></td></tr>
+    <tr><td class="gterm">article rule: a / the</td><td><b>a</b> = new on map 2; <b>the</b> = already existed on map 1</td></tr>
+    <tr><td class="gterm">rural ↔ urban</td><td>countryside ↔ city — the classic overview contrast</td></tr>
+    <tr><td class="gterm">residential / industrial / recreational / commercial area</td><td>housing / factories / leisure / shops-offices zones</td></tr>
+    <tr><td class="gterm">overview</td><td>1–2 sentences on the general trend — compulsory in every answer</td></tr>
+    <tr><td class="gterm">By + date + past perfect</td><td>changes completed before a past point — <i>By 2012, the flats had been converted into a hotel</i></td></tr>
+  </table>
+</div>
+</section>
+
+</main>
+
+<div class="submitbar">
+  <span class="stat">Progress: <b id="progStat">0 / 0</b></span>
+  <span class="stat">Score: <b id="liveScore">—</b></span>
+  <button id="submitAll">&#128203; Submit All &amp; Generate PDF Report</button>
+</div>
+
+<div id="reportModal"><div id="reportCard"></div></div>
+
+<script>
+/* ========= CONFIG (per file) ========= */
+const CONFIG = {
+  key:"Pioneer2_Unit2", title:"PIONEER 2 | Unit 2 · IELTS Writing Task 1: Maps",
+  sections:{
+    loc:{label:"1 · Prepositions & Location", color:[30,142,90]},
+    past:{label:"2 · Past Simple", color:[31,111,178]},
+    pass:{label:"3 · Passive Voice", color:[123,63,160]},
+    pperf:{label:"4 · By + date (Past Perfect)", color:[201,150,46]},
+    vocab:{label:"5 · Change Verbs & Synonyms", color:[192,57,43]},
+    model:{label:"6 · Model Answers", color:[15,53,84]},
+    ta:{label:"7 · Task Achievement", color:[201,100,30]},
+    trans:{label:"8 · Translation VN→EN (self-assessed)", color:[90,110,60]}
+  }
+};
+
+/* ========= student info ========= */
+function store(k,v){try{localStorage.setItem(k,v);}catch(e){window["_"+k]=v;}}
+function load(k){try{return localStorage.getItem(k);}catch(e){return window["_"+k]||null;}}
+const nameEl=document.getElementById("stuName"), emailEl=document.getElementById("stuEmail");
+nameEl.value = load("ieltsStuName")||""; emailEl.value = load("ieltsStuEmail")||"";
+nameEl.addEventListener("input",()=>store("ieltsStuName",nameEl.value));
+emailEl.addEventListener("input",()=>store("ieltsStuEmail",emailEl.value));
+function studentName(){return nameEl.value.trim()||"(name not filled in)";}
+function studentEmail(){return emailEl.value.trim()||"(email not filled in)";}
+
+/* ========= attempt counter ========= */
+let attempt = parseInt(load("attempt_"+CONFIG.key)||"0",10)+1;
+
+/* ========= tabs ========= */
+const nav = document.getElementById("topnav");
+nav.addEventListener("click", e=>{
+  const btn = e.target.closest("button"); if(!btn) return;
+  nav.querySelectorAll("button").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  document.querySelectorAll("section.tab").forEach(s=>s.classList.remove("active"));
+  document.getElementById("tab-"+btn.dataset.tab).classList.add("active");
+  window.scrollTo({top:0});
+});
+
+/* ========= matching ========= */
+function norm(s){
+  return (s||"").toLowerCase().trim()
+    .replace(/[’‘]/g,"'").replace(/[“”]/g,'"')
+    .replace(/\s+/g," ")
+    .replace(/[.?!,;:]+$/,"");
+}
+function matches(user, accepted){
+  const u = norm(user); if(!u) return false;
+  return accepted.split("|").some(a=>norm(a)===u);
+}
+
+/* ========= check exercise ========= */
+function checkExercise(ex, silent){
+  let total=0, correct=0;
+  if(ex.dataset.self){ // self-assessed translation (criteria checklist)
+    ex.querySelectorAll(".selfitem").forEach(item=>{
+      item.querySelectorAll(".crit input").forEach(cb=>{ total++; if(cb.checked) correct++; });
+      if(!silent){
+        item.querySelector(".suggest").classList.add("show");
+        item.querySelector(".selfmark").classList.add("show");
+      }
+    });
+  } else {
+    ex.querySelectorAll(".ans").forEach(el=>{
+      total++;
+      let ok=false;
+      if(el.classList.contains("rgroup")){
+        const chosen = el.querySelector("input:checked");
+        ok = !!chosen && matches(chosen.value, el.dataset.a);
+        if(!silent){
+          el.classList.remove("ok","no");
+          el.querySelectorAll("label").forEach(l=>l.classList.remove("correct","chosen"));
+          el.classList.add(ok?"ok":"no");
+          el.querySelectorAll("label").forEach(l=>{
+            const inp=l.querySelector("input");
+            if(matches(inp.value, el.dataset.a)) l.classList.add("correct");
+            if(inp.checked && !ok) l.classList.add("chosen");
+          });
+        }
+      } else {
+        ok = matches(el.value, el.dataset.a);
+        if(!silent){ el.classList.remove("ok","no"); el.classList.add(ok?"ok":"no"); }
+      }
+      if(ok) correct++;
+    });
+  }
+  if(!silent){
+    ex.dataset.checked="1";
+    const sc = ex.querySelector(".exscore");
+    if(sc){
+      sc.textContent = `${correct} / ${total}`;
+      sc.style.color = correct===total ? "var(--good)" : (correct>=total*0.6 ? "var(--gold)" : "var(--bad)");
+    }
+    const expl = ex.querySelector(".explain");
+    if(expl) expl.classList.add("show");
+    updateProgress();
+  }
+  return {correct,total};
+}
+document.querySelectorAll(".exercise .checkbtn").forEach(btn=>{
+  btn.addEventListener("click", ()=>checkExercise(btn.closest(".exercise"), false));
+});
+document.querySelectorAll(".selfitem").forEach(item=>{
+  const ta=item.querySelector("textarea"), btn=item.querySelector(".revealbtn"), hint=item.querySelector(".lockhint");
+  const sync=()=>{ const ok=ta.value.trim().length>=10; btn.disabled=!ok; if(hint) hint.style.display=ok?"none":"inline"; };
+  ta.addEventListener("input",sync); sync();
+  btn.addEventListener("click",()=>{
+    item.querySelector(".suggest").classList.add("show");
+    item.querySelector(".selfmark").classList.add("show");
+    const txt=norm(ta.value);
+    item.querySelectorAll(".crit").forEach(lab=>{
+      const cb=lab.querySelector("input");
+      let hit; try{ hit=new RegExp(cb.dataset.rx,"i").test(txt); }catch(e){ hit=false; }
+      if(cb.dataset.neg) hit=!hit;
+      if(hit && !cb.dataset.user){ cb.checked=true; lab.classList.add("auto"); }
+    });
+  });
+  item.querySelectorAll(".crit input").forEach(cb=>cb.addEventListener("change",()=>{ cb.dataset.user="1"; cb.closest(".crit").classList.remove("auto"); }));
+});
+document.querySelectorAll(".exercise input.ans").forEach(inp=>{
+  inp.addEventListener("keydown", e=>{
+    if(e.key==="Enter"){ e.preventDefault(); checkExercise(inp.closest(".exercise"), false); }
+  });
+});
+
+/* ========= progress ========= */
+function gatherScores(){
+  const res = {};
+  for(const s in CONFIG.sections) res[s]={c:0,t:0,ex:[]};
+  document.querySelectorAll(".exercise").forEach(ex=>{
+    const sec = ex.dataset.sec;
+    const r = checkExercise(ex, true);
+    res[sec].c += r.correct; res[sec].t += r.total;
+    res[sec].ex.push({name: ex.querySelector("h3").textContent, ...r});
+  });
+  return res;
+}
+function updateProgress(){
+  const all = document.querySelectorAll(".exercise");
+  const done = document.querySelectorAll(".exercise[data-checked='1']");
+  document.getElementById("progStat").textContent = `${done.length} / ${all.length}`;
+  let c=0,t=0;
+  done.forEach(ex=>{const r=checkExercise(ex,true); c+=r.correct; t+=r.total;});
+  document.getElementById("liveScore").textContent = t? `${c} / ${t} (${Math.round(100*c/t)}%)` : "—";
+}
+updateProgress();
+
+/* ========= feedback ========= */
+function secFeedback(pct){
+  if(pct>=85) return "Solid — this point is exam-ready.";
+  if(pct>=60) return "Good, but review the explanations for the items you missed, then redo the exercise.";
+  return "Needs consolidation — re-read the theory at the top of this tab before retrying the exercises.";
+}
+function overallFeedback(pct){
+  if(pct>=85) return "Excellent — the foundations are secure. Move on to ARIES | Unit 4 to work on the present perfect passive and cohesive devices.";
+  if(pct>=70) return "Good. Identify your weakest tab below, redo it to at least 80%, then write one full Youngsville-style answer using the 4-paragraph plan.";
+  if(pct>=50) return "Fair. Prioritise: the IN/TO rule, the passive (was/were + V3), and irregular past forms. Redo each tab in order.";
+  return "Restart from the Overview tab and work through the tabs one by one, reaching at least 80% before moving on.";
+}
+
+/* ========= submit + report ========= */
+document.getElementById("submitAll").addEventListener("click", ()=>{
+  document.querySelectorAll(".exercise").forEach(ex=>checkExercise(ex,false));
+  const res = gatherScores();
+  store("attempt_"+CONFIG.key, String(attempt));
+  let oc=0, ot=0;
+  for(const s in res){ oc+=res[s].c; ot+=res[s].t; }
+  const opct = ot? Math.round(100*oc/ot):0;
+  const now = new Date();
+  const when = now.toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"})+" "+now.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});
+  const errsels = document.querySelectorAll(".errsel");
+  const errs = {};
+  errsels.forEach(sel=>{ const v=sel.value; if(v && v!=="none") errs[v]=(errs[v]||0)+1; });
+  const ek = Object.keys(errs).sort((a,b)=>errs[b]-errs[a]);
+  const errPlain = ek.length ? ("most frequent self-reported error in translation: "+ek[0]+" ("+errs[ek[0]]+" of "+errsels.length+" sentences)") : "translation: no error types self-reported";
+
+  let html = `<h2>${CONFIG.title} — Result Report · Attempt #${attempt}</h2>
+  <p style="color:var(--muted);margin:6px 0 2px">${studentName()} · ${studentEmail()} · ${when}</p>
+  <p class="overallbig">${opct}% <span style="font-size:1rem;color:var(--muted)">(${oc}/${ot})</span></p>
+  <div class="scorebar"><div style="width:${opct}%;background:linear-gradient(90deg,#1f6fb2,#2e9e77)"></div></div>
+  <p style="margin:10px 0 4px"><b>Overall:</b> ${overallFeedback(opct)}</p>
+  <p style="margin:6px 0 4px;font-size:.9rem"><b>&#128203; Diagnostics:</b> ${errPlain}.</p>
+  <p style="margin:8px 0;background:#eef6fd;border-left:4px solid #1f6fb2;padding:8px 12px;font-size:.9rem"><b>&#9993; Required:</b> after completing this module, download the PDF report and send it to your teacher at <a href="mailto:huongstella8@gmail.com">huongstella8@gmail.com</a>.</p>`;
+  for(const sec in CONFIG.sections){
+    const r = res[sec]; if(!r.t) continue;
+    const pct = Math.round(100*r.c/r.t);
+    const col = `rgb(${CONFIG.sections[sec].color.join(",")})`;
+    html += `<div class="repsec"><h4 style="color:${col}">${CONFIG.sections[sec].label} — ${r.c}/${r.t} (${pct}%)</h4>
+      <div class="scorebar"><div style="width:${pct}%;background:${col}"></div></div>
+      <p style="font-size:.88rem">${secFeedback(pct)}</p></div>`;
+  }
+  const mailto = "mailto:huongstella8@gmail.com?subject="+encodeURIComponent(CONFIG.title+" — result report - "+studentName()+" - attempt #"+attempt)+"&body="+encodeURIComponent("Dear Teacher,\n\nPlease find attached my "+CONFIG.title+" — result report (attempt #"+attempt+", overall "+opct+"%).\n\n"+studentName());
+  html += `<div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+    <button class="checkbtn" onclick="genPDF()">&#11015; Download PDF report</button>
+    <a class="checkbtn" style="text-decoration:none;background:#1e8e5a" href="${mailto}">&#9993; Email report to teacher</a>
+    <button class="checkbtn" style="background:#5c6b7a" onclick="document.getElementById('reportModal').classList.remove('show')">Close</button></div>`;
+  document.getElementById("reportCard").innerHTML = html;
+  document.getElementById("reportModal").classList.add("show");
+  window._lastReport = {res, oc, ot, opct, when, errPlain};
+  genPDF();
+});
+document.getElementById("reportModal").addEventListener("click",e=>{
+  if(e.target.id==="reportModal") e.target.classList.remove("show");
+});
+
+/* ========= PDF ========= */
+function genPDF(){
+  const R = window._lastReport; if(!R) return;
+  if(!(window.jspdf && window.jspdf.jsPDF)){ window.print(); return; }
+  const {jsPDF} = window.jspdf;
+  const doc = new jsPDF({unit:"mm",format:"a4"});
+  const W=210, M=16; let y=0;
+  doc.setFillColor(15,53,84); doc.rect(0,0,W,34,"F");
+  doc.setTextColor(255,255,255); doc.setFontSize(14); doc.setFont(undefined,"bold");
+  doc.text(CONFIG.title+" — Result Report", M, 13);
+  doc.setFontSize(9.5); doc.setFont(undefined,"normal");
+  doc.text(`Name: ${studentName()}   |   Email: ${studentEmail()}`, M, 21);
+  doc.text(`Generated: ${R.when}   |   Attempt #${attempt}`, M, 27);
+  y=44;
+  doc.setTextColor(15,53,84); doc.setFontSize(13); doc.setFont(undefined,"bold");
+  doc.text("Overall Result", M, y); y+=7;
+  doc.setFontSize(22); doc.setTextColor(201,150,46);
+  doc.text(`${R.opct}%`, M, y+2);
+  doc.setFontSize(10); doc.setTextColor(60,60,60); doc.setFont(undefined,"normal");
+  doc.text(`${R.oc} / ${R.ot} items correct`, M+24, y+1);
+  y+=6;
+  doc.setFillColor(230,236,242); doc.roundedRect(M,y,W-2*M,5,2,2,"F");
+  doc.setFillColor(46,158,119); doc.roundedRect(M,y,Math.max(2,(W-2*M)*R.opct/100),5,2,2,"F");
+  y+=11;
+  const oa = doc.splitTextToSize("Assessment: "+overallFeedback(R.opct), W-2*M);
+  doc.setFontSize(9); doc.setTextColor(40,40,40);
+  doc.text(oa, M, y); y += oa.length*4.2 + 3;
+  const ed = doc.splitTextToSize("Diagnostics: "+R.errPlain+".", W-2*M);
+  doc.text(ed, M, y); y += ed.length*4.2 + 4;
+  for(const sec in CONFIG.sections){
+    const r = R.res[sec]; if(!r || !r.t) continue;
+    const pct = Math.round(100*r.c/r.t);
+    const col = CONFIG.sections[sec].color;
+    if(y>245){ doc.addPage(); y=20; }
+    doc.setDrawColor(...col); doc.setLineWidth(.7); doc.line(M,y,W-M,y); y+=6;
+    doc.setTextColor(...col); doc.setFontSize(11); doc.setFont(undefined,"bold");
+    doc.text(`${CONFIG.sections[sec].label}  —  ${r.c}/${r.t}  (${pct}%)`, M, y); y+=4;
+    doc.setFillColor(230,236,242); doc.roundedRect(M,y,W-2*M,4,2,2,"F");
+    doc.setFillColor(...col); doc.roundedRect(M,y,Math.max(2,(W-2*M)*pct/100),4,2,2,"F");
+    y+=9;
+    doc.setFont(undefined,"normal"); doc.setFontSize(8.5); doc.setTextColor(40,40,40);
+    const fb = doc.splitTextToSize(secFeedback(pct), W-2*M);
+    doc.text(fb, M, y); y += fb.length*4 + 2;
+    doc.setTextColor(90,100,110);
+    r.ex.forEach(e=>{
+      if(y>280){ doc.addPage(); y=20; }
+      doc.text(`•  ${e.name}`, M+2, y);
+      doc.text(`${e.correct}/${e.total}`, W-M-10, y);
+      y+=4.4;
+    });
+    y+=4;
+  }
+  if(y>272){ doc.addPage(); y=20; }
+  doc.setDrawColor(200,200,200); doc.line(M,y,W-M,y); y+=6;
+  doc.setFontSize(8); doc.setTextColor(120,120,120);
+  doc.text("Auto-generated report · Please email this PDF to your teacher: huongstella8@gmail.com", M, y);
+  const safe = studentName().replace(/[^a-z0-9]+/gi,"_");
+  doc.save(`${CONFIG.key}_Report_Attempt${attempt}_${safe}.pdf`);
+}
+
+/* ========= glossary ========= */
+document.getElementById("glosearch").addEventListener("input", function(){
+  const q = this.value.toLowerCase();
+  document.querySelectorAll("#glotable tr").forEach((tr,i)=>{
+    if(i===0) return;
+    tr.style.display = tr.textContent.toLowerCase().includes(q) ? "" : "none";
+  });
+});
+</script>
+</body>
+</html>
