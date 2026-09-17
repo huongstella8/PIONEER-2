@@ -124,6 +124,10 @@ ul.tight li{margin:3px 0}
 .ans.show{display:block}
 .item.correct input,.item.correct select{border-color:var(--good);background:var(--good-soft)}
 .item.wrong input,.item.wrong select{border-color:var(--bad);background:var(--bad-soft)}
+.item input.gapin{width:132px;max-width:70%;padding:2px 8px;border:0;border-bottom:2px solid var(--brand);border-radius:5px 5px 0 0;background:var(--brand-soft);color:var(--ink);font-size:.98rem;font-weight:600;text-align:center;vertical-align:baseline;margin:0 3px}
+.item input.gapin:focus{outline:none;border-bottom-color:var(--brand-2);background:var(--panel)}
+.item.correct input.gapin{border-bottom-color:var(--good);background:var(--good-soft)}
+.item.wrong input.gapin{border-bottom-color:var(--bad);background:var(--bad-soft)}
 .exfoot{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:13px 15px;border-top:1px solid var(--line);background:var(--panel)}
 .btn{border:0;border-radius:9px;padding:9px 15px;font-weight:700;font-size:.9rem;cursor:pointer;background:var(--brand);color:#fff}
 .btn:hover{filter:brightness(1.06)}
@@ -202,7 +206,7 @@ textarea{width:100%;min-height:220px;padding:12px;border:1px solid var(--line);b
 /* report */
 table.report{width:100%;border-collapse:collapse;font-size:.9rem}
 table.report th,table.report td{border:1px solid var(--line);padding:8px 10px;text-align:left}
-table.report th{background:var(--brand-soft);color:var(--brand);position:sticky;top:52px}
+table.report th{background:var(--brand-soft);color:var(--brand)}
 table.report td.c{text-align:center}
 .badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:.76rem;font-weight:700}
 .badge.mast{background:var(--good-soft);color:var(--good)}
@@ -781,7 +785,7 @@ function renderTabs(){
   nav.appendChild(b);
  });
 }
-function go(tid){ state.tab=tid; save(); renderTabs(); renderPanels(); window.scrollTo(0,0); }
+function go(tid){ activeEx=null; state.tab=tid; save(); renderTabs(); renderPanels(); window.scrollTo(0,0); }
 
 /* ---- render all panels ---- */
 function renderPanels(){
@@ -793,6 +797,8 @@ function renderPanels(){
  // activate
  Array.prototype.forEach.call(host.children,function(p){ p.classList.toggle('active', p.dataset.tab===state.tab); });
  wireInputs();
+ // restore marks/score for exercises already checked (so progress survives tab switches)
+ Object.keys(EXDATA).forEach(function(k){ EXDATA[k].forEach(function(ex){ paintEx(ex.id); }); });
 }
 
 /* ---- helpers to build a panel ---- */
@@ -859,8 +865,16 @@ function exerciseHTML(ex,n){
 
 function itemHTML(ex,it,i){
  var id=ex.id+'_'+i, saved=(state.ex[ex.id].answers||{})[i];
- var q='<div class="item" data-item="'+i+'" id="it-'+id+'"><div class="qline"><span class="qnum">'+(i+1)+'.</span><div class="qtext">'+it.q+ inputFor(it,id,saved) +'<span class="mark" id="mk-'+id+'"></span></div></div>'+ansLine(ex,it,id) +'</div>';
- return q;
+ var mark='<span class="mark" id="mk-'+id+'"></span>';
+ var qtext;
+ if(it.t==='gap'){
+   var input='<input type="text" class="gapin" id="in-'+id+'" autocomplete="off" spellcheck="false" value="'+(saved!=null?escAttr(saved):'')+'">';
+   // put the input right where the blank (___) is, so students type into the gap in the sentence
+   qtext = /_{2,}/.test(it.q) ? it.q.replace(/_{2,}/, function(){ return input+mark; }) : (it.q+' '+input+mark);
+ } else {
+   qtext = it.q + inputFor(it,id,saved) + mark;
+ }
+ return '<div class="item" data-item="'+i+'" id="it-'+id+'"><div class="qline"><span class="qnum">'+(i+1)+'.</span><div class="qtext">'+qtext+'</div></div>'+ansLine(ex,it,id)+'</div>';
 }
 function inputFor(it,id,saved){
  if(it.t==='gap') return ' <input type="text" id="in-'+id+'" autocomplete="off" spellcheck="false" value="'+(saved!=null?escAttr(saved):'')+'">';
@@ -875,9 +889,25 @@ function inputFor(it,id,saved){
 }
 function ansLine(ex,it,id){
  var a= it.t==='gap'? it.a.join(' / ') : it.t==='order'? ('position '+it.a) : it.t==='tf'? (it.a?'True':'False') : (it.opts[it.a]);
- return '<div class="ans'+(TEACHER_MODE?' show':'')+'" id="an-'+id+'">✓ Answer: <b>'+esc(a)+'</b></div>';
+ var reveal = TEACHER_MODE || (state.ex[ex.id] && state.ex[ex.id].best>=PASS);
+ return '<div class="ans'+(reveal?' show':'')+'" id="an-'+id+'">✓ Answer: <b>'+esc(a)+'</b></div>';
 }
 
+/* ---- repaint a checked exercise's marks/score after a re-render (no state change) ---- */
+function paintEx(exid){
+ var ex=findEx(exid), st=state.ex[exid];
+ if(!ex||!st||!st.checked||!st.answers) return;
+ var correct=0, n=ex.items.length;
+ ex.items.forEach(function(it,i){
+   var val=st.answers[i], ok=itemCorrect(it,val); if(ok) correct++;
+   var itnode=document.getElementById('it-'+exid+'_'+i), mk=document.getElementById('mk-'+exid+'_'+i);
+   if(itnode) itnode.classList.remove('correct','wrong');
+   if(mk){ mk.className='mark'; mk.textContent=''; }
+   if(val!=null&&val!==''){ if(itnode) itnode.classList.add(ok?'correct':'wrong'); if(mk){ mk.className='mark '+(ok?'ok':'no'); mk.textContent=ok?'✓':'✗'; } }
+ });
+ var sc=document.getElementById('sc-'+exid), score=n?correct/n:0;
+ if(sc) sc.innerHTML='<span style="color:'+(score>=PASS?'var(--good)':'var(--bad)')+'">'+correct+' / '+n+' = '+pct(score)+'</span>';
+}
 /* ---- checking ---- */
 function readItem(ex,it,i){
  var id=ex.id+'_'+i, node=document.getElementById('in-'+id);
