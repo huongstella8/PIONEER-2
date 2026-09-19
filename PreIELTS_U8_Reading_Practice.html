@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pre-IELTS · Unit 8 Reading</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<style>
+:root{
+  --brand:#3f9c1e; --brand-dark:#2c6f14; --brand-soft:#e8f6de; --brand-soft2:#f4fbee;
+  --accent:#b6d117;
+  --ink:#1f2430; --muted:#6b7280; --line:#e2e8dc; --bg:#f5f7f2; --card:#ffffff;
+  --ok:#128a5d; --ok-bg:#e3f6ec; --bad:#c62828; --bad-bg:#fdecec; --warn:#b26a00;
+  --radius:14px; --shadow:0 1px 3px rgba(0,0,0,.06),0 8px 24px rgba(0,0,0,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1200px;margin:0 auto;padding:0 16px 90px}
+
+.topbar{background:linear-gradient(120deg,var(--brand-dark),#6bbf3a);color:#fff;padding:22px 0 20px;box-shadow:var(--shadow)}
+.topbar .wrap{padding-bottom:0}
+.eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:.92;font-weight:700}
+.topbar h1{margin:2px 0 2px;font-size:26px;letter-spacing:.3px}
+.topbar .sub{opacity:.95;font-size:14px}
+
+.hud{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.93);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.hud .wrap{display:flex;align-items:center;gap:14px;padding:10px 16px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--ink);
+  background:var(--brand-soft);border:1px solid var(--line);padding:6px 11px;border-radius:999px}
+.chip b{color:var(--brand-dark)}
+.chip.save{background:#eef7f0;color:var(--ok)}
+.hud .grow{flex:1}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 22px;margin:18px 0}
+.card h2{margin:0 0 4px;font-size:19px;color:var(--brand-dark)}
+.instruction{color:var(--muted);font-size:14px;margin:2px 0 10px}
+.field{margin:0}
+.idgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field label{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:5px}
+.field input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px;background:#fff}
+.field input:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+
+/* Part with 2 columns */
+.part{margin:22px 0}
+.parthd{display:flex;align-items:center;gap:12px;margin:6px 0 12px}
+.parthd .pill{background:var(--brand);color:#fff;font-weight:800;font-size:13px;border-radius:8px;padding:4px 12px;letter-spacing:.5px}
+.parthd h2{margin:0;font-size:20px;color:var(--brand-dark)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.passagecol{position:sticky;top:60px;max-height:calc(100vh - 84px);overflow:auto}
+.passage{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 22px}
+.passage .ptitle{font-size:18px;font-weight:800;color:var(--brand-dark);letter-spacing:.4px;margin:0 0 12px;padding-bottom:8px;border-bottom:3px solid var(--accent)}
+.para{margin:0 0 13px;font-size:14.5px;color:#26303a;text-align:justify}
+.para .plabel{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;
+  background:var(--brand);color:#fff;font-weight:800;font-size:12px;margin-right:7px;vertical-align:2px}
+.qcol{min-width:0}
+
+/* Questions */
+.qsec{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:18px}
+.qsec h3{margin:0 0 3px;font-size:16px;color:var(--brand-dark);display:flex;align-items:center;gap:9px}
+.qsec .tasknum{background:var(--brand);color:#fff;font-size:12px;font-weight:800;border-radius:7px;padding:3px 8px}
+.qsec .rule{color:var(--brand-dark);font-weight:700}
+.qsec .ins{color:var(--muted);font-size:13.5px;margin:2px 0 12px}
+.notewrap{background:var(--brand-soft2);border:1px dashed var(--line);border-radius:10px;padding:6px 12px;margin-bottom:4px}
+.q{display:flex;gap:11px;align-items:flex-start;padding:9px 10px;border-radius:10px;margin:5px 0;border:1px solid transparent;transition:.15s}
+.q:hover{background:#f8faf5}
+.qnum{flex:0 0 auto;width:25px;height:25px;border-radius:50%;background:var(--brand-soft);color:var(--brand-dark);font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.qbody{flex:1;min-width:0}
+.qtext{font-size:14.5px}
+input.blank{border:none;border-bottom:2px solid var(--brand);background:transparent;font-size:14.5px;padding:2px 6px;min-width:130px;font-family:inherit;color:var(--ink)}
+input.blank:focus{outline:none;border-bottom-color:var(--brand-dark);background:#fff}
+select.choice{border:1px solid var(--line);border-radius:9px;padding:8px 10px;font-size:14px;background:#fff;font-family:inherit;min-width:120px;max-width:100%}
+select.choice:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.feedback{font-size:12.5px;margin-top:5px;font-weight:600;display:none}
+.q.correct{background:var(--ok-bg);border-color:#bfe6cf}
+.q.correct .qnum{background:var(--ok);color:#fff}
+.q.correct .feedback{display:block;color:var(--ok)}
+.q.wrong{background:var(--bad-bg);border-color:#f4c9c9}
+.q.wrong .qnum{background:var(--bad);color:#fff}
+.q.wrong .feedback{display:block;color:var(--bad)}
+.q.locked input,.q.locked select{pointer-events:none;opacity:.85}
+.keyreveal{color:var(--ok);font-weight:700}
+.endbank{font-size:13px;color:#374151;background:#f8faf5;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:6px 0 12px}
+.endbank b{color:var(--brand-dark)}
+.endbank div{margin:2px 0}
+
+/* action + score (shared) */
+.actionbar{position:sticky;bottom:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-top:1px solid var(--line);box-shadow:0 -4px 16px rgba(0,0,0,.05);margin-top:24px}
+.actionbar .wrap{display:flex;gap:12px;align-items:center;padding:14px 16px;flex-wrap:wrap}
+.btn{border:none;cursor:pointer;font-size:15px;font-weight:700;padding:12px 20px;border-radius:11px;transition:.15s}
+.btn.primary{background:var(--brand);color:#fff}
+.btn.primary:hover{background:var(--brand-dark)}
+.btn.secondary{background:#fff;color:var(--brand-dark);border:1px solid var(--line)}
+.btn.secondary:hover{background:var(--brand-soft)}
+.btn.pdf{background:var(--ink);color:#fff}
+.btn.pdf:hover{background:#000}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.resultmsg{flex:1;min-width:220px;font-size:14px;font-weight:600}
+.resultmsg .big{font-size:16px}
+.resultmsg.pass{color:var(--ok)}
+.resultmsg.fail{color:var(--warn)}
+
+.scorecard{display:none;margin:18px 0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow)}
+.scorecard .hd{padding:18px 22px;color:#fff}
+.scorecard.pass .hd{background:linear-gradient(120deg,#128a5d,#28b57e)}
+.scorecard.fail .hd{background:linear-gradient(120deg,#b26a00,#e39400)}
+.scorecard .hd h3{margin:0;font-size:22px}
+.scorecard .hd p{margin:4px 0 0;opacity:.95;font-size:14px}
+.scorecard .bd{background:#fff;padding:18px 22px}
+.statrow{display:flex;gap:14px;flex-wrap:wrap}
+.stat{flex:1;min-width:120px;background:var(--brand-soft2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.stat .n{font-size:24px;font-weight:800;color:var(--brand-dark)}
+.stat .l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+table.attempts{width:100%;border-collapse:collapse;margin-top:16px;font-size:13.5px}
+table.attempts th,table.attempts td{border:1px solid var(--line);padding:8px 10px;text-align:center}
+table.attempts th{background:var(--brand-soft);color:var(--brand-dark);font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+
+.footer{text-align:center;color:var(--muted);font-size:12.5px;margin-top:30px}
+@media(max-width:900px){.cols{grid-template-columns:1fr}.passagecol{position:static;max-height:none}.idgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="eyebrow">Pre-IELTS · Natural World</div>
+    <h1>Unit 8 — Reading Practice</h1>
+    <div class="sub">Passage &amp; questions side by side · 28 questions · Score 70%+ to unlock the answer key</div>
+  </div>
+</div>
+
+<div class="hud">
+  <div class="wrap">
+    <span class="chip">⏱ Time <b id="timer">00:00</b></span>
+    <span class="chip">🎯 Attempt <b id="attemptChip">0</b></span>
+    <span class="chip">✅ Score <b id="scoreChip">—</b></span>
+    <span class="grow"></span>
+    <span class="chip save" id="saveChip">Autosave on</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="card">
+    <h2>👤 Your details</h2>
+    <div class="instruction">Fill in your name and email. Everything you type is saved automatically every 10 seconds on this device.</div>
+    <div class="idgrid">
+      <div class="field"><label for="stuName">Full name</label><input id="stuName" type="text" placeholder="e.g. Nguyen Van A" autocomplete="name"></div>
+      <div class="field"><label for="stuEmail">Email</label><input id="stuEmail" type="email" placeholder="e.g. name@email.com" autocomplete="email"></div>
+    </div>
+  </div>
+
+  <div id="parts"></div>
+
+  <div class="scorecard" id="scorecard">
+    <div class="hd"><h3 id="scTitle"></h3><p id="scSub"></p></div>
+    <div class="bd">
+      <div class="statrow">
+        <div class="stat"><div class="n" id="stCorrect">0/28</div><div class="l">Correct</div></div>
+        <div class="stat"><div class="n" id="stPct">0%</div><div class="l">Score</div></div>
+        <div class="stat"><div class="n" id="stAttempt">1</div><div class="l">Attempts</div></div>
+        <div class="stat"><div class="n" id="stTime">00:00</div><div class="l">Time</div></div>
+      </div>
+      <table class="attempts" id="attemptsTbl"><thead><tr><th>Attempt</th><th>Correct</th><th>Score</th><th>Time</th><th>Result</th></tr></thead><tbody></tbody></table>
+    </div>
+  </div>
+
+  <div class="footer">Pre-IELTS Study Series · Unit 8 Natural World · Reading. Read each passage on the left and answer the questions on the right.</div>
+</div>
+
+<div class="actionbar">
+  <div class="wrap">
+    <button class="btn primary" id="submitBtn">Submit &amp; Grade</button>
+    <button class="btn secondary" id="resetBtn">Reset</button>
+    <button class="btn pdf" id="pdfBtn" disabled>⬇ Download PDF report</button>
+    <div class="resultmsg" id="resultMsg"></div>
+  </div>
+</div>
+
+<script>
+/* ============================ CONFIG & DATA ============================ */
+const CONFIG = { skill:'Reading', course:'Pre-IELTS', unit:'Unit 8 — Natural World',
+  pass:0.70, storeKey:'preielts_u8_reading_v2' };
+
+/* choice option banks (letter -> text) */
+const BANK_MEAN = [
+  {val:'a', text:'saved the life of'}, {val:'b', text:'famous'},
+  {val:'c', text:'videoing'}, {val:'d', text:'group (of dolphins)'},
+  {val:'e', text:'for the protection of'} ];
+const BANK_END1 = [
+  {val:'a', text:'so we should protect them.'},
+  {val:'b', text:'to encourage him not to lose hope.'},
+  {val:'c', text:'because there were so many dolphins.'},
+  {val:'d', text:'because they recognise that humans are similar to them.'},
+  {val:'e', text:'because they sometimes actively decide to help.'},
+  {val:'f', text:'because he had not seen the shark.'},
+  {val:'g', text:'because a shark was about to attack him.'},
+  {val:'h', text:'because he was a campaigner for dolphin protection.'} ];
+const BANK_END2 = [
+  {val:'A', text:"has created an environment that copies the animals' natural habitat."},
+  {val:'B', text:'was started by Gerald Durrell.'},
+  {val:'C', text:'has webcams in all the enclosures.'},
+  {val:'D', text:'prepares one species to return to their own environment.'},
+  {val:'E', text:'does not always separate different types of animal.'},
+  {val:'F', text:'is part of the AZA.'},
+  {val:'G', text:'is involved in teaching about how to better care for animals and protect them and in helping zoos work together.'},
+  {val:'H', text:'was a private collection of animals.'} ];
+
+const PARTS = [
+{
+  id:'P1', pill:'Passage 1', heading:'Our Friends and Protectors',
+  passageTitle:'OUR FRIENDS AND PROTECTORS',
+  paragraphs:[
+    {l:'A', t:"When asked their favourite animals, many people answer 'dolphins'. They are known as friendly, intelligent creatures that have a special relationship with humans. For example, dolphins can tell when a woman is pregnant. They can also tell when someone is in trouble. No one is really sure why this is the case. Experts think they may understand that humans are similar to them and try to protect them from predators and other dangers. Dolphins' protection of humans might not be just automatic or instinctive: they may actively decide to help in certain situations."},
+    {l:'B', t:"There are many stories about dolphins protecting humans from sharks. Wildlife filmmaker Hardy Jones was filming a group of dolphins, when a large shark swam towards him ready to attack. Four dolphins came to his rescue and drove the shark away. Perhaps they could tell he was a person who cared very much about dolphins. In fact, Jones was a well-known campaigner against the killing of dolphins. In another incident, in 2004, in New Zealand, four people were saved from a great white shark by a pod of dolphins. The dolphins herded the swimmers into a group and formed a protective ring around them. As they had not yet seen the shark, one of them tried to swim away. He couldn't get away, because every time he tried, he was pushed back inside the ring by the dolphins."},
+    {l:'C', t:"Dolphins don't only save humans from sharks, but protect them in other situations too. A scuba diver was hit by a boat near the Channel Islands (between England and France) in 2006. The man was unconscious, but survived 56 hours in the water, watched over by a pod of about 150 dolphins. In 2014, dolphins again came to the help of a human. Joey Trevino was losing hope. He had been in the sea for 24 hours after his boat sank in the Gulf of Mexico. He felt he couldn't keep going any more. A friendly dolphin approached him and gently pushed him, as if to say 'don't give up'. That moral support and encouragement may have saved Trevino's life."},
+    {l:'D', t:"Dolphins have also been known to help other species. In New Zealand, two pygmy sperm whales were in difficulty next to a sand bank. People were trying their best to get them back out to sea, but the whales couldn't find their way past the sand bank. After several hours of failed attempts, they were ready to give up. Along came 'Moko', a bottlenose dolphin, who seemed to communicate with the whales and led them to a channel which took them back to the ocean."},
+    {l:'E', t:"Whales have also been known to protect both humans and other mammals. In California, in 2012, a BBC Planet Earth film crew filmed a group of humpback whales who were protecting migrating grey whales from attacks by orcas (killer whales) over a period of at least seven hours. In China, Yang Yun applied for a job training whales at Polar Land in the city of Harbin. For the 'interview' she had to dive down as far as possible in the seven-metre deep pool. When she was about five metres down, Yang Yun found she couldn't move her legs due to the freezing temperatures. Two beluga whales, Mila and Nicola, sensed that she was in trouble. Mila gripped Yang Yun's leg in her mouth and pushed Yun to the surface, saving her life."},
+    {l:'F', t:"Stories of marine mammals helping humans – and each other – date back to Ancient Greece. Although we may never be sure why they help us, many people feel that it is a good reason for us to do whatever we can to protect them."}
+  ],
+  sections:[
+    {task:'Q1–5', title:'Matching meanings', rule:'', ins:"Read paragraph B in detail. Match the words/phrases 1–5 from the passage with the meanings a–e which have a similar meaning.", kind:'choice', bank:BANK_MEAN,
+      items:[
+        {n:1, context:'filming', options:BANK_MEAN, correct:'c'},
+        {n:2, context:'came to his rescue', options:BANK_MEAN, correct:'a'},
+        {n:3, context:'well-known', options:BANK_MEAN, correct:'b'},
+        {n:4, context:'against the killing of', options:BANK_MEAN, correct:'e'},
+        {n:5, context:'pod', options:BANK_MEAN, correct:'d'}
+      ]},
+    {task:'Q6–7', title:'Note completion', rule:'NO MORE THAN TWO WORDS', ins:'Complete the notes below using words from the passage.', kind:'blank',
+      items:[
+        {n:6, context:'A pod of dolphins saved the life of a man called ____ , while he was videoing them.', accept:['hardy jones','jones']},
+        {n:7, context:'The man was a famous ____ for the protection of dolphins.', accept:['campaigner']}
+      ]},
+    {task:'Q8–12', title:'Note completion', rule:'NO MORE THAN THREE WORDS', ins:'Complete the notes below using words from the passage.', kind:'blank',
+      items:[
+        {n:8, context:'Orcas were trying to catch and hurt a group of ____ who were migrating.', accept:['grey whales','gray whales','migrating grey whales']},
+        {n:9, context:'The migrating whales were helped by ____ .', accept:['humpback whales','a group of humpback whales','humpbacks']},
+        {n:10, context:'The whole incident lasted more than ____ .', accept:['seven hours','7 hours']},
+        {n:11, context:"Because of the icy water the diver was unable to ____ .", accept:['move her legs','move legs']},
+        {n:12, context:'One of the whales saved her life by taking hold of her ____ and pushing her upwards.', accept:['leg']}
+      ]},
+    {task:'Q13–17', title:'Matching sentence endings', rule:'', ins:'Complete each sentence with the correct ending a–h. There are more endings than you need.', kind:'choice', bank:BANK_END1,
+      items:[
+        {n:13, context:'Dolphins may protect humans', options:BANK_END1, correct:'d'},
+        {n:14, context:'Dolphins swam towards Hardy Jones', options:BANK_END1, correct:'g'},
+        {n:15, context:'The swimmer tried to leave the protective ring of dolphins', options:BANK_END1, correct:'f'},
+        {n:16, context:'A dolphin nudged Joey Trevino', options:BANK_END1, correct:'b'},
+        {n:17, context:'Dolphins and whales help us', options:BANK_END1, correct:'a'}
+      ]}
+  ]
+},
+{
+  id:'P2', pill:'Passage 2', heading:'The Modern Zoo',
+  passageTitle:'THE MODERN ZOO',
+  paragraphs:[
+    {l:'', t:"The first zoo is believed to have been in Egypt in around 3500 BC. Early collections of animals on display often belonged to royalty. King Henry I of England had lions, leopards and camels. He had received them as gifts. Until the late twentieth century, the main purpose of zoos was for entertainment. They existed to give people the chance to see animals they could not see in the wild. In 1959, famous wildlife expert Gerald Durrell opened the first zoo which put conservation of animals first."},
+    {l:'', t:"Nowadays zoos' aims are: conservation, education, entertainment, in that order. Modern zoos try to get a balance between providing safe, comfortable homes for the animals and opportunities for visitors to see animals in natural surroundings. Zoos now share their knowledge and support each other. The World Association for Zoos and Aquariums (WAZA) works to educate people about animal welfare and conservation. It also helps to coordinate breeding programmes."},
+    {l:'', t:"From the 1990s, zoos began to see their main role as saving the most threatened species. Each zoo focuses on a small number of species. The Siberian tiger and the orangutan are two species that have been saved through breeding programmes run by zoos. For example, in 2005 there were between 331 and 393 Siberian tigers in the Russian Far East. By 2015, there were 562. The tigers were helped to breed under the Species Survival Plan of the Association of Zoos and Aquariums (AZA). Often the aim is to reintroduce endangered species into their natural habitats. In Indonesia, Borneo Orangutan Rescue teaches orangutans how to live in the wild. When they are ready, they are taken to protected forests to live naturally."},
+    {l:'', t:"Now that we have a better understanding of animals, zoos try to recreate natural habitats of animals as accurately as possible. For example, polar bears live in a plain, white open space. Zoos try to provide 'enrichment' for the animals to improve their wellbeing. This includes climbing frames, feeding puzzles, unusual objects and different types of food. It allows animals to behave in a normal way, such as scratching, climbing, digging and solving problems. Another type of enrichment is mixing up types of animal that would naturally mix in the wild. Colchester Zoo in England has a 'kingdom of the wild' paddock where several species live together. They have found positive changes to the behaviour of these animals as a result."},
+    {l:'', t:"Different types of technology are used to help create natural environments for animals. In Indianapolis Zoo, in the United States, for example, there is a 'functional forest' called the Hutan Trail, a series of towers and cables 20 metres above the ground. This allows the orangutans to swing around the zoo as they would swing around the forest in their native Indonesia. The cables are strong enough to give them a safe and comfortable trip around the zoo. They have access to three oases, where they can go when they want to be apart from the group."},
+    {l:'', t:"Likewise, technology has been used to engage the public more with the animals. In many zoos there are webcams in some enclosures so visitors can keep up with their favourite animals between visits to the zoo."},
+    {l:'', t:"Zoos have moved on over the last few decades. They now play an important role in protecting animals and in making people more aware of the importance of animals. Zoos have made people aware that animals should not be over-hunted and that they play an important role in the ecology of the planet and in helping to maintain the balance of nature."}
+  ],
+  sections:[
+    {task:'Q18–23', title:'Note completion', rule:'NO MORE THAN TWO WORDS', ins:'Complete the notes below using words from the passage.', kind:'blank',
+      items:[
+        {n:18, context:'Before the 1990s, zoos existed mainly for ____ .', accept:['entertainment']},
+        {n:19, context:'The first zoo to focus on protecting animals was started by ____ .', accept:['gerald durrell','durrell']},
+        {n:20, context:'Zoos aim to breed threatened animals and return them to their ____ .', accept:['natural habitats','natural habitat','habitats']},
+        {n:21, context:'But first the animals have to learn how to survive in the ____ .', accept:['wild']},
+        {n:22, context:'Zoos offer animals ____ by making it challenging for them to find food.', accept:['enrichment']},
+        {n:23, context:'____ enable the public to view zoo animals from their homes.', accept:['webcams','web cams']}
+      ]},
+    {task:'Q24–28', title:'Matching sentence endings', rule:'', ins:'Complete each sentence with the correct ending A–H. There are more endings than you need.', kind:'choice', bank:BANK_END2,
+      items:[
+        {n:24, context:'The first zoo', options:BANK_END2, correct:'H'},
+        {n:25, context:'The World Association for Zoos and Aquariums (WAZA)', options:BANK_END2, correct:'G'},
+        {n:26, context:'Borneo Orangutan Rescue', options:BANK_END2, correct:'D'},
+        {n:27, context:'Colchester Zoo', options:BANK_END2, correct:'E'},
+        {n:28, context:'Indianapolis Zoo', options:BANK_END2, correct:'A'}
+      ]}
+  ]
+}
+];
+
+/* ============================ ENGINE ============================ */
+const ALLITEMS=[]; PARTS.forEach(p=>p.sections.forEach(s=>s.items.forEach(it=>{it._section=s.title;it._part=p.heading;ALLITEMS.push(it);})));
+const TOTAL=ALLITEMS.length;
+let state={attempt:0,revealed:false,attemptsLog:[],elapsed:0,running:true};
+const $=s=>document.querySelector(s);
+const norm=s=>(s||'').toString().toLowerCase().trim().replace(/[.,;:!?"'’`()]/g,'').replace(/\s+/g,' ');
+function esc(t){return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function inputHTML(it){
+  if(it.options){
+    let opts='<option value="">—</option>'+it.options.map(o=>`<option value="${o.val}">${o.val} — ${esc(o.text)}</option>`).join('');
+    return `<select class="choice" data-n="${it.n}">${opts}</select>`;
+  }
+  return `<input class="blank" type="text" data-n="${it.n}" autocomplete="off" spellcheck="false" placeholder="answer">`;
+}
+function buildContext(it){
+  const parts=(it.context||'____').split('____');
+  if(parts.length===1) return `${esc(parts[0])} ${inputHTML(it)}`;
+  return `${esc(parts[0])}${inputHTML(it)}${esc(parts[1]||'')}`;
+}
+
+function render(){
+  const root=$('#parts'); root.innerHTML='';
+  PARTS.forEach(p=>{
+    const part=document.createElement('div'); part.className='part';
+    let paras=p.paragraphs.map(pg=>`<p class="para">${pg.l?`<span class="plabel">${pg.l}</span>`:''}${esc(pg.t)}</p>`).join('');
+    let qhtml='';
+    p.sections.forEach(sec=>{
+      qhtml+=`<div class="qsec"><h3><span class="tasknum">${sec.task}</span> ${esc(sec.title)}</h3>`;
+      qhtml+=`<div class="ins">${esc(sec.ins)} ${sec.rule?`<span class="rule">Write ${esc(sec.rule)}.</span>`:''}</div>`;
+      if(sec.kind==='choice'){
+        qhtml+=`<div class="endbank"><b>Options</b>`+sec.bank.map(o=>`<div><b>${o.val}</b> — ${esc(o.text)}</div>`).join('')+`</div>`;
+      }
+      sec.items.forEach(it=>{
+        qhtml+=`<div class="q" id="q${it.n}"><div class="qnum">${it.n}</div><div class="qbody">
+          <div class="qtext">${buildContext(it)}</div><div class="feedback" id="fb${it.n}"></div></div></div>`;
+      });
+      qhtml+=`</div>`;
+    });
+    part.innerHTML=`<div class="parthd"><span class="pill">${p.pill}</span><h2>${esc(p.heading)}</h2></div>
+      <div class="cols">
+        <div class="passagecol"><div class="passage"><div class="ptitle">${esc(p.passageTitle)}</div>${paras}</div></div>
+        <div class="qcol">${qhtml}</div>
+      </div>`;
+    root.appendChild(part);
+  });
+}
+
+function getInput(n){return document.querySelector(`[data-n="${n}"]`);}
+function isCorrect(it,val){
+  if(val==null) return false;
+  if(it.options) return norm(val)===norm(it.correct);
+  const v=norm(val); if(!v) return false;
+  return it.accept.some(a=>norm(a)===v);
+}
+function keyPlain(it){
+  if(it.options){const o=it.options.find(o=>norm(o.val)===norm(it.correct));return it.correct+' — '+(o?o.text:'');}
+  return it.accept.slice(0,3).join(' / ');
+}
+
+function grade(){
+  state.attempt++;
+  let correct=0;
+  ALLITEMS.forEach(it=>{const el=getInput(it.n);if(isCorrect(it,el?el.value:'')) correct++;});
+  const pct=correct/TOTAL;
+  state.revealed=pct>=CONFIG.pass;
+  state.attemptsLog.push({attempt:state.attempt,correct,total:TOTAL,pct:Math.round(pct*100),time:fmt(state.elapsed),pass:state.revealed});
+  applyGrading(); updateHUD(correct,pct); showScoreCard(correct,pct);
+  if(state.revealed) state.running=false;
+  $('#pdfBtn').disabled=false; save();
+  const target=state.revealed?$('#scorecard'):document.querySelector('.q.wrong');
+  if(target) target.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function applyGrading(){
+  ALLITEMS.forEach(it=>{
+    const q=$('#q'+it.n),el=getInput(it.n),fb=$('#fb'+it.n); if(!q) return;
+    q.classList.remove('correct','wrong','locked');
+    const ok=isCorrect(it,el?el.value:'');
+    if(ok){q.classList.add('correct','locked');fb.innerHTML='✓ Correct';}
+    else{q.classList.add('wrong');
+      if(state.revealed){q.classList.add('locked');fb.innerHTML='✗ Not correct · <span class="keyreveal">Answer: '+esc(keyPlain(it))+'</span>';}
+      else fb.innerHTML='✗ Not correct yet — try again';}
+  });
+}
+function updateHUD(correct,pct){$('#attemptChip').textContent=state.attempt;$('#scoreChip').textContent=Math.round(pct*100)+'%';}
+function showScoreCard(correct,pct){
+  const sc=$('#scorecard'),pass=state.revealed; sc.style.display='block';
+  sc.className='scorecard '+(pass?'pass':'fail');
+  $('#scTitle').textContent=pass?'🎉 Great work — key unlocked!':'Keep going — almost there';
+  $('#scSub').textContent=pass?'You scored 70% or above, so the correct answers are now shown on each question.':'You need 70% to unlock the answer key. Fix the questions highlighted in red and submit again.';
+  $('#stCorrect').textContent=correct+'/'+TOTAL; $('#stPct').textContent=Math.round(pct*100)+'%';
+  $('#stAttempt').textContent=state.attempt; $('#stTime').textContent=fmt(state.elapsed);
+  const tb=$('#attemptsTbl tbody'); tb.innerHTML='';
+  state.attemptsLog.forEach(a=>{tb.innerHTML+=`<tr><td>${a.attempt}</td><td>${a.correct}/${a.total}</td><td>${a.pct}%</td><td>${a.time}</td><td>${a.pass?'✅ Pass':'⏳ Retry'}</td></tr>`;});
+  $('#submitBtn').textContent=pass?'Submit again':'Submit again ('+state.attempt+')';
+  const rm=$('#resultMsg'); rm.className='resultmsg '+(pass?'pass':'fail');
+  rm.innerHTML=pass?`<span class="big">✅ ${correct}/${TOTAL} correct (${Math.round(pct*100)}%).</span> Answer key unlocked. You can download your report.`
+    :`<span class="big">⏳ ${correct}/${TOTAL} correct (${Math.round(pct*100)}%).</span> Fix the red questions, then submit again to unlock the key.`;
+}
+
+function fmt(sec){const m=Math.floor(sec/60),s=sec%60;return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
+setInterval(()=>{if(state.running){state.elapsed++;$('#timer').textContent=fmt(state.elapsed);}},1000);
+
+function save(){
+  try{
+    const answers={}; document.querySelectorAll('[data-n]').forEach(el=>answers[el.dataset.n]=el.value);
+    localStorage.setItem(CONFIG.storeKey,JSON.stringify({name:$('#stuName').value,email:$('#stuEmail').value,answers,
+      attempt:state.attempt,revealed:state.revealed,attemptsLog:state.attemptsLog,elapsed:state.elapsed,running:state.running,ts:Date.now()}));
+    const t=new Date();$('#saveChip').textContent='Saved '+String(t.getHours()).padStart(2,'0')+':'+String(t.getMinutes()).padStart(2,'0')+':'+String(t.getSeconds()).padStart(2,'0');
+  }catch(e){$('#saveChip').textContent='Autosave unavailable';}
+}
+function load(){
+  try{
+    const raw=localStorage.getItem(CONFIG.storeKey); if(!raw) return;
+    const d=JSON.parse(raw);
+    $('#stuName').value=d.name||'';$('#stuEmail').value=d.email||'';
+    if(d.answers) for(const k in d.answers){const el=getInput(k);if(el) el.value=d.answers[k];}
+    state.attempt=d.attempt||0;state.revealed=!!d.revealed;state.attemptsLog=d.attemptsLog||[];
+    state.elapsed=d.elapsed||0;state.running=(d.running!==false)&&!state.revealed;
+    $('#timer').textContent=fmt(state.elapsed);
+    if(state.attempt>0){const last=state.attemptsLog[state.attemptsLog.length-1];
+      applyGrading();updateHUD(last.correct,last.pct/100);showScoreCard(last.correct,last.pct/100);$('#pdfBtn').disabled=false;}
+  }catch(e){}
+}
+setInterval(save,10000);
+
+/* PDF */
+function buildPDF(){
+  const {jsPDF}=window.jspdf||{}; if(!jsPDF){window.print();return;}
+  const doc=new jsPDF({unit:'pt',format:'a4'}); const W=doc.internal.pageSize.getWidth();
+  const name=$('#stuName').value||'—',email=$('#stuEmail').value||'—';
+  const last=state.attemptsLog[state.attemptsLog.length-1]||{correct:0,pct:0}; const pass=state.revealed;
+  doc.setFillColor(63,156,30);doc.rect(0,0,W,72,'F');
+  doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(17);
+  doc.text('Pre-IELTS · Unit 8 Natural World',40,34);
+  doc.setFontSize(12);doc.setFont('helvetica','normal');doc.text('Reading Practice — Result Report',40,54);
+  doc.setTextColor(31,36,48); let y=100;
+  doc.setFont('helvetica','bold');doc.setFontSize(11);doc.text('Student',40,y);doc.setFont('helvetica','normal');doc.text(name,120,y);y+=18;
+  doc.setFont('helvetica','bold');doc.text('Email',40,y);doc.setFont('helvetica','normal');doc.text(email,120,y);y+=18;
+  doc.setFont('helvetica','bold');doc.text('Date',40,y);doc.setFont('helvetica','normal');doc.text(new Date().toLocaleString(),120,y);y+=26;
+  doc.setDrawColor(226,232,220);doc.setFillColor(pass?227:253,pass?246:242,pass?236:230);doc.roundedRect(40,y,W-80,64,8,8,'FD');
+  doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(pass?18:178,pass?138:106,pass?93:0);
+  doc.text(pass?'PASS — key unlocked':'NOT YET — 70% needed',56,y+26);
+  doc.setTextColor(31,36,48);doc.setFontSize(11);doc.setFont('helvetica','normal');
+  doc.text(`Score: ${last.correct}/${TOTAL}  (${last.pct}%)     Attempts: ${state.attempt}     Time: ${fmt(state.elapsed)}`,56,y+48);
+  y+=84;
+  doc.autoTable({startY:y,head:[['Attempt','Correct','Score','Time','Result']],
+    body:state.attemptsLog.map(a=>[a.attempt,`${a.correct}/${a.total}`,a.pct+'%',a.time,a.pass?'Pass':'Retry']),
+    headStyles:{fillColor:[63,156,30]},styles:{fontSize:10,halign:'center'},theme:'grid',margin:{left:40,right:40}});
+  y=doc.lastAutoTable.finalY+20;
+  const rows=[]; ALLITEMS.forEach(it=>{
+    const el=getInput(it.n);const val=el?el.value:'';const ok=isCorrect(it,val);
+    let ans= it.options ? (function(){const o=it.options.find(o=>norm(o.val)===norm(val));return o?(o.val+' — '+o.text):(val||'—');})() : (val||'—');
+    const key= pass ? keyPlain(it) : (ok?keyPlain(it):'— (hidden until 70%)');
+    rows.push([it.n,it._part.replace('The ','').slice(0,16),ans,key,ok?'Correct':'Wrong']);
+  });
+  doc.setFont('helvetica','bold');doc.setFontSize(12);doc.setTextColor(44,111,20);
+  doc.text('Question-by-question breakdown',40,y);y+=8;
+  doc.autoTable({startY:y,head:[['#','Passage','Your answer','Correct answer','Result']],body:rows,
+    headStyles:{fillColor:[63,156,30]},styles:{fontSize:9,cellPadding:4,overflow:'linebreak'},
+    columnStyles:{0:{cellWidth:24,halign:'center'},1:{cellWidth:100},4:{cellWidth:52,halign:'center'}},
+    theme:'grid',margin:{left:40,right:40},
+    didParseCell:function(d){if(d.section==='body'&&d.column.index===4){d.cell.styles.textColor=d.cell.raw==='Correct'?[18,138,93]:[198,40,40];d.cell.styles.fontStyle='bold';}}});
+  const pages=doc.internal.getNumberOfPages();
+  for(let i=1;i<=pages;i++){doc.setPage(i);doc.setFontSize(8);doc.setTextColor(150);
+    doc.text('Pre-IELTS Study Series · Unit 8 Reading',40,doc.internal.pageSize.getHeight()-20);
+    doc.text('Page '+i+' / '+pages,W-70,doc.internal.pageSize.getHeight()-20);}
+  const safe=(name==='—'?'student':name).replace(/[^a-z0-9]+/gi,'_');
+  doc.save(`PreIELTS_U8_Reading_${safe}.pdf`);
+}
+
+$('#submitBtn').onclick=()=>{if(!$('#stuName').value.trim()){alert('Please enter your name first.');$('#stuName').focus();return;}grade();};
+$('#resetBtn').onclick=()=>{if(!confirm('Clear all answers, attempts and timer for this Reading practice?'))return;try{localStorage.removeItem(CONFIG.storeKey);}catch(e){}location.reload();};
+$('#pdfBtn').onclick=buildPDF;
+window.addEventListener('beforeunload',save);
+
+render(); load();
+</script>
+</body>
+</html>
